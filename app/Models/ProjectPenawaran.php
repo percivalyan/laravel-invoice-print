@@ -21,7 +21,13 @@ class ProjectPenawaran extends Model
     {
         return $this->hasOne(Penawaran::class, 'project_penawaran_id');
     }
-    public function tujuan_penawaran()
+
+    public function footerPenawaran()
+    {
+        return $this->hasOne(FooterPenawaran::class, 'project_penawaran_id');
+    }
+
+    public function tujuanPenawaran()
     {
         return $this->hasOne(TujuanPenawaran::class, 'project_penawaran_id');
     }

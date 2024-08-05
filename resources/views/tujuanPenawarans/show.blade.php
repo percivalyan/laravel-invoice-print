@@ -1,27 +1,19 @@
+<!-- resources/views/tujuanPenawarans/show.blade.php -->
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
     <h1>Tujuan Penawaran Details</h1>
-
-    <div>
-        <strong>ID:</strong> {{ $tujuanPenawaran->id }}
+    <div class="card">
+        <div class="card-header">
+            Tujuan Penawaran
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Project Penawaran: {{ $tujuanPenawaran->projectPenawaran->proyek }}</h5>
+            <p class="card-text"><strong>Pengajuan:</strong> {{ $tujuanPenawaran->pengajuan }}</p>
+            <p class="card-text"><strong>Tujuan:</strong> {{ $tujuanPenawaran->tujuan }}</p>
+            <a href="{{ route('tujuanPenawarans.index') }}" class="btn btn-primary">Back</a>
+        </div>
     </div>
-    <div>
-        <strong>Project Penawaran ID:</strong> {{ $tujuanPenawaran->project_penawaran_id }}
-    </div>
-    <div>
-        <strong>Pengajuan:</strong> {{ $tujuanPenawaran->pengajuan }}
-    </div>
-    <div>
-        <strong>Tujuan:</strong> {{ $tujuanPenawaran->tujuan }}
-    </div>
-
-    <a href="{{ route('tujuanPenawarans.edit', $tujuanPenawaran->id) }}">Edit</a>
-    <form action="{{ route('tujuanPenawarans.destroy', $tujuanPenawaran->id) }}" method="POST" style="display:inline;">
-        @csrf
-        @method('DELETE')
-        <button type="submit">Delete</button>
-    </form>
-
-    <a href="{{ route('tujuanPenawarans.index') }}">Back to List</a>
+</div>
 @endsection

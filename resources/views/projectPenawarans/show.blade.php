@@ -45,156 +45,182 @@
     </style>
 </head>
 <body>
-<div class="container">
-  
-    <div class="invoice-header row" style="position: relative;">
-        <div class="col-12">
-            <div id="kop-brand">
-                <img src="{{ asset('company/images/penawaran/penawaran.png') }}" alt="Brand Image" style="width: 1100px; height: auto;">
-            </div>
-            <div id="kop-info" class="container" style="margin-top: -60px; margin-left: 20px;">
-                <div>
-                    <p style="margin: 2px 0; font-size: 18px;">Jl Pemuda No 65</p>
-                    <p style="margin: 2px 0; font-size: 18px;">Rawamangun, Kota Jakarta Timur</p>
-                    <p style="margin: 2px 0; font-size: 18px;">Phone: 021-22471134, Email: indo.mutiara.global@gmail.com</p>
+    <div class="container">
+        <div class="invoice-header row" style="position: relative;">
+            <div class="col-12">
+                <div id="kop-brand">
+                    <img src="{{ asset('company/images/penawaran/penawaran.png') }}" alt="Brand Image" style="width: 1100px; height: auto;">
+                </div>
+                <div id="kop-info" class="container" style="margin-top: -60px; margin-left: 20px;">
+                    <div>
+                        <p style="margin: 2px 0; font-size: 18px;">Jl Pemuda No 65</p>
+                        <p style="margin: 2px 0; font-size: 18px;">Rawamangun, Kota Jakarta Timur</p>
+                        <p style="margin: 2px 0; font-size: 18px;">Phone: 021-22471134, Email: indo.mutiara.global@gmail.com</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container row py-3" style="margin-left: 2px; margin-top: -40px">
-        <div class="col-12">
-            <table class="table table-borderless"  style="line-height: 1.1";>
+        <div class="container row py-3" style="margin-left: 2px; margin-top: -40px;">
+            <div class="col-12">
+                <table class="table table-borderless" style="line-height: 1.1;">
+                    <tbody>
+                        <tr>
+                            <td style="font-size: 18px;">Kepada Yth</td>
+                            <td style="font-size: 18px;">:<strong> {{ $projectPenawaran->kepada }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 18px;">Nomor</td>
+                            <td style="font-size: 18px;">:<strong> {{ $projectPenawaran->nomor }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 18px;">Tanggal</td>
+                            <td style="font-size: 18px;">:<strong> {{ $projectPenawaran->tanggal }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 18px;">Proyek</td>
+                            <td style="font-size: 18px;">:<strong> {{ $projectPenawaran->proyek }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 18px;">Lokasi</td>
+                            <td style="font-size: 18px;">:<strong> {{ $projectPenawaran->lokasi }}</strong></td>
+                        </tr>
+                    </tbody>                    
+                </table>
+            </div>
+        </div>
+
+        <div class="container py-3" style="margin-left: 20px; margin-top: -40px;">
+            <p>Dengan hormat,<br>
+            @if(isset($projectPenawaran->tujuanPenawaran) && $projectPenawaran->tujuanPenawaran->count() > 0  && isset($projectPenawaran->tujuanPenawaran->first()->pengajuan) && !empty($projectPenawaran->tujuanPenawaran->first()->pengajuan))
+                Bersama ini kami mengajukan Penawaran Pekerjaan {{ $projectPenawaran->tujuanPenawaran->first()->pengajuan }}, dengan spesifikasi sebagai berikut:
+            @else
+                Bersama ini kami mengajukan Penawaran Pekerjaan, dengan spesifikasi sebagai berikut:
+            @endif
+            </p>
+        </div>
+
+        <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
+            <table class="table table-bordered invoice-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Uraian</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Harga Satuan (Rp)</th>
+                        <th>Jumlah (Rp)</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
-                        <td style="font-size: 18px;"><strong>Kepada Yth:</strong></td>
-                        <td style="font-size: 18px;">{{ $projectPenawaran->kepada }}</td>
+                        <td>1</td>
+                        <td>
+                            <ul style="list-style-type: none; padding: 0; text-align: left;">
+                                <li><strong>Pekerjaan: Remove & Cleaning the Floor</strong></li>
+                                {{--  <li><strong>{{ $projectPenawaran->penawaran->uraian ?? 'N/A' }}</strong></li> --}}
+                                <li>Dengan rincian sebagai berikut:</li>
+                                <li>Bongkar Lantai</li>
+                                <li>Buang Puing dari Atap</li>
+                                <ol style="list-style-type: decimal;">
+                                    <li>Lansir with bag</li>
+                                    <li>Transportation</li>
+                                    <li>Cleaning Area</li>
+                                </ol>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style-type: none; padding: 0;">
+                                <li>&nbsp;</li>
+                                <li>&nbsp;</li>
+                                <li>4.300 m2</li>
+                                <li>&nbsp;</li>
+                                <li>4.300 m2</li>
+                                <li>559 Rit</li>
+                                <li>8 Month</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style-type: none; padding: 0;">
+                                <li>&nbsp;</li>
+                                <li>&nbsp;</li>
+                                <li>m2</li>
+                                <li>&nbsp;</li>
+                                <li>m2</li>
+                                <li>Rit</li>
+                                <li>Month</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style-type: none; padding: 0;">
+                                <li>&nbsp;</li>
+                                <li>&nbsp;</li>
+                                <li>95.000</li>
+                                <li>&nbsp;</li>
+                                <li>135.000</li>
+                                <li>600.000</li>
+                                <li>4.500.000</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style-type: none; padding: 0;">
+                                <li>&nbsp;</li>
+                                <li>&nbsp;</li>
+                                <li>408.500.000</li>
+                                <li>&nbsp;</li>
+                                <li>580.500.000</li>
+                                <li>335.400.000</li>
+                                <li>36.000.000</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
-                        <td style="font-size: 18px;"><strong>Nomor:</strong></td>
-                        <td style="font-size: 18px;">{{ $projectPenawaran->nomor }}</td>
+                        <td colspan="5" class="text-right"><strong>Total</strong></td>
+                        <td><strong>1.360.400.000</strong></td>
                     </tr>
                     <tr>
-                        <td style="font-size: 18px;"><strong>Tanggal:</strong></td>
-                        <td style="font-size: 18px;">{{ $projectPenawaran->tanggal }}</td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 18px;"><strong>Proyek:</strong></td>
-                        <td style="font-size: 18px;">{{ $projectPenawaran->proyek }}</td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 18px;"><strong>Lokasi:</strong></td>
-                        <td style="font-size: 18px;">{{ $projectPenawaran->lokasi }}</td>
+                        <td colspan="6">Terbilang: Satu Milyar Tiga Ratus Enam Puluh Juta Empat Ratus Ribu Rupiah</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        
+
+        <p class="text-muted" style="margin-left: 20px;">Note: Harga tersebut diatas sudah termasuk PPN 11%</p>
+
+        <div class="invoice-footer" style="margin-left: 20px;">
+            <p>
+                Demikian surat penawaran ini kami sampaikan, sebagai bahan pertimbangan pengadaan 
+                @if(isset($projectPenawaran->tujuanPenawaran) && $projectPenawaran->tujuanPenawaran->count() > 0 && isset($projectPenawaran->tujuanPenawaran->first()->tujuan) && !empty($projectPenawaran->tujuanPenawaran->first()->tujuan))
+                    kebutuhan {{ $projectPenawaran->tujuanPenawaran->first()->tujuan }}.
+                @else
+                    kebutuhan.
+                @endif
+                <br>
+                Terima kasih atas perhatian dan kerjasamanya.
+            </p>
+            <p><strong>Hormat kami,</strong></p>
+            <br><br>
+            <p>
+                <strong>
+                    @if(isset($projectPenawaran->footerPenawaran) && $projectPenawaran->footerPenawaran->count() > 0 && isset($projectPenawaran->footerPenawaran->first()->nama) && !empty($projectPenawaran->footerPenawaran->first()->nama))
+                        {{ $projectPenawaran->footerPenawaran->first()->nama }}.
+                    @else
+                     
+                    @endif
+                </strong>
+                <br>
+                @if(isset($projectPenawaran->footerPenawaran) && $projectPenawaran->footerPenawaran->count() > 0 && isset($projectPenawaran->footerPenawaran->first()->jabatan) && !empty($projectPenawaran->footerPenawaran->first()->jabatan))
+                    {{ $projectPenawaran->footerPenawaran->first()->jabatan }}.
+                @else
+                    
+                @endif
+            </p>
+        </div>        
     </div>
-    
 
-   <div class="container py-3" style="margin-left: 20px; margin-top: -40px">
-    <p>Dengan hormat,<br>Bersama ini kami mengajukan Penawaran Pekerjaan Bongkar Lantai dan Perapihan, dengan spesifikasi sebagai berikut:</p>
-   </div>
-
-   <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
-    <table class="table table-bordered invoice-table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Uraian</th>
-                <th>Qty</th>
-                <th>Unit</th>
-                <th>Harga Satuan (Rp)</th>
-                <th>Jumlah (Rp)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>
-                    <ul style="list-style-type: none; padding: 0; text-align: left;">
-                        <li><strong>Pekerjaan: Remove & Cleaning the Floor</strong></li>
-                        {{--  <li><strong>{{ $projectPenawaran->penawaran->uraian ?? 'N/A' }}</strong></li> --}}
-                        <li>Dengan rincian sebagai berikut:</li>
-                        <li>Bongkar Lantai</li>
-                        <li>Buang Puing dari Atap</li>
-                        <ol style="list-style-type: decimal;">
-                            <li>Lansir with bag</li>
-                            <li>Transportation</li>
-                            <li>Cleaning Area</li>
-                        </ol>
-                    </ul>
-                </td>
-                <td>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li>&nbsp;</li>
-                        <li>&nbsp;</li>
-                        <li>4.300 m2</li>
-                        <li>&nbsp;</li>
-                        <li>4.300 m2</li>
-                        <li>559 Rit</li>
-                        <li>8 Month</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li>&nbsp;</li>
-                        <li>&nbsp;</li>
-                        <li>m2</li>
-                        <li>&nbsp;</li>
-                        <li>m2</li>
-                        <li>Rit</li>
-                        <li>Month</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li>&nbsp;</li>
-                        <li>&nbsp;</li>
-                        <li>95.000</li>
-                        <li>&nbsp;</li>
-                        <li>135.000</li>
-                        <li>600.000</li>
-                        <li>4.500.000</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <li>&nbsp;</li>
-                        <li>&nbsp;</li>
-                        <li>408.500.000</li>
-                        <li>&nbsp;</li>
-                        <li>580.500.000</li>
-                        <li>335.400.000</li>
-                        <li>36.000.000</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="5" class="text-right"><strong>Total</strong></td>
-                <td><strong>1.360.400.000</strong></td>
-            </tr>
-            <tr>
-                <td colspan="6">Terbilang: Satu Milyar Tiga Ratus Enam Puluh Juta Empat Ratus Ribu Rupiah</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-
-    <p class="text-muted" style="margin-left: 20px;">Note: Harga tersebut diatas sudah termasuk PPN 11%</p>
-
-    <div class="invoice-footer" style="margin-left: 20px;">
-        <p>Demikian surat penawaran ini kami sampaikan, sebagai bahan pertimbangan pengadaan kebutuhan Bongkar Lantai dan Perapihan Lantai Plaza Senayan.</p>
-        <p>Terima kasih atas perhatian dan kerjasamanya.</p>
-        <p><strong>Hormat kami,</strong></p>
-        <br><br>
-        <p><strong>ISPRIYADI</strong><br>DIREKTUR</p>
-    </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

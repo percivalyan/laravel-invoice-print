@@ -15,9 +15,13 @@ class CreateFooterPenawaransTable extends Migration
     {
         Schema::create('footer_penawarans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('project_penawaran_id')->unique();
             $table->string('nama')->nullable();
             $table->string('jabatan')->nullable();
             $table->timestamps();
+
+             // Foreign key constraint
+             $table->foreign('project_penawaran_id')->references('id')->on('project_penawarans')->onDelete('cascade');
         });
     }
 

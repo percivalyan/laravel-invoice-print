@@ -30,14 +30,17 @@
                     <td>{{ $projectPenawaran->proyek }}</td>
                     <td>{{ $projectPenawaran->lokasi }}</td>
                     <td>
-                        <a href="{{ route('projectPenawarans.show', $projectPenawaran->id) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('projectPenawarans.edit', $projectPenawaran->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('projectPenawarans.edit', $projectPenawaran->id) }}" class="btn btn-warning btn-sm">Ubah Data Projek</a>
+                        <a href="{{ route('projectPenawarans.show', $projectPenawaran->id) }}" class="btn btn-info btn-sm">Lihat Surat Penawaran</a>
                         <form action="{{ route('projectPenawarans.destroy', $projectPenawaran->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
+                        <a href="{{ route('tujuanPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}" class="btn btn-success btn-sm">Keterangan Surat Penawaran</a>
+                        <a href="{{ route('footerPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}" class="btn btn-primary btn-sm">Penanggungjawab</a>
                     </td>
+                    
                 </tr>
             @endforeach
         </tbody>

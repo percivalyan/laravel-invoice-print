@@ -92,9 +92,14 @@
     </div>
     
 
-   <div class="container py-3" style="margin-left: 20px; margin-top: -40px">
+   {{-- <div class="container py-3" style="margin-left: 20px; margin-top: -40px">
     <p>Dengan hormat,<br>Bersama ini kami mengajukan Penawaran Pekerjaan Bongkar Lantai dan Perapihan, dengan spesifikasi sebagai berikut:</p>
-   </div>
+   </div> --}}
+
+   <div class="container py-3" style="margin-left: 20px; margin-top: -40px;">
+    <p>Dengan hormat,<br>Bersama ini kami mengajukan Penawaran Pekerjaan {{ $projectPenawaran->tujuanPenawaran->first()->pengajuan }}, dengan spesifikasi sebagai berikut:</p>
+</div>
+
 
    <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
     <table class="table table-bordered invoice-table">

@@ -9,30 +9,17 @@ class FooterPenawaran extends Model
 {
     use HasFactory;
 
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'footer_penawarans';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
+        'project_penawaran_id',
         'nama',
         'jabatan',
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * Get the project penawaran that owns the footer penawaran.
      */
-    protected $casts = [
-        'nama' => 'string',
-        'jabatan' => 'string',
-    ];
+    public function projectPenawaran()
+    {
+        return $this->belongsTo(ProjectPenawaran::class);
+    }
 }

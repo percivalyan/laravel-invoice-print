@@ -33,25 +33,26 @@
     </form>
 @endsection --}}
 
-<!-- resources/views/tujuanPenawarans/create.blade.php -->
+<!-- resources/views/footerPenawarans/create.blade.php -->
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1>Create Tujuan Penawaran</h1>
-    <form action="{{ route('tujuanPenawarans.store') }}" method="POST">
+    <h1>Penanggungjawab</h1>
+    <form action="{{ route('footerPenawarans.store') }}" method="POST">
         @csrf
         <input type="hidden" name="project_penawaran_id" value="{{ $projectPenawaran->id }}">
         <!-- other fields... -->
         <div class="form-group">
-            <label for="pengajuan">Pengajuan</label>
-            <input type="text" class="form-control" id="pengajuan" name="pengajuan" value="{{ old('pengajuan') }}">
+            <label for="nama">Nama</label>
+            <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}">
         </div>
         <div class="form-group">
-            <label for="tujuan">Tujuan</label>
-            <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ old('tujuan') }}">
+            <label for="jabatan">Jabatan</label>
+            <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ old('jabatan') }}">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 @endsection
+

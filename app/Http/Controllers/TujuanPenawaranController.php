@@ -24,10 +24,21 @@ class TujuanPenawaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    // public function create()
+    // {
+    //     $projectPenawarans = ProjectPenawaran::all();
+    //     return view('tujuanPenawarans.create', compact('projectPenawarans'));
+    // }
+
+    public function create(Request $request)
     {
-        $projectPenawarans = ProjectPenawaran::all();
-        return view('tujuanPenawarans.create', compact('projectPenawarans'));
+        $project_penawaran_id = $request->query('project_penawaran_id');
+        $projectPenawaran = ProjectPenawaran::find($project_penawaran_id);
+        if (!$projectPenawaran) {
+            return redirect()->route('tujuanPenawarans.index')
+                             ->with('error', 'Invalid Project Penawaran ID.');
+        }
+        return view('tujuanPenawarans.create', compact('projectPenawaran'));
     }
 
     /**
@@ -83,7 +94,7 @@ class TujuanPenawaranController extends Controller
     public function update(Request $request, TujuanPenawaran $tujuanPenawaran)
     {
         $request->validate([
-            'project_penawaran_id' => 'required|exists:project_penawarans,id|unique:tujuan_penawarans,project_penawaran_id,' . $tujuanPenawaran->id,
+            // 'project_penawaran_id' => 'required|exists:project_penawarans,id|unique:tujuan_penawarans,project_penawaran_id,' . $tujuanPenawaran->id,
             'pengajuan' => 'nullable|string|max:255',
             'tujuan' => 'nullable|string|max:255',
         ]);

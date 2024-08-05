@@ -1,39 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
     <h1>Edit Tujuan Penawaran</h1>
-
-    @if ($errors->any())
-        <div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <form action="{{ route('tujuanPenawarans.update', $tujuanPenawaran->id) }}" method="POST">
         @csrf
         @method('PUT')
-
-        <label for="project_penawaran_id">Project Penawaran:</label>
-        <select name="project_penawaran_id" id="project_penawaran_id">
-            @foreach ($projectPenawarans as $projectPenawaran)
-                <option value="{{ $projectPenawaran->id }}" {{ $tujuanPenawaran->project_penawaran_id == $projectPenawaran->id ? 'selected' : '' }}>
-                    {{ $projectPenawaran->proyek }}
-                </option>
-            @endforeach
-        </select>
-
-        <label for="pengajuan">Pengajuan:</label>
-        <input type="text" name="pengajuan" id="pengajuan" value="{{ old('pengajuan', $tujuanPenawaran->pengajuan) }}">
-
-        <label for="tujuan">Tujuan:</label>
-        <input type="text" name="tujuan" id="tujuan" value="{{ old('tujuan', $tujuanPenawaran->tujuan) }}">
-
-        <button type="submit">Update</button>
+        <div class="form-group">
+            <label for="project_penawaran">Project Penawaran</label>
+            <input type="text" class="form-control" id="project_penawaran" name="project_penawaran" value="{{ $tujuanPenawaran->projectPenawaran->proyek }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="pengajuan">Pengajuan</label>
+            <input type="text" class="form-control" id="pengajuan" name="pengajuan" value="{{ old('pengajuan', $tujuanPenawaran->pengajuan) }}">
+        </div>
+        <div class="form-group">
+            <label for="tujuan">Tujuan</label>
+            <input type="text" class="form-control" id="tujuan" name="tujuan" value="{{ old('tujuan', $tujuanPenawaran->tujuan) }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
-
-    <a href="{{ route('tujuanPenawarans.index') }}">Back to List</a>
+</div>
 @endsection
