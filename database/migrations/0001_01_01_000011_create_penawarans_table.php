@@ -15,18 +15,17 @@ class CreatePenawaransTable extends Migration
     {
         Schema::create('penawarans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_penawaran_id')->unique();
-            $table->string('uraian')->nullable();
-            $table->decimal('qty', 10, 2)->nullable();
+            $table->unsignedBigInteger('project_penawaran_id');
+            $table->unsignedBigInteger('jenis_penawaran_id'); // Corrected the column name
+            $table->string('pekerjaan');
+            $table->integer('quantitas')->nullable();
             $table->string('unit')->nullable();
-            $table->decimal('harga_satuan', 15, 2)->nullable();
-            $table->decimal('jumlah', 15, 2)->nullable();
-            $table->decimal('total', 15, 2)->nullable();
-            $table->text('terbilang')->nullable();
+            $table->integer('harga_satuan')->nullable();
             $table->timestamps();
 
-            // Foreign key constraint
+            // Foreign key constraints
             $table->foreign('project_penawaran_id')->references('id')->on('project_penawarans')->onDelete('cascade');
+            $table->foreign('jenis_penawaran_id')->references('id')->on('jenis_penawarans')->onDelete('cascade'); // Corrected table name
         });
     }
 

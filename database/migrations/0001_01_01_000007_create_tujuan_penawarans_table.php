@@ -32,6 +32,6 @@ class CreateTujuanPenawaransTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penawarans');
+        Schema::dropIfExists('tujuan_penawarans');
     }
 }
