@@ -68,20 +68,20 @@
                 <i class="fas fa-list sub-menu-icon"></i> List Penawaran
             </a>
         </div>
-        {{-- <a href="#dataPenawaranSubmenu" data-bs-toggle="collapse" class="list-group-item list-group-item-action d-flex align-items-center sidebar-item-custom">
+        <a href="#dataPenawaranSubmenu" data-bs-toggle="collapse" class="list-group-item list-group-item-action d-flex align-items-center sidebar-item-custom">
             <i class="fas fa-file-alt icon-custom"></i> Data Penawaran
         </a>
         <div id="dataPenawaranSubmenu" class="collapse">
             <a href="{{ route('penawarans.index') }}" class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item-custom">
                 <i class="fas fa-tags sub-menu-icon"></i> Penawaran
             </a>
-            <a href="{{ route('jenisPekerjaanPenawarans.index') }}" class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item-custom">
+            <a href="{{ route('jenisPenawarans.index') }}" class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item-custom">
                 <i class="fas fa-briefcase sub-menu-icon"></i> Jenis
             </a>
-            <a href="{{ route('uraianJenisPekerjaan.index') }}" class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item-custom">
+            <a href="{{ route('uraianJenisPekerjaanPenawarans.index') }}" class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item-custom">
                 <i class="fas fa-list sub-menu-icon"></i> Uraian
             </a>
-        </div> --}}
+        </div>
         <a href="#" class="list-group-item list-group-item-action d-flex align-items-center sidebar-item-custom">
             <i class="fas fa-chart-line icon-custom"></i> Analytics
         </a>

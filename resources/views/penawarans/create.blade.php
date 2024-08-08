@@ -9,19 +9,19 @@
             <label for="project_penawaran_id">Project</label>
             <select name="project_penawaran_id" id="project_penawaran_id" class="form-control" required>
                 <option value="">Select Project</option>
-                @foreach($projects as $project)
-                    <option value="{{ $project->id }}">{{ $project->name }}</option>
+                @foreach($projectPenawaran as $project) <!-- Corrected variable name -->
+                    <option value="{{ $project->id }}">{{ $project->kepada }}</option>
                 @endforeach
             </select>
         </div>
         <div class="form-group">
-            <label for="jenis_pekerjaan_penawaran_id">Jenis Pekerjaan</label>
-            <select name="jenis_pekerjaan_penawaran_id" id="jenis_pekerjaan_penawaran_id" class="form-control" required>
+            <label for="jenis_penawaran_id">Jenis Pekerjaan</label>
+            <select name="jenis_penawaran_id" id="jenis_penawaran_id" class="form-control" required>
                 <option value="">Select Jenis Pekerjaan</option>
                 @foreach($jenisPekerjaan as $jenis)
                     <option value="{{ $jenis->id }}">{{ $jenis->jenis_pekerjaan }}</option>
                 @endforeach
-            </select>
+            </select>            
         </div>
         <div class="form-group">
             <label for="pekerjaan">Pekerjaan</label>

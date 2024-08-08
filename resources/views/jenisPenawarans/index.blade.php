@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($jenisPekerjaanPenawarans as $item)
+            @foreach($jenisPenawarans as $item)
             <tr>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->uraianJenisPekerjaanPenawaran->uraian ?? 'N/A' }}</td>

@@ -21,8 +21,8 @@
             @foreach($penawarans as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->projectPenawaran->name ?? 'N/A' }}</td>
-                <td>{{ $item->jenisPekerjaanPenawaran->jenis_pekerjaan ?? 'N/A' }}</td>
+                <td>{{ $item->projectPenawaran->kepada ?? 'N/A' }}</td>
+                <td>{{ $item->jenisPenawaran->jenis_pekerjaan ?? 'N/A' }}</td>
                 <td>{{ $item->pekerjaan }}</td>
                 <td>{{ $item->quantitas }}</td>
                 <td>{{ $item->unit }}</td>
