@@ -16,7 +16,7 @@ class PenawaranController extends Controller
      */
     public function index()
     {
-        $penawarans = Penawaran::with('projectPenawaran', 'jenisPekerjaanPenawaran')->get();
+        $penawarans = Penawaran::with('projectPenawaran', 'jenisPenawaran')->get(); // Fixed relationship name
         return view('penawarans.index', compact('penawarans'));
     }
 
@@ -27,9 +27,9 @@ class PenawaranController extends Controller
      */
     public function create()
     {
-        $projects = ProjectPenawaran::all();
+        $projectPenawaran = ProjectPenawaran::all();
         $jenisPekerjaan = JenisPenawaran::all();
-        return view('penawarans.create', compact('projects', 'jenisPekerjaan'));
+        return view('penawarans.create', compact('projectPenawaran', 'jenisPekerjaan'));
     }
 
     /**
@@ -42,7 +42,7 @@ class PenawaranController extends Controller
     {
         $request->validate([
             'project_penawaran_id' => 'required|exists:project_penawarans,id',
-            'jenis_pekerjaan_penawaran_id' => 'required|exists:jenis_pekerjaan_penawarans,id',
+            'jenis_penawaran_id' => 'required|exists:jenis_penawarans,id', // Fixed table name
             'pekerjaan' => 'required|string',
             'quantitas' => 'nullable|integer',
             'unit' => 'nullable|string',
@@ -73,9 +73,9 @@ class PenawaranController extends Controller
      */
     public function edit(Penawaran $penawaran)
     {
-        $projects = ProjectPenawaran::all();
+        $projectPenawaran = ProjectPenawaran::all();
         $jenisPekerjaan = JenisPenawaran::all();
-        return view('penawarans.edit', compact('penawaran', 'projects', 'jenisPekerjaan'));
+        return view('penawarans.edit', compact('penawaran', 'projectPenawaran', 'jenisPekerjaan'));
     }
 
     /**
@@ -89,7 +89,7 @@ class PenawaranController extends Controller
     {
         $request->validate([
             'project_penawaran_id' => 'required|exists:project_penawarans,id',
-            'jenis_pekerjaan_penawaran_id' => 'required|exists:jenis_pekerjaan_penawarans,id',
+            'jenis_penawaran_id' => 'required|exists:jenis_penawarans,id',
             'pekerjaan' => 'required|string',
             'quantitas' => 'nullable|integer',
             'unit' => 'nullable|string',
@@ -100,6 +100,7 @@ class PenawaranController extends Controller
 
         return redirect()->route('penawarans.index')->with('success', 'Penawaran updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
