@@ -3,8 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PrintController;
 use App\Http\Controllers\ProjectPenawaranController;
-use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\FooterPenawaranController;
+use App\Http\Controllers\PenawaranController;
+use App\Http\Controllers\JenisPenawaranController;
+use App\Http\Controllers\UraianJenisPekerjaanPenawaranController;
 use App\Http\Controllers\TujuanPenawaranController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +30,8 @@ Route::get('/print', [PrintController::class, 'print'])->name('print');
 Route::get('/penawaran', [PrintController::class, 'penawaran'])->name('penawaran');
 
 Route::resource('projectPenawarans', ProjectPenawaranController::class);
-Route::resource('penawarans', PenawaranController::class);
 Route::resource('footerPenawarans', FooterPenawaranController::class);
 Route::resource('tujuanPenawarans', TujuanPenawaranController::class);
+Route::resource('penawarans', PenawaranController::class);
+Route::resource('jenisPenawarans', JenisPenawaranController::class);
+Route::resource('uraianJenisPekerjaanPenawarans', UraianJenisPekerjaanPenawaranController::class);
