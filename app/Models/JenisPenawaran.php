@@ -24,6 +24,6 @@ class JenisPenawaran extends Model
 
     public function penawarans()
     {
-        return $this->hasMany(Penawaran::class, 'jenis_pekerjaaan_penawaran_id');
+        return $this->hasMany(Penawaran::class, 'jenis_penawaran_id');
     }
 }

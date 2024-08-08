@@ -20,7 +20,7 @@ class Penawaran extends Model
 
     public function projectPenawaran()
     {
-        return $this->belongsTo(ProjectPenawaran::class);
+        return $this->belongsTo(ProjectPenawaran::class, 'project_penawaran_id');
     }
 
     public function jenisPenawaran()

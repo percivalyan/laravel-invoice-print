@@ -19,6 +19,6 @@ class UraianJenisPekerjaanPenawaran extends Model
 
     public function jenisPenawarans()
     {
-        return $this->hasMany(JenisPenawaran::class, 'uraian_jenis_penawaran_id');
+        return $this->hasMany(JenisPenawaran::class, 'uraian_jenis_pekerjaan_penawaran_id');
     }
 }
