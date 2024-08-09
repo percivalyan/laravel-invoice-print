@@ -15,17 +15,14 @@ class CreateJenisPenawaransTable extends Migration
     {
         Schema::create('jenis_penawarans', function (Blueprint $table) { 
             $table->id();
-            $table->unsignedBigInteger('uraian_jenis_pekerjaan_penawaran_id');
+            $table->unsignedBigInteger('penawaran_id');
             $table->string('jenis_pekerjaan');
             $table->integer('quantitas')->nullable();
             $table->string('unit')->nullable();
             $table->integer('harga_satuan')->nullable();
             $table->timestamps();
 
-            // Foreign key constraint
-            $table->foreign('uraian_jenis_pekerjaan_penawaran_id')
-                  ->references('id')->on('uraian_jenis_pekerjaan_penawarans') // Pastikan tabel ini benar
-                  ->onDelete('cascade');
+            $table->foreign('penawaran_id')->references('id')->on('penawarans')->onDelete('cascade');
         });
     }
 

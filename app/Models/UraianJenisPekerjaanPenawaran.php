@@ -10,6 +10,7 @@ class UraianJenisPekerjaanPenawaran extends Model
     use HasFactory;
 
     protected $fillable = [
+        'jenis_penawaran_id',
         'uraian',
         'jenis_pekerjaan',
         'quantitas',
@@ -17,8 +18,8 @@ class UraianJenisPekerjaanPenawaran extends Model
         'harga_satuan',
     ];
 
-    public function jenisPenawarans()
+    public function jenisPenawaran()
     {
-        return $this->hasMany(JenisPenawaran::class, 'uraian_jenis_pekerjaan_penawaran_id');
+        return $this->belongsTo(JenisPenawaran::class);
     }
 }

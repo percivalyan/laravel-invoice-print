@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePenawaransTable extends Migration
+class CreateUraianJenisPekerjaanPenawaransTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,17 @@ class CreatePenawaransTable extends Migration
      */
     public function up()
     {
-        Schema::create('penawarans', function (Blueprint $table) {
+        Schema::create('uraian_jenis_pekerjaan_penawarans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_penawaran_id');
+            $table->string('uraian');
             $table->unsignedBigInteger('jenis_penawaran_id'); // Corrected the column name
-            $table->string('pekerjaan');
+            $table->string('jenis_pekerjaan');
             $table->integer('quantitas')->nullable();
             $table->string('unit')->nullable();
             $table->integer('harga_satuan')->nullable();
             $table->timestamps();
 
-            // Foreign key constraints
-            $table->foreign('project_penawaran_id')->references('id')->on('project_penawarans')->onDelete('cascade');
-            $table->foreign('jenis_penawaran_id')->references('id')->on('jenis_penawarans')->onDelete('cascade'); // Corrected table name
+            $table->foreign('jenis_penawaran_id')->references('id')->on('jenis_penawarans')->onDelete('cascade'); 
         });
     }
 
@@ -36,6 +34,6 @@ class CreatePenawaransTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penawarans');
+        Schema::dropIfExists('uraian_jenis_pekerjaan_penawarans');
     }
 }

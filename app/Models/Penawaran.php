@@ -11,7 +11,6 @@ class Penawaran extends Model
 
     protected $fillable = [
         'project_penawaran_id',
-        'jenis_penawaran_id',
         'pekerjaan',
         'quantitas',
         'unit',
@@ -20,11 +19,11 @@ class Penawaran extends Model
 
     public function projectPenawaran()
     {
-        return $this->belongsTo(ProjectPenawaran::class, 'project_penawaran_id');
+        return $this->belongsTo(ProjectPenawaran::class);
     }
 
-    public function jenisPenawaran()
+    public function jenisPenawarans()
     {
-        return $this->belongsTo(JenisPenawaran::class, 'jenis_penawaran_id');
+        return $this->hasMany(JenisPenawaran::class);
     }
 }
