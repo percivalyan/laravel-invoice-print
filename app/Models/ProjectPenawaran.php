@@ -19,7 +19,7 @@ class ProjectPenawaran extends Model
 
     public function penawaran()
     {
-        return $this->hasOne(Penawaran::class, 'project_penawaran_id');
+        return $this->hasMany(Penawaran::class, 'project_penawaran_id');
     }
 
     public function footerPenawaran()
