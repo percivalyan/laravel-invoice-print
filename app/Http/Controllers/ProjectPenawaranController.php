@@ -58,7 +58,7 @@ class ProjectPenawaranController extends Controller
      */
     public function show(ProjectPenawaran $projectPenawaran)
     {
-        $projectPenawaran->load('tujuanPenawaran', 'footerPenawaran', 'penawaran'); // Load related tujuanPenawaran
+        $projectPenawaran->load('tujuanPenawaran', 'footerPenawaran', 'penawaran.jenisPenawarans.uraianJenisPekerjaanPenawarans.jenisPenawaran',); // Load related tujuanPenawaran
         return view('projectPenawarans.show', compact('projectPenawaran'));
     }
 
