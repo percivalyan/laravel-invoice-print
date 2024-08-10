@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Penawaran Details</h1>
     
-    <p><strong>Project:</strong> {{ $penawaran->projectPenawaran->name }}</p>
+    <p><strong>Project:</strong> {{ $penawaran->projectPenawaran->kepada }}</p>
     <p><strong>Pekerjaan:</strong> {{ $penawaran->pekerjaan }}</p>
     <p><strong>Quantitas:</strong> {{ $penawaran->quantitas }}</p>
     <p><strong>Unit:</strong> {{ $penawaran->unit }}</p>

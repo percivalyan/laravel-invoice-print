@@ -10,7 +10,7 @@
             <label for="project_penawaran_id">Project Penawaran</label>
             <select name="project_penawaran_id" id="project_penawaran_id" class="form-control" required>
                 @foreach($projects as $project)
-                    <option value="{{ $project->id }}">{{ $project->name }}</option>
+                    <option value="{{ $project->id }}">{{ $project->kepada }}</option>
                 @endforeach
             </select>
         </div>

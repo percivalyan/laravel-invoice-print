@@ -12,7 +12,7 @@
             <select name="project_penawaran_id" id="project_penawaran_id" class="form-control" required>
                 @foreach($projects as $project)
                     <option value="{{ $project->id }}" {{ $penawaran->project_penawaran_id == $project->id ? 'selected' : '' }}>
-                        {{ $project->name }}
+                        {{ $project->kepada }}
                     </option>
                 @endforeach
             </select>

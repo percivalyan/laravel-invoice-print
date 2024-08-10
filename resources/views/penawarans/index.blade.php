@@ -25,7 +25,7 @@
         <tbody>
             @foreach($penawarans as $penawaran)
                 <tr>
-                    <td>{{ $penawaran->projectPenawaran->name }}</td>
+                    <td>{{ $penawaran->projectPenawaran->kepada }}</td>
                     <td>{{ $penawaran->pekerjaan }}</td>
                     <td>{{ $penawaran->quantitas }}</td>
                     <td>{{ $penawaran->unit }}</td>
