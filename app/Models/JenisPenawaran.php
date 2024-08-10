@@ -10,16 +10,15 @@ class JenisPenawaran extends Model
     use HasFactory;
 
     protected $fillable = [
-        'penawaran_id',
         'jenis_pekerjaan',
         'quantitas',
         'unit',
         'harga_satuan',
     ];
 
-    public function penawaran()
+    public function penawarans()
     {
-        return $this->belongsTo(Penawaran::class);
+        return $this->belongsToMany(Penawaran::class, 'jenis_penawaran_penawaran');
     }
 
     public function uraianJenisPekerjaanPenawarans()

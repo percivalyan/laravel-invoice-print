@@ -24,6 +24,6 @@ class Penawaran extends Model
 
     public function jenisPenawarans()
     {
-        return $this->hasMany(JenisPenawaran::class);
+        return $this->belongsToMany(JenisPenawaran::class, 'jenis_penawaran_penawaran');
     }
 }
