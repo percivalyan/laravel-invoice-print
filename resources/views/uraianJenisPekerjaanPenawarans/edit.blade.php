@@ -7,6 +7,14 @@
         @csrf
         @method('PUT')
         <div class="form-group">
+            <label for="jenis_penawaran_id">Jenis Penawaran</label>
+            <select name="jenis_penawaran_id" id="jenis_penawaran_id" class="form-control" required>
+                @foreach($jenisPenawarans as $jenis)
+                    <option value="{{ $jenis->id }}" {{ $uraianJenisPekerjaanPenawaran->jenis_penawaran_id == $jenis->id ? 'selected' : '' }}>{{ $jenis->nama }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
             <label for="uraian">Uraian</label>
             <input type="text" name="uraian" id="uraian" class="form-control" value="{{ $uraianJenisPekerjaanPenawaran->uraian }}" required>
         </div>
@@ -27,7 +35,6 @@
             <input type="number" name="harga_satuan" id="harga_satuan" class="form-control" value="{{ $uraianJenisPekerjaanPenawaran->harga_satuan }}">
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
-        <a href="{{ route('uraianJenisPekerjaanPenawarans.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 @endsection
