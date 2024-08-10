@@ -1,4 +1,4 @@
-<div class="container py-3" style="margin-left: 20px; margin-top: -20px">
+{{-- <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
     <table class="table table-bordered invoice-table">
         <thead>
             <tr>
@@ -77,4 +77,39 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> --}}
+
+@foreach ($projectPenawaran->penawaran as $penawaran)
+    <h2>Penawaran: {{ $penawaran->pekerjaan }}</h2>
+
+    @if ($penawaran->jenisPenawarans->isNotEmpty())
+        <ul>
+            @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                <li>
+                    <strong>Jenis Pekerjaan:</strong> {{ $jenisPenawaran->jenis_pekerjaan }} <br>
+                    <strong>Quantitas:</strong> {{ $jenisPenawaran->quantitas }} <br>
+                    <strong>Unit:</strong> {{ $jenisPenawaran->unit }} <br>
+                    <strong>Harga Satuan:</strong> {{ $jenisPenawaran->harga_satuan }} <br>
+
+                    @if ($jenisPenawaran->uraianJenisPekerjaanPenawarans->isNotEmpty())
+                        <ul>
+                            @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                <li>
+                                    <strong>Uraian:</strong> {{ $uraian->uraian }} <br>
+                                    <strong>Jenis Pekerjaan:</strong> {{ $uraian->jenis_pekerjaan }} <br>
+                                    <strong>Quantitas:</strong> {{ $uraian->quantitas }} <br>
+                                    <strong>Unit:</strong> {{ $uraian->unit }} <br>
+                                    <strong>Harga Satuan:</strong> {{ $uraian->harga_satuan }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>No Uraian available for this Jenis Penawaran</p>
+                    @endif
+                </li>
+            @endforeach
+        </ul>
+    @else
+        <p>No Jenis Penawaran available</p>
+    @endif
+@endforeach

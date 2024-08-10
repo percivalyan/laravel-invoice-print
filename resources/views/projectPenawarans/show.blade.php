@@ -116,6 +116,71 @@
                 @endif
             </p>
         </div>
+        
+        {{-- @php
+            $penawaran = $projectPenawaran->penawaran->first(); // Get the first Penawaran
+            $jenisPenawaran = $penawaran ? $penawaran->jenisPenawarans->first() : null; // Get the first JenisPenawaran
+        @endphp
+
+        @if ($jenisPenawaran)
+            <h1>{{ $jenisPenawaran->quantitas }}</h1>
+        @else
+            <h1>No Jenis Penawaran available</h1>
+        @endif
+
+        @foreach ($projectPenawaran->penawaran as $penawaran)
+            <h2>Penawaran: {{ $penawaran->pekerjaan }}</h2>
+
+            @if ($penawaran->jenisPenawarans->isNotEmpty())
+                <ul>
+                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                        <li>
+                            Jenis Pekerjaan: {{ $jenisPenawaran->jenis_pekerjaan }} <br>
+                            Quantitas: {{ $jenisPenawaran->quantitas }} <br>
+                            Unit: {{ $jenisPenawaran->unit }} <br>
+                            Harga Satuan: {{ $jenisPenawaran->harga_satuan }}
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <p>No Jenis Penawaran available</p>
+            @endif
+        @endforeach
+
+        @foeach ($projectPenawaran->penawaran as $penawaran)
+        <h2>Penawaran: {{ $penawaran->pekerjaan }}</h2>
+
+        @if ($penawaran->jenisPenawarans->isNotEmpty())
+            <ul>
+                @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                    <li>
+                        <strong>Jenis Pekerjaan:</strong> {{ $jenisPenawaran->jenis_pekerjaan }} <br>
+                        <strong>Quantitas:</strong> {{ $jenisPenawaran->quantitas }} <br>
+                        <strong>Unit:</strong> {{ $jenisPenawaran->unit }} <br>
+                        <strong>Harga Satuan:</strong> {{ $jenisPenawaran->harga_satuan }} <br>
+
+                        @if ($jenisPenawaran->uraianJenisPekerjaanPenawarans->isNotEmpty())
+                            <ul>
+                                @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                    <li>
+                                        <strong>Uraian:</strong> {{ $uraian->uraian }} <br>
+                                        <strong>Jenis Pekerjaan:</strong> {{ $uraian->jenis_pekerjaan }} <br>
+                                        <strong>Quantitas:</strong> {{ $uraian->quantitas }} <br>
+                                        <strong>Unit:</strong> {{ $uraian->unit }} <br>
+                                        <strong>Harga Satuan:</strong> {{ $uraian->harga_satuan }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>No Uraian available for this Jenis Penawaran</p>
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <p>No Jenis Penawaran available</p>
+        @endif
+        @endforeach --}}
 
         <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
             <table class="table table-bordered invoice-table">
@@ -130,64 +195,100 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($projectPenawaran->penawaran as $index => $penawaran)
-                    <tr>
-                        <td>{{ (int)$index+1 }}</td>
-                        <td>
-                            <ul style="list-style-type: none; padding: 0; text-align: left;">
-                                <li><strong>Pekerjaan: {{ $penawaran->pekerjaan }}</strong></li>
-                                <li>Dengan rincian sebagai berikut:</li>
-                                <li>{{ $penawaran->jenisPenawaran->jenis_pekerjaan }}</li>
-                                @if ($penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran)
-                                    <ol style="list-style-type: decimal;">
-                                        <li>{{ $penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran->uraian }}</li>
-                                    </ol>
-                                @endif
-                            </ul>
-                        </td>
-                        <td>
-                            <ul style="list-style-type: none; padding: 0;">
-                                <li>{{ $penawaran->quantitas }}</li>
-                                <li>&nbsp;</li>
-                                <li>{{ $penawaran->jenisPenawaran->quantitas }}</li>
-                                <li>{{ $penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran->quantitas }}</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul style="list-style-type: none; padding: 0;">
-                                <li>{{ $penawaran->unit }}</li>
-                                <li>&nbsp;</li>
-                                <li>{{ $penawaran->jenisPenawaran->unit }}</li>
-                                <li>{{ $penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran->unit }}</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul style="list-style-type: none; padding: 0;">
-                                <li>{{ $penawaran->harga_satuan }}</li>
-                                <li>&nbsp;</li>
-                                <li>{{ $penawaran->jenisPenawaran->harga_satuan }}</li>
-                                <li>{{ $penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran->harga_satuan }}</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <ul style="list-style-type: none; padding: 0;">
-                                <li>{{ $penawaran->harga_satuan * $penawaran->quantitas }}</li>
-                                <li>&nbsp;</li>
-                                <li>{{ $penawaran->jenisPenawaran->quantitas * $penawaran->jenisPenawaran->harga_satuan }}</li>
-                                <li>{{ $penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran->quantitas * $penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran->harga_satuan }}</li>
-                            </ul>
-                        </td>
-                    </tr>
+                    @foreach ($projectPenawaran->penawaran as $index => $penawaran)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>
+                                <ul style="list-style-type: none; padding: 0; text-align: left;">
+                                    <li><strong>Pekerjaan: {{ $penawaran->pekerjaan }}</strong></li>
+                                    <li>Dengan rincian sebagai berikut:</li>
+                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                        <li>{{ $jenisPenawaran->jenis_pekerjaan }}</li>
+                                        @if ($jenisPenawaran->uraianJenisPekerjaanPenawarans->isNotEmpty())
+                                            <ol style="list-style-type: decimal;">
+                                                @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                                    <li>{{ $uraian->uraian }}</li>
+                                                @endforeach
+                                            </ol>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                <ul style="list-style-type: none; padding: 0;">
+                                    <li>{{ $penawaran->quantitas }}</li>
+                                    <li>&nbsp;</li>
+                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                        <li>{{ $jenisPenawaran->quantitas }}</li>
+                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                            <li>{{ $uraian->quantitas }}</li>
+                                        @endforeach
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                <ul style="list-style-type: none; padding: 0;">
+                                    <li>{{ $penawaran->unit }}</li>
+                                    <li>&nbsp;</li>
+                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                        <li>{{ $jenisPenawaran->unit }}</li>
+                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                            <li>{{ $uraian->unit }}</li>
+                                        @endforeach
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                <ul style="list-style-type: none; padding: 0;">
+                                    <li>{{ number_format($penawaran->harga_satuan, 0, ',', '.') }}</li>
+                                    <li>&nbsp;</li>
+                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                        <li>{{ number_format($jenisPenawaran->harga_satuan, 0, ',', '.') }}</li>
+                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                            <li>{{ number_format($uraian->harga_satuan, 0, ',', '.') }}</li>
+                                        @endforeach
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                <ul style="list-style-type: none; padding: 0;">
+                                    <li>{{ number_format($penawaran->harga_satuan * $penawaran->quantitas, 0, ',', '.') }}
+                                    </li>
+                                    <li>&nbsp;</li>
+                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                        <li>{{ number_format($jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan, 0, ',', '.') }}
+                                        </li>
+                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                            <li>{{ number_format($uraian->quantitas * $uraian->harga_satuan, 0, ',', '.') }}
+                                            </li>
+                                        @endforeach
+                                    @endforeach
+                                </ul>
+                            </td>
+                        </tr>
                     @endforeach
                     <tr>
                         <td colspan="5" class="text-right"><strong>Total</strong></td>
                         <td><strong>
-                            {{ $projectPenawaran->penawaran->sum(function($penawaran) {
-                                return $penawaran->harga_satuan * $penawaran->quantitas + 
-                                    $penawaran->jenisPenawaran->quantitas * $penawaran->jenisPenawaran->harga_satuan + 
-                                    $penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran->quantitas * $penawaran->jenisPenawaran->uraianJenisPekerjaanPenawaran->harga_satuan;
-                            }) }}
-                        </strong></td>
+                                {{ number_format(
+                                    $projectPenawaran->penawaran->sum(function ($penawaran) {
+                                        $totalPenawaran = $penawaran->harga_satuan * $penawaran->quantitas;
+                                
+                                        foreach ($penawaran->jenisPenawarans as $jenisPenawaran) {
+                                            $totalPenawaran += $jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan;
+                                
+                                            foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian) {
+                                                $totalPenawaran += $uraian->quantitas * $uraian->harga_satuan;
+                                            }
+                                        }
+                                
+                                        return $totalPenawaran;
+                                    }),
+                                    0,
+                                    ',',
+                                    '.',
+                                ) }}
+                            </strong></td>
                     </tr>
                     <tr>
                         <td colspan="6">Terbilang: Satu Milyar Tiga Ratus Enam Puluh Juta Empat Ribu Rupiah</td>
@@ -195,7 +296,6 @@
                 </tbody>
             </table>
         </div>
-        
 
 
         <p class="text-muted" style="margin-left: 20px;">Note: Harga tersebut diatas sudah termasuk PPN 11%</p>
