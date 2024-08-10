@@ -116,7 +116,7 @@
                 @endif
             </p>
         </div>
-        
+
         {{-- @php
             $penawaran = $projectPenawaran->penawaran->first(); // Get the first Penawaran
             $jenisPenawaran = $penawaran ? $penawaran->jenisPenawarans->first() : null; // Get the first JenisPenawaran
@@ -252,51 +252,46 @@
                             </td>
                             <td>
                                 <ul style="list-style-type: none; padding: 0;">
-                                    <li>{{ number_format($penawaran->harga_satuan * $penawaran->quantitas, 0, ',', '.') }}
-                                    </li>
+                                    <li>{{ number_format($penawaran->harga_satuan * $penawaran->quantitas, 0, ',', '.') }}</li>
                                     <li>&nbsp;</li>
                                     @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ number_format($jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan, 0, ',', '.') }}
-                                        </li>
+                                        <li>{{ number_format($jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan, 0, ',', '.') }}</li>
                                         @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ number_format($uraian->quantitas * $uraian->harga_satuan, 0, ',', '.') }}
-                                            </li>
+                                            <li>{{ number_format($uraian->quantitas * $uraian->harga_satuan, 0, ',', '.') }}</li>
                                         @endforeach
                                     @endforeach
                                 </ul>
                             </td>
                         </tr>
                     @endforeach
+                    @php
+                        use App\Helpers\NumberToWords;
+                        $totalAmount = $projectPenawaran->penawaran->sum(function ($penawaran) {
+                            $totalPenawaran = $penawaran->harga_satuan * $penawaran->quantitas;
+                
+                            foreach ($penawaran->jenisPenawarans as $jenisPenawaran) {
+                                $totalPenawaran += $jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan;
+                
+                                foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian) {
+                                    $totalPenawaran += $uraian->quantitas * $uraian->harga_satuan;
+                                }
+                            }
+                
+                            return $totalPenawaran;
+                        });
+                        $terbilang = NumberToWords::convert($totalAmount);
+                    @endphp
                     <tr>
                         <td colspan="5" class="text-right"><strong>Total</strong></td>
-                        <td><strong>
-                                {{ number_format(
-                                    $projectPenawaran->penawaran->sum(function ($penawaran) {
-                                        $totalPenawaran = $penawaran->harga_satuan * $penawaran->quantitas;
-                                
-                                        foreach ($penawaran->jenisPenawarans as $jenisPenawaran) {
-                                            $totalPenawaran += $jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan;
-                                
-                                            foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian) {
-                                                $totalPenawaran += $uraian->quantitas * $uraian->harga_satuan;
-                                            }
-                                        }
-                                
-                                        return $totalPenawaran;
-                                    }),
-                                    0,
-                                    ',',
-                                    '.',
-                                ) }}
-                            </strong></td>
+                        <td><strong>{{ number_format($totalAmount, 0, ',', '.') }}</strong></td>
                     </tr>
                     <tr>
-                        <td colspan="6">Terbilang: Satu Milyar Tiga Ratus Enam Puluh Juta Empat Ribu Rupiah</td>
+                        <td colspan="6">Terbilang: {{ $terbilang }} Rupiah</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
+        
 
         <p class="text-muted" style="margin-left: 20px;">Note: Harga tersebut diatas sudah termasuk PPN 11%</p>
 
