@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJenisPenawaransTable extends Migration
+class CreateJenisPenawaranPenawaranTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateJenisPenawaransTable extends Migration
      */
     public function up()
     {
-        Schema::create('jenis_penawarans', function (Blueprint $table) { 
+        Schema::create('jenis_penawaran_penawaran', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('penawaran_id');
-            $table->string('jenis_pekerjaan');
-            $table->integer('quantitas')->nullable();
-            $table->string('unit')->nullable();
-            $table->integer('harga_satuan')->nullable();
+            $table->unsignedBigInteger('jenis_penawaran_id');
             $table->timestamps();
 
+            // Foreign key constraints
             $table->foreign('penawaran_id')->references('id')->on('penawarans')->onDelete('cascade');
+            $table->foreign('jenis_penawaran_id')->references('id')->on('jenis_penawarans')->onDelete('cascade');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateJenisPenawaransTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jenis_pekerjaan_penawarans');
+        Schema::dropIfExists('jenis_penawaran_penawaran');
     }
 }
