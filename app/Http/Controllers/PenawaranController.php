@@ -9,107 +9,69 @@ use Illuminate\Http\Request;
 
 class PenawaranController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $penawarans = Penawaran::with('projectPenawaran', 'jenisPenawaran')->get(); // Fixed relationship name
+        $penawarans = Penawaran::with('projectPenawaran', 'jenisPenawarans')->get();
         return view('penawarans.index', compact('penawarans'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $projectPenawaran = ProjectPenawaran::all();
-        $jenisPekerjaan = JenisPenawaran::all();
-        return view('penawarans.create', compact('projectPenawaran', 'jenisPekerjaan'));
+        $projects = ProjectPenawaran::all();
+        $jenisPenawarans = JenisPenawaran::all();
+        return view('penawarans.create', compact('projects', 'jenisPenawarans'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
             'project_penawaran_id' => 'required|exists:project_penawarans,id',
-            'jenis_penawaran_id' => 'required|exists:jenis_penawarans,id', // Fixed table name
             'pekerjaan' => 'required|string',
             'quantitas' => 'nullable|integer',
             'unit' => 'nullable|string',
             'harga_satuan' => 'nullable|integer',
+            'jenis_penawaran_ids' => 'array|exists:jenis_penawarans,id', // Validation for many-to-many relationship
         ]);
 
-        Penawaran::create($request->all());
+        $penawaran = Penawaran::create($request->only(['project_penawaran_id', 'pekerjaan', 'quantitas', 'unit', 'harga_satuan']));
+        $penawaran->jenisPenawarans()->attach($request->jenis_penawaran_ids);
 
         return redirect()->route('penawarans.index')->with('success', 'Penawaran created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Penawaran  $penawaran
-     * @return \Illuminate\Http\Response
-     */
     public function show(Penawaran $penawaran)
     {
+        $penawaran->load('projectPenawaran', 'jenisPenawarans');
         return view('penawarans.show', compact('penawaran'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Penawaran  $penawaran
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Penawaran $penawaran)
     {
-        $projectPenawaran = ProjectPenawaran::all();
-        $jenisPekerjaan = JenisPenawaran::all();
-        return view('penawarans.edit', compact('penawaran', 'projectPenawaran', 'jenisPekerjaan'));
+        $projects = ProjectPenawaran::all();
+        $jenisPenawarans = JenisPenawaran::all();
+        return view('penawarans.edit', compact('penawaran', 'projects', 'jenisPenawarans'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Penawaran  $penawaran
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Penawaran $penawaran)
     {
         $request->validate([
             'project_penawaran_id' => 'required|exists:project_penawarans,id',
-            'jenis_penawaran_id' => 'required|exists:jenis_penawarans,id',
             'pekerjaan' => 'required|string',
             'quantitas' => 'nullable|integer',
             'unit' => 'nullable|string',
             'harga_satuan' => 'nullable|integer',
+            'jenis_penawaran_ids' => 'array|exists:jenis_penawarans,id', // Validation for many-to-many relationship
         ]);
 
-        $penawaran->update($request->all());
+        $penawaran->update($request->only(['project_penawaran_id', 'pekerjaan', 'quantitas', 'unit', 'harga_satuan']));
+        $penawaran->jenisPenawarans()->sync($request->jenis_penawaran_ids);
 
         return redirect()->route('penawarans.index')->with('success', 'Penawaran updated successfully.');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Penawaran  $penawaran
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Penawaran $penawaran)
     {
+        $penawaran->jenisPenawarans()->detach();
         $penawaran->delete();
         return redirect()->route('penawarans.index')->with('success', 'Penawaran deleted successfully.');
     }
