@@ -42,3 +42,19 @@
         </div>
     </div>
 </nav>
+
+<style>
+    /* Sembunyikan tombol pada layar lebih besar dari 768px (tablet) */
+    @media (min-width: 768px) {
+        #menu-toggle {
+            display: none;
+        }
+    }
+
+    /* Sembunyikan tombol pada layar lebih besar dari 1024px (PC) */
+    @media (min-width: 1024px) {
+        #menu-toggle {
+            display: none;
+        }
+    }
+</style>

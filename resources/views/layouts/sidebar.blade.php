@@ -1,4 +1,4 @@
-<style>
+{{-- <style>
     /* Private Sidebar Styles */
     .private-sidebar {
         background-color: #ffffff;
@@ -7,6 +7,7 @@
         padding-top: 20px;
         width: 250px;
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        transition: width 0.3s;
     }
 
     .private-sidebar .sidebar-item-custom {
@@ -66,6 +67,61 @@
         margin-right: 10px;
         color: #6c757d;
     }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+        .private-sidebar {
+            width: 200px;
+        }
+
+        .private-sidebar .icon-custom {
+            font-size: 1rem;
+        }
+
+        .private-sidebar .sidebar-item-custom {
+            font-size: 0.9rem;
+            padding: 10px 15px;
+        }
+
+        .private-sidebar .sub-menu-item-custom {
+            font-size: 0.8rem;
+            padding: 8px 15px;
+        }
+
+        .private-sidebar .sub-menu-indicator,
+        .private-sidebar .sub-menu-icon {
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .private-sidebar {
+            width: 100%;
+            height: auto;
+            position: relative;
+            border-right: none;
+            box-shadow: none;
+        }
+
+        .private-sidebar .collapse {
+            padding-left: 15px;
+        }
+
+        .private-sidebar .sidebar-item-custom {
+            padding: 10px 5px;
+            font-size: 0.8rem;
+        }
+
+        .private-sidebar .icon-custom {
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        .private-sidebar .sub-menu-item-custom {
+            font-size: 0.7rem;
+            padding: 8px 10px;
+        }
+    }
 </style>
 
 <div id="sidebar" class="private-sidebar">
@@ -107,4 +163,4 @@
             <i class="fas fa-cogs icon-custom"></i> Settings
         </a>
     </div>
-</div>
+</div> --}}

@@ -1,37 +1,6 @@
-{{-- <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    @stack('styles')
-</head>
-<body>
-    <div id="app">
-        @include('layouts.navigation')
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-
-    @stack('scripts')
-</body>
-</html> --}}
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,14 +25,65 @@
 
     @stack('styles')
 </head>
+
 <body>
     <div id="app" class="d-flex flex-column min-vh-100">
-       @include('layouts.navigation')
+        @include('layouts.navigation')
 
         <div class="d-flex flex-grow-1">
             <!-- Sidebar -->
-            @include('layouts.sidebar')        
-            
+            <nav id="sidebar" class="sidebar">
+                <button class="btn btn-white" id="menu-toggles">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="list-group list-group-flush">
+                    <a href="{{ route('dashboard') }}"
+                        class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-home icon"></i> Dashboard
+                    </a>
+                    <a href="#projectsSubmenu" data-bs-toggle="collapse"
+                        class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-project-diagram icon"></i> Projects
+                        <span class="sub-menu-indicator"><i class="fas fa-chevron-down"></i></span>
+                    </a>
+                    <div id="projectsSubmenu" class="collapse">
+                        <a href="{{ route('projectPenawarans.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-plus sub-menu-icon"></i> List Project
+                        </a>
+                        <a href="{{ route('penawarans.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-list sub-menu-icon"></i> List Penawaran
+                        </a>
+                    </div>
+                    <a href="#dataPenawaranSubmenu" data-bs-toggle="collapse"
+                        class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-file-alt icon"></i> Data Penawaran
+                        <span class="sub-menu-indicator"><i class="fas fa-chevron-down"></i></span>
+                    </a>
+                    <div id="dataPenawaranSubmenu" class="collapse">
+                        <a href="{{ route('penawarans.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-tags sub-menu-icon"></i> Penawaran
+                        </a>
+                        <a href="{{ route('jenisPenawarans.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-briefcase sub-menu-icon"></i> Jenis
+                        </a>
+                        <a href="{{ route('uraianJenisPekerjaanPenawarans.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-list sub-menu-icon"></i> Uraian
+                        </a>
+                    </div>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-chart-line icon"></i> Analytics
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-cogs icon"></i> Settings
+                    </a>
+                </div>
+            </nav>
+
             <div id="page-content-wrapper" class="flex-grow-1">
                 <main class="py-4">
                     @yield('content')
@@ -77,111 +97,116 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#sidebar").toggleClass("toggled");
-        });
-    </script>
-    
     <style>
         .d-flex {
             display: flex;
         }
-    
+
         #sidebar {
             width: 250px;
-            transition: all 0.3s;
+            min-width: 250px;
+            background-color: #ffffff;
+            border-right: 1px solid #e0e0e0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: width 0.3s, transform 0.3s;
+            overflow: auto;
         }
-    
-        #sidebar.toggled {
-            margin-left: -250px;
-        }
-    
+
         #page-content-wrapper {
             flex-grow: 1;
             padding: 20px;
         }
-    
-        @media (max-width: 768px) {
+
+        @media (max-width: 1200px) {
             #sidebar {
-                margin-left: -250px;
-            }
-            #sidebar.toggled {
-                margin-left: 0;
+                width: 200px;
             }
         }
-    
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+
+        @media (max-width: 992px) {
+            #sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                z-index: 1000;
+            }
+
+            #sidebar.show {
+                transform: translateX(0);
+            }
         }
-    
-        #app {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-    
-        .navbar, .d-flex.flex-grow-1 {
-            flex-shrink: 0;
-        }
-    
-        .sidebar-item {
-            margin-bottom: 10px;
-        }
-    
-        .sub-menu-item {
-            margin-left: 30px;
-        }
-    
-        /* Custom styles for sidebar */
-        .sidebar-custom {
-            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.15);
-            background: linear-gradient(to bottom, #ffffff, #f8f9fa);
-        }
-    
-        /* Common styles for sidebar items */
-        .sidebar-item-custom, .sub-menu-item-custom {
-            border-radius: 0;
+
+        .sidebar .list-group-item {
             padding: 10px 15px;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, transform 0.2s;
+            transition: background-color 0.3s, color 0.3s;
         }
-    
-        .sidebar-item-custom:hover, .sub-menu-item-custom:hover {
-            background-color: #e9ecef;
-            transform: scale(1.05);
-        }
-    
-        /* Icon styles */
-        .icon-custom, .sub-menu-icon {
-            font-size: 1.2em;
+
+        .sidebar .list-group-item:hover {
+            background-color: #f0f8ff;
             color: #007bff;
+        }
+
+        .sidebar .icon {
+            margin-right: 15px;
+            font-size: 1.25rem;
+        }
+
+        .sidebar .sub-menu-indicator {
+            margin-left: auto;
+            font-size: 0.9rem;
+        }
+
+        .sidebar .collapse {
+            padding-left: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #007bff;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar .sub-menu-item {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            color: #333;
+            border-radius: 0.25rem;
+        }
+
+        .sidebar .sub-menu-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .sidebar .sub-menu-icon {
             margin-right: 10px;
-            transition: transform 0.2s;
-        }
-    
-        .sidebar-item-custom:hover .icon-custom, .sub-menu-item-custom:hover .sub-menu-icon {
-            transform: rotate(15deg);
-        }
-    
-        .sub-menu-icon {
-            font-size: 1em;
-        }
-    
-        /* Active state */
-        .list-group-item-action.active {
-            background-color: #007bff;
-            color: white;
-            border: none;
         }
 
-        
+        /* Tombol hanya terlihat pada layar dengan lebar maksimum 768px (contoh untuk mobile) */
+        #menu-toggles {
+            display: none;
+            /* Default tidak terlihat */
+        }
+
+        @media (max-width: 768px) {
+            #menu-toggles {
+                display: block;
+                /* Tampil di layar mobile */
+            }
+        }
     </style>
-    
 
-    @stack('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var sidebar = document.querySelector('#sidebar');
+            var toggleBtn = document.querySelector('#menu-toggle');
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+            });
+        });
+
+        document.getElementById('menu-toggles').addEventListener('click', function() {
+            location.reload(); // Me-refresh halaman
+        });
+    </script>
 </body>
+
 </html>
