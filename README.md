@@ -25,7 +25,7 @@ composer --version
      ```
    - Perintah ini akan menampilkan versi Composer yang terinstal di sistem.
 
-## 4. Buka Projek Laravel
+## 4. Buka dan Download Projek Laravel
 
 Untuk memulai dengan cepat tanpa perlu mengunduh file Zip secara manual, ikuti langkah-langkah berikut:
 
@@ -37,7 +37,32 @@ Untuk memulai dengan cepat tanpa perlu mengunduh file Zip secara manual, ikuti l
 
 Setelah file ZIP diunduh, ekstrak ke direktori yang diinginkan dan buka di editor kode pilihan.
 
-## 5. Masuk ke CMD
+## 5. Buka dan Download Projek Laravel (Jika memakai Git)
+
+Setelah membuka Command Prompt (CMD), pergi ke folder direktori yang diinginkan, lalu lakukan ```bash https://github.com/percivalyan/laravel-invoice-print.git ```, lalu navigasikan ke direktori proyek Laravel dengan perintah berikut:
+
+**Masuk ke Direktori Proyek:**
+   - Ketik perintah berikut di CMD:
+     ```bash
+     cd laravel-invoice-print
+     ```
+   - Perintah ini akan mengubah direktori kerja ke folder proyek Laravel `laravel-invoice-print`.
+
+## 6. Jika Menggunakan Visual Studio Code (Jika memakai Git)
+
+Untuk membuka proyek Laravel di Visual Studio Code (VSC), ikuti langkah berikut:
+
+**Buka Command Prompt (CMD):**
+   - Jika CMD sudah terbuka dan berada di direktori proyek Laravel, lanjutkan ke langkah berikutnya.
+
+**Buka Proyek di Visual Studio Code:**
+   - Ketik perintah berikut di CMD:
+     ```bash
+     code .
+     ```
+   - Perintah ini akan langsung membuka proyek Laravel di Visual Studio Code.
+
+## 7. Install Projek
 
 Untuk melanjutkan, ikuti langkah-langkah berikut untuk membuka Command Prompt (CMD) dan menginstal dependensi Laravel:
 
@@ -56,31 +81,6 @@ Untuk melanjutkan, ikuti langkah-langkah berikut untuk membuka Command Prompt (C
      composer update
      ```
    - Namun, selalu disarankan untuk mencoba `composer install` terlebih dahulu.
-
-## 6. Navigasi ke Direktori Proyek
-
-Setelah membuka Command Prompt (CMD), navigasikan ke direktori proyek Laravel dengan perintah berikut:
-
-**Masuk ke Direktori Proyek:**
-   - Ketik perintah berikut di CMD:
-     ```bash
-     cd laravel-invoice-print
-     ```
-   - Perintah ini akan mengubah direktori kerja ke folder proyek Laravel `laravel-invoice-print`.
-
-## 7. Jika Menggunakan Visual Studio Code
-
-Untuk membuka proyek Laravel di Visual Studio Code (VSC), ikuti langkah berikut:
-
-**Buka Command Prompt (CMD):**
-   - Jika CMD sudah terbuka dan berada di direktori proyek Laravel, lanjutkan ke langkah berikutnya.
-
-**Buka Proyek di Visual Studio Code:**
-   - Ketik perintah berikut di CMD:
-     ```bash
-     code .
-     ```
-   - Perintah ini akan langsung membuka proyek Laravel di Visual Studio Code.
 
 ## 8. Konfigurasi Proyek Laravel
 
