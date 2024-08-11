@@ -45,7 +45,7 @@
 
 <style>
     /* Sembunyikan tombol pada layar lebih besar dari 768px (tablet) */
-    @media (min-width: 768px) {
+    @media (min-width: 999px) {
         #menu-toggle {
             display: none;
         }
