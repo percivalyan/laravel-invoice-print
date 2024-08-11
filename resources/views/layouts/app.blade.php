@@ -43,13 +43,13 @@
                     </a>
                     <a href="#projectsSubmenu" data-bs-toggle="collapse"
                         class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-project-diagram icon"></i> Projects
+                        <i class="fas fa-project-diagram icon"></i> Surat Penawaran
                         <span class="sub-menu-indicator"><i class="fas fa-chevron-down"></i></span>
                     </a>
                     <div id="projectsSubmenu" class="collapse">
                         <a href="{{ route('projectPenawarans.index') }}"
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
-                            <i class="fas fa-plus sub-menu-icon"></i> List Project
+                            <i class="fas fa-plus sub-menu-icon"></i> Projek Penawaran
                         </a>
                         <a href="{{ route('penawarans.index') }}"
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
