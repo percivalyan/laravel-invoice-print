@@ -39,7 +39,7 @@ Setelah file ZIP diunduh, ekstrak ke direktori yang diinginkan dan buka di edito
 
 ## 5. Buka dan Download Projek Laravel (Jika memakai Git)
 
-Setelah membuka Command Prompt (CMD), pergi ke folder direktori yang diinginkan, lalu lakukan ```bash https://github.com/percivalyan/laravel-invoice-print.git ```, lalu navigasikan ke direktori proyek Laravel dengan perintah berikut:
+Setelah membuka Command Prompt (CMD), pergi ke folder direktori yang diinginkan, lalu lakukan ```git clone https://github.com/percivalyan/laravel-invoice-print.git ```, lalu navigasikan ke direktori proyek Laravel dengan perintah berikut:
 
 **Masuk ke Direktori Proyek:**
    - Ketik perintah berikut di CMD:
