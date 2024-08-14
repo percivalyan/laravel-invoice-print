@@ -25,6 +25,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>No.</th>
                             <th>Project Penawaran</th>
                             <th>Pengajuan</th>
                             <th>Tujuan</th>
@@ -34,6 +35,7 @@
                     <tbody>
                         @foreach ($tujuanPenawarans as $tujuanPenawaran)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $tujuanPenawaran->projectPenawaran->proyek }} - {{ $tujuanPenawaran->projectPenawaran->nomor }}</td>
                                 <td>{{ $tujuanPenawaran->pengajuan }}</td>
                                 <td>{{ $tujuanPenawaran->tujuan }}</td>

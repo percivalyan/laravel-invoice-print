@@ -31,6 +31,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>No.</th>
                             <th>Jenis Pekerjaan</th>
                             <th>Quantitas</th>
                             <th>Unit</th>
@@ -41,6 +42,7 @@
                     <tbody>
                         @foreach($jenisPenawarans as $jenisPenawaran)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $jenisPenawaran->jenis_pekerjaan }}</td>
                                 <td>{{ $jenisPenawaran->quantitas }}</td>
                                 <td>{{ $jenisPenawaran->unit }}</td>

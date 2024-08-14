@@ -34,6 +34,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>No.</th>
                             <th>Project</th>
                             <th>Pekerjaan</th>
                             <th>Quantitas</th>
@@ -45,6 +46,7 @@
                     <tbody>
                         @foreach($penawarans as $penawaran)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $penawaran->projectPenawaran->kepada }}</td>
                                 <td>{{ $penawaran->pekerjaan }}</td>
                                 <td>{{ $penawaran->quantitas }}</td>

@@ -20,6 +20,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>No.</th>
                             <th>Project Penawaran</th>
                             <th>Nama</th>
                             <th>Jabatan</th>
@@ -29,6 +30,7 @@
                     <tbody>
                         @foreach ($footerPenawarans as $footerPenawaran)
                             <tr>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $footerPenawaran->projectPenawaran->proyek }}</td>
                                 <td>{{ $footerPenawaran->nama }}</td>
                                 <td>{{ $footerPenawaran->jabatan }}</td>
