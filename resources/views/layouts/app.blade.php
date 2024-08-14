@@ -75,6 +75,17 @@
                             <i class="fas fa-list sub-menu-icon"></i> Uraian
                         </a>
                     </div>
+                    <a href="#dataPenawaranSubmenu" data-bs-toggle="collapse"
+                        class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-file-alt icon"></i> Purchase Order
+                        <span class="sub-menu-indicator"><i class="fas fa-chevron-down"></i></span>
+                    </a>
+                    <div id="dataPenawaranSubmenu" class="collapse">
+                        <a href="{{ route('projectPembelians.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-tags sub-menu-icon"></i> Penawaran
+                        </a>
+                    </div>
                     <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="fas fa-chart-line icon"></i> Analytics
                     </a>
