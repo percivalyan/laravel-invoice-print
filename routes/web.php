@@ -12,6 +12,8 @@ use App\Http\Controllers\ProjectPembelianController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\CatatanPembelianController;
 use App\Http\Controllers\FooterPembelianController;
+use App\Http\Controllers\BahanPembelianController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,3 +46,4 @@ Route::resource('projectPembelians', ProjectPembelianController::class);
 Route::resource('pembelians', PembelianController::class);
 Route::resource('catatanPembelians', CatatanPembelianController::class);
 Route::resource('footerPembelians', FooterPembelianController::class);
+Route::resource('bahanPembelians', BahanPembelianController::class);
