@@ -34,6 +34,6 @@ class ProjectPembelian extends Model
 
     public function footerPembelian()
     {
-        return $this->hasMany(FooterPembelian::class, 'project_pembelian_id');
+        return $this->hasOne(FooterPembelian::class, 'project_pembelian_id');
     }
 }
