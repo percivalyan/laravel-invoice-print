@@ -15,14 +15,14 @@ class CreatePembeliansTable extends Migration
     {
         Schema::create('pembelians', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_pembelian_id');
+            $table->unsignedBigInteger('pembelian_id');
             $table->string('nama_bahan');
             $table->text('keterangan')->nullable();
             $table->integer('jumlah');
             $table->decimal('harga_satuan', 15, 2);
             $table->timestamps();
 
-            $table->foreign('project_pembelian_id')->references('id')->on('project_pembelians')->onDelete('cascade');
+            $table->foreign('pembelian_id')->references('id')->on('pembelians')->onDelete('cascade');
         });
     }
 
