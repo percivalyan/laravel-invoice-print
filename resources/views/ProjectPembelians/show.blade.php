@@ -60,17 +60,17 @@
         <div class="invoice-header row" style="position: relative;">
             <div class="col-12">
                 <div id="kop-brand">
-                    <img src="{{ asset('company/images/penawaran/penawaran.png') }}" alt="Brand Image"
+                    <img src="{{ asset('company/images/pembelian/kop-pembelian.png') }}" alt="Brand Image"
                         style="width: 1100px; height: auto;">
                 </div>
-                <div id="kop-info" class="container" style="margin-top: -60px; margin-left: 20px;">
+                {{-- <div id="kop-info" class="container" style="margin-top: -60px; margin-left: 20px;">
                     <div>
                         <p style="margin: 2px 0; font-size: 18px;">Jl Pemuda No 65</p>
                         <p style="margin: 2px 0; font-size: 18px;">Rawamangun, Kota Jakarta Timur</p>
                         <p style="margin: 2px 0; font-size: 18px;">Phone: 021-22471134, Email:
                             indo.mutiara.global@gmail.com</p>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div></div>
