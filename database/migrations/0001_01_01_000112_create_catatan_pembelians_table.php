@@ -16,7 +16,7 @@ class CreateCatatanPembeliansTable extends Migration
         Schema::create('catatan_pembelians', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_pembelian_id');
-            $table->timestamp('waktu_pengiriman')->nullable();
+            $table->string('waktu_pengiriman')->nullable();
             $table->string('alamat_pengiriman')->nullable();
             $table->string('contact_person')->nullable();
             $table->string('pembayaran')->nullable();
@@ -34,5 +34,6 @@ class CreateCatatanPembeliansTable extends Migration
     public function down()
     {
         Schema::dropIfExists('catatan_pembelians');
+        
     }
 }

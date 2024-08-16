@@ -40,10 +40,13 @@ class ProjectPembelianController extends Controller
     }
 
     // Display the specified resource
-    public function show($id)
+    public function show(ProjectPembelian $projectPembelian)
     {
-        $projectPembelian = ProjectPembelian::findOrFail($id);
-        return view('projectPembelians.show', compact('projectPembelian'));
+        // $projectPembelian = ProjectPembelian::findOrFail($id);
+        // return view('projectPembelians.show', compact('projectPembelian'));
+
+        $projectPembelian->load('catatanPembelian');
+        return view('ProjectPembelians.show', compact('projectPembelian'));
     }
 
     // Show the form for editing the specified resource

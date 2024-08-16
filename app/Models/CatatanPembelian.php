@@ -21,6 +21,6 @@ class CatatanPembelian extends Model
 
     public function projectPembelian()
     {
-        return $this->belongsTo(ProjectPembelian::class, 'project_pembelian_id');
+        return $this->belongsTo(ProjectPembelian::class);
     }
 }

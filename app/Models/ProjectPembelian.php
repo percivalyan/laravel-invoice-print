@@ -22,17 +22,17 @@ class ProjectPembelian extends Model
         'email_mobile_number',
     ];
 
-    public function pembelians()
+    public function pembelian()
     {
         return $this->hasMany(Pembelian::class, 'project_pembelian_id');
     }
 
-    public function catatanPembelians()
+    public function catatanPembelian()
     {
-        return $this->hasMany(CatatanPembelian::class, 'project_pembelian_id');
+        return $this->hasOne(CatatanPembelian::class, 'project_pembelian_id');
     }
 
-    public function footerPembelians()
+    public function footerPembelian()
     {
         return $this->hasMany(FooterPembelian::class, 'project_pembelian_id');
     }

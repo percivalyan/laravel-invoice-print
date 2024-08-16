@@ -193,26 +193,33 @@
                         <td style="padding: 8px; width: 5%;">1</td>
                         <td style="padding: 8px; width: 35%;">Waktu pengiriman</td>
                         <td style="padding: 8px;">:</td>
-                        <td style="padding: 8px; width: 60%;">Segera</td>
+                        <td style="padding: 8px; width: 60%;">
+                            {{ $projectPembelian->catatanPembelian->waktu_pengiriman ?? 'Belum diinput' }}
+                        </td>
                     </tr>
                     <tr>
                         <td style="padding: 8px;">2</td>
                         <td style="padding: 8px;">Alamat pengiriman</td>
                         <td style="padding: 8px;">:</td>
-                        <td style="padding: 8px;">Project Senayan Square, Apartment A&B Tower B (share loc akan dikirim
-                            kemudian)</td>
+                        <td style="padding: 8px;">
+                            {{ $projectPembelian->catatanPembelian->alamat_pengiriman ?? 'Belum diinput' }}
+                        </td>
                     </tr>
                     <tr>
                         <td style="padding: 8px;">3</td>
                         <td style="padding: 8px;">Contact person</td>
                         <td style="padding: 8px;">:</td>
-                        <td style="padding: 8px;">Bapak Mardi</td>
+                        <td style="padding: 8px;">
+                            {{ $projectPembelian->catatanPembelian->contact_person ?? 'Belum diinput' }}
+                        </td>
                     </tr>
                     <tr>
                         <td style="padding: 8px;">4</td>
                         <td style="padding: 8px;">Pembayaran</td>
                         <td style="padding: 8px;">:</td>
-                        <td style="padding: 8px;">Transfer</td>
+                        <td style="padding: 8px;">
+                            {{ $projectPembelian->catatanPembelian->pembayaran ?? 'Belum diinput' }}
+                        </td>
                     </tr>
                     <tr>
                         <td style="padding: 8px;">5</td>

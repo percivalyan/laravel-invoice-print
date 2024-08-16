@@ -16,10 +16,18 @@ class CatatanPembelianController extends Controller
     }
 
     // Show the form for creating a new resource
-    public function create()
+    public function create(Request $request)
     {
-        $projectPembelians = ProjectPembelian::all();
-        return view('catatanPembelians.create', compact('projectPembelians'));
+        // $projectPembelians = ProjectPembelian::all();
+        // return view('catatanPembelians.create', compact('projectPembelians'));
+
+        $project_pembelian_id = $request->query('project_pembelian_id');
+        $projectPembelian = ProjectPembelian::find($project_pembelian_id);
+        if (!$projectPembelian) {
+            return redirect()->route('catatanPembelians.index')
+                             ->with('error', 'Invalid Project Pembelian ID.');
+        }
+        return view('catatanPembelians.create', compact('projectPembelian'));
     }
 
     // Store a newly created resource in storage
@@ -46,15 +54,15 @@ class CatatanPembelianController extends Controller
     }
 
     // Show the form for editing the specified resource
-    public function edit($id)
+    public function edit(CatatanPembelian $catatanPembelian)
     {
-        $catatanPembelian = CatatanPembelian::findOrFail($id);
-        $projectPembelians = ProjectPembelian::all();
+        // $catatanPembelian = CatatanPembelian::findOrFail($id);
+        $catatanPembelians = CatatanPembelian::all();
         return view('catatanPembelians.edit', compact('catatanPembelian', 'projectPembelians'));
     }
 
     // Update the specified resource in storage
-    public function update(Request $request, $id)
+    public function update(Request $request, CatatanPembelian $catatanPembelian)
     {
         $request->validate([
             'project_pembelian_id' => 'required|exists:project_pembelians,id',
@@ -64,7 +72,7 @@ class CatatanPembelianController extends Controller
             'pembayaran' => 'nullable|string|max:255',
         ]);
 
-        $catatanPembelian = CatatanPembelian::findOrFail($id);
+        // $catatanPembelian = CatatanPembelian::findOrFail($id);
         $catatanPembelian->update($request->all());
 
         return redirect()->route('catatanPembelians.index')->with('success', 'Catatan Pembelian updated successfully.');
