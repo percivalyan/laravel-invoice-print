@@ -253,7 +253,7 @@
                                 <!-- Baris nama -->
                                 <tr>
                                     <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        Bambang
+                                        {{ $projectPembelian->footerPembelian->diorder_oleh }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -283,7 +283,7 @@
                                 <!-- Baris nama -->
                                 <tr>
                                     <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        Ispriyadi
+                                        {{ $projectPembelian->footerPembelian->disetujui_oleh }}
                                     </td>
 
                                 </tr>
@@ -313,7 +313,7 @@
                                 <!-- Baris nama -->
                                 <tr>
                                     <td style="padding: 20px; text-align: center; border: 1px solid #000;">
-                                        <!-- Tempat untuk nama, tanggal, dan stempel -->
+                                        {{ $projectPembelian->footerPembelian->order_diterima_oleh }}
                                     </td>
                                 </tr>
                                 <tr>

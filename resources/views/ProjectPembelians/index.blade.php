@@ -37,6 +37,7 @@
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                         </form>
                         <a href="{{ route('catatanPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-success btn-sm">Catatan</a>
+                        <a href="{{ route('footerPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-primary btn-sm">Penanggungjawab</a>
                     </td>
                 </tr>
             @endforeach
