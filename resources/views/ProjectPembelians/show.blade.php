@@ -194,7 +194,7 @@
                         <td style="padding: 8px; width: 35%;">Waktu pengiriman</td>
                         <td style="padding: 8px;">:</td>
                         <td style="padding: 8px; width: 60%;">
-                            {{ $projectPembelian->catatanPembelian->waktu_pengiriman ?? 'Belum diinput' }}
+                            {{ $projectPembelian->catatanPembelian->waktu_pengiriman ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -202,7 +202,7 @@
                         <td style="padding: 8px;">Alamat pengiriman</td>
                         <td style="padding: 8px;">:</td>
                         <td style="padding: 8px;">
-                            {{ $projectPembelian->catatanPembelian->alamat_pengiriman ?? 'Belum diinput' }}
+                            {{ $projectPembelian->catatanPembelian->alamat_pengiriman ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -210,7 +210,7 @@
                         <td style="padding: 8px;">Contact person</td>
                         <td style="padding: 8px;">:</td>
                         <td style="padding: 8px;">
-                            {{ $projectPembelian->catatanPembelian->contact_person ?? 'Belum diinput' }}
+                            {{ $projectPembelian->catatanPembelian->contact_person ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -218,7 +218,7 @@
                         <td style="padding: 8px;">Pembayaran</td>
                         <td style="padding: 8px;">:</td>
                         <td style="padding: 8px;">
-                            {{ $projectPembelian->catatanPembelian->pembayaran ?? 'Belum diinput' }}
+                            {{ $projectPembelian->catatanPembelian->pembayaran ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -253,7 +253,7 @@
                                 <!-- Baris nama -->
                                 <tr>
                                     <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        {{ $projectPembelian->footerPembelian->diorder_oleh }}
+                                        {{ $projectPembelian->footerPembelian->diorder_oleh ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -283,7 +283,7 @@
                                 <!-- Baris nama -->
                                 <tr>
                                     <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        {{ $projectPembelian->footerPembelian->disetujui_oleh }}
+                                        {{ $projectPembelian->footerPembelian->disetujui_oleh ?? '' }}
                                     </td>
 
                                 </tr>
@@ -313,7 +313,7 @@
                                 <!-- Baris nama -->
                                 <tr>
                                     <td style="padding: 20px; text-align: center; border: 1px solid #000;">
-                                        {{ $projectPembelian->footerPembelian->order_diterima_oleh }}
+                                        {{ $projectPembelian->footerPembelian->order_diterima_oleh ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
