@@ -16,10 +16,15 @@ class FooterPembelianController extends Controller
     }
 
     // Show the form for creating a new resource
-    public function create()
+    public function create(Request $request)
     {
-        $projectPembelians = ProjectPembelian::all();
-        return view('footerPembelians.create', compact('projectPembelians'));
+        $project_pembelian_id = $request->query('project_pembelian_id');
+        $projectPembelian = ProjectPembelian::find($project_pembelian_id);
+        if (!$projectPembelian) {
+            return redirect()->route('footerPembelians.index')
+                ->with('error', 'Invalid Project Pembelian ID.');
+        }
+        return view('footerPembelians.create', compact('projectPembelian'));
     }
 
     // Store a newly created resource in storage
@@ -48,15 +53,14 @@ class FooterPembelianController extends Controller
     }
 
     // Show the form for editing the specified resource
-    public function edit($id)
+    public function edit(FooterPembelian $footerPembelian)
     {
-        $footerPembelian = FooterPembelian::findOrFail($id);
         $projectPembelians = ProjectPembelian::all();
         return view('footerPembelians.edit', compact('footerPembelian', 'projectPembelians'));
     }
 
     // Update the specified resource in storage
-    public function update(Request $request, $id)
+    public function update(Request $request, FooterPembelian $footerPembelian)
     {
         $request->validate([
             'project_pembelian_id' => 'required|exists:project_pembelians,id',
@@ -68,7 +72,6 @@ class FooterPembelianController extends Controller
             'order_diterima_oleh_jabatan' => 'nullable|string|max:255',
         ]);
 
-        $footerPembelian = FooterPembelian::findOrFail($id);
         $footerPembelian->update($request->all());
 
         return redirect()->route('footerPembelians.index')->with('success', 'Footer Pembelian updated successfully.');
