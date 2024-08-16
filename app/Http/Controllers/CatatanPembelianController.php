@@ -57,7 +57,7 @@ class CatatanPembelianController extends Controller
     public function edit(CatatanPembelian $catatanPembelian)
     {
         // $catatanPembelian = CatatanPembelian::findOrFail($id);
-        $catatanPembelians = CatatanPembelian::all();
+        $projectPembelians = ProjectPembelian::all();
         return view('catatanPembelians.edit', compact('catatanPembelian', 'projectPembelians'));
     }
 

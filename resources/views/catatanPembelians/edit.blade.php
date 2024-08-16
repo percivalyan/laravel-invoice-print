@@ -23,7 +23,7 @@
             <select name="project_pembelian_id" id="project_pembelian_id" class="form-control">
                 @foreach($projectPembelians as $project)
                     <option value="{{ $project->id }}" {{ $catatanPembelian->project_pembelian_id == $project->id ? 'selected' : '' }}>
-                        {{ $project->nama_proyek }}
+                        {{ $project->project }}
                     </option>
                 @endforeach
             </select>
