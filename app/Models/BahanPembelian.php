@@ -18,4 +18,9 @@ class BahanPembelian extends Model
     {
         return $this->belongsTo(Pembelian::class, 'pembelian_id');
     }
+
+    public function projectPembelian()
+    {
+        return $this->belongsTo(ProjectPembelian::class, 'project_pembelian_id');
+    }
 }
