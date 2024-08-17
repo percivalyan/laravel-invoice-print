@@ -144,30 +144,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Kertas A4</td>
-                            <td>80gsm, Putih</td>
-                            <td>500</td>
-                            <td>Rp 50.000</td>
-                            <td>Rp 25.000.000</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Tinta Printer</td>
-                            <td>Hitam</td>
-                            <td>10</td>
-                            <td>Rp 150.000</td>
-                            <td>Rp 1.500.000</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Pulpen</td>
-                            <td>Biru</td>
-                            <td>200</td>
-                            <td>Rp 2.000</td>
-                            <td>Rp 400.000</td>
-                        </tr>
+                        @foreach ($projectPembelian->bahanPembelian as $bahan)
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>{{ $bahan->pembelian }}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        @endforeach
                         <tr>
                             <td colspan="5" class="text-right"><strong>Sub Total</strong></td>
                             <td><strong>Rp 26.900.000</strong></td>
