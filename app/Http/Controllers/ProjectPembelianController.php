@@ -45,7 +45,7 @@ class ProjectPembelianController extends Controller
         // $projectPembelian = ProjectPembelian::findOrFail($id);
         // return view('projectPembelians.show', compact('projectPembelian'));
 
-        $projectPembelian->load('catatanPembelian', 'footerPembelian');
+        $projectPembelian->load('catatanPembelian', 'footerPembelian', 'bahanPembelian');
         return view('ProjectPembelians.show', compact('projectPembelian'));
     }
 
