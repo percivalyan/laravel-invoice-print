@@ -38,6 +38,7 @@
                         </form>
                         <a href="{{ route('catatanPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-success btn-sm">Catatan</a>
                         <a href="{{ route('footerPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-primary btn-sm">Penanggungjawab</a>
+                        <a href="{{ route('bahanPembelians.index', ['pembelian_id' => $projectPembelian->id]) }}" class="btn btn-secondary btn-sm">Beli</a>
                     </td>
                 </tr>
             @endforeach
