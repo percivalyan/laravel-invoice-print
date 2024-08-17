@@ -35,6 +35,7 @@ class PembelianController extends Controller
 
     public function show(Pembelian $pembelian)
     {
+        $pembelian->load('bahanPembelian');
         return view('pembelians.show', compact('pembelian'));
     }
 
