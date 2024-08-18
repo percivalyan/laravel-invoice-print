@@ -22,7 +22,7 @@ class CreatePembeliansTable extends Migration
             $table->decimal('harga_satuan', 15, 2);
             $table->timestamps();
 
-            $table->foreign('bahan_pembelian_id')->references('id')->on('BahanPembelians')->onDelete('cascade');
+            $table->foreign('bahan_pembelian_id')->references('id')->on('bahan_pembelians')->onDelete('cascade');
         });
     }
 
