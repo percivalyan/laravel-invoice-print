@@ -12,11 +12,27 @@ class PembelianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     $pembelians = Pembelian::all();
+    //     return view('pembelians.index', compact('pembelians'));
+    // }
+
+    public function index(Request $request)
     {
-        $pembelians = Pembelian::all();
+        // Ambil bahan_pembelian_id dari query string
+        $bahan_pembelian_id = $request->input('bahan_pembelian_id');
+
+        // Filter data pembelian berdasarkan bahan_pembelian_id jika ada
+        if ($bahan_pembelian_id) {
+            $pembelians = Pembelian::where('bahan_pembelian_id', $bahan_pembelian_id)->get();
+        } else {
+            $pembelians = Pembelian::all();
+        }
+
         return view('pembelians.index', compact('pembelians'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,7 +63,7 @@ class PembelianController extends Controller
         Pembelian::create($request->all());
 
         return redirect()->route('pembelians.index')
-                         ->with('success', 'Pembelian created successfully.');
+            ->with('success', 'Pembelian created successfully.');
     }
 
     /**
@@ -92,7 +108,7 @@ class PembelianController extends Controller
         $pembelian->update($request->all());
 
         return redirect()->route('pembelians.index')
-                         ->with('success', 'Pembelian updated successfully.');
+            ->with('success', 'Pembelian updated successfully.');
     }
 
     /**
@@ -106,6 +122,6 @@ class PembelianController extends Controller
         $pembelian->delete();
 
         return redirect()->route('pembelians.index')
-                         ->with('success', 'Pembelian deleted successfully.');
+            ->with('success', 'Pembelian deleted successfully.');
     }
 }
