@@ -2,49 +2,46 @@
 
 @section('content')
 <div class="container">
-    <h1>Pembelian List</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Pembelian List</h2>
+            <a class="btn btn-success mb-3" href="{{ route('pembelians.create') }}">Tambah Pembelian</a>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
 
-    <a href="{{ route('pembelians.create') }}" class="btn btn-primary">Add New Pembelian</a>
-
-    <table class="table mt-4">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Project Pembelian ID</th>
-                <th>Nama Bahan</th>
-                <th>Keterangan</th>
-                <th>Jumlah</th>
-                <th>Harga Satuan</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($pembelians as $pembelian)
+            <table class="table table-bordered">
                 <tr>
-                    <td>{{ $pembelian->id }}</td>
-                    <td>{{ $pembelian->project_pembelian_id }}</td>
+                    <th>No</th>
+                    <th>Nama Bahan</th>
+                    <th>Jumlah</th>
+                    <th>Harga Satuan</th>
+                    <th>Keterangan</th>
+                    <th width="280px">Action</th>
+                </tr>
+                @foreach ($pembelians as $pembelian)
+                <tr>
+                    <td>{{ ++$loop->index }}</td>
                     <td>{{ $pembelian->nama_bahan }}</td>
-                    <td>{{ $pembelian->keterangan }}</td>
                     <td>{{ $pembelian->jumlah }}</td>
                     <td>{{ $pembelian->harga_satuan }}</td>
+                    <td>{{ $pembelian->keterangan }}</td>
                     <td>
-                        <a href="{{ route('pembelians.show', $pembelian->id) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('pembelians.edit', $pembelian->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('pembelians.destroy', $pembelian->id) }}" method="POST" style="display:inline;">
+                        <a class="btn btn-info" href="{{ route('pembelians.show', $pembelian->id) }}">Show</a>
+                        <a class="btn btn-primary" href="{{ route('pembelians.edit', $pembelian->id) }}">Edit</a>
+                        <form action="{{ route('pembelians.destroy', $pembelian->id) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+                @endforeach
+            </table>
+        </div>
+    </div>
 </div>
 @endsection
