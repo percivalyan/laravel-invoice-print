@@ -12,7 +12,7 @@ class Pembelian extends Model
     protected $table = 'pembelians';
 
     protected $fillable = [
-        'project_pembelian_id',
+        'bahan_pembelian_id',
         'nama_bahan',
         'keterangan',
         'jumlah',
@@ -21,6 +21,6 @@ class Pembelian extends Model
 
     public function bahanPembelian()
     {
-        return $this->hasOne(BahanPembelian::class, 'bahan_pembelian_id');
+        return $this->belongsTo(BahanPembelian::class, 'bahan_pembelian_id');
     }
 }
