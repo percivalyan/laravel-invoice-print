@@ -19,6 +19,9 @@ class Pembelian extends Model
         'harga_satuan',
     ];
 
+    /**
+     * Get the bahan pembelian that owns the Pembelian.
+     */
     public function bahanPembelian()
     {
         return $this->belongsTo(BahanPembelian::class, 'bahan_pembelian_id');

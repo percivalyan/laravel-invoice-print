@@ -22,11 +22,6 @@ class ProjectPembelian extends Model
         'email_mobile_number',
     ];
 
-    public function pembelian()
-    {
-        return $this->hasMany(Pembelian::class, 'project_pembelian_id');
-    }
-
     public function catatanPembelian()
     {
         return $this->hasOne(CatatanPembelian::class, 'project_pembelian_id');
