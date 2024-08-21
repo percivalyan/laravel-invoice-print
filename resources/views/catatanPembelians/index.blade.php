@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Daftar Catatan Pembelian</h1>
-    <a href="{{ route('catatanPembelians.create') }}" class="btn btn-primary mb-3">Tambah Catatan Pembelian</a>
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Daftar Catatan Pembelian</h1>
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -11,39 +10,39 @@
         </div>
     @endif
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Proyek Pembelian</th>
-                <th>Waktu Pengiriman</th>
-                <th>Alamat Pengiriman</th>
-                <th>Contact Person</th>
-                <th>Pembayaran</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($catatanPembelians as $catatan)
-                <tr>
-                    <td>{{ $catatan->id }}</td>
-                    <td>{{ $catatan->projectPembelian->project ?? '-' }}</td>
-                    <td>{{ $catatan->waktu_pengiriman }}</td>
-                    <td>{{ $catatan->alamat_pengiriman }}</td>
-                    <td>{{ $catatan->contact_person }}</td>
-                    <td>{{ $catatan->pembayaran }}</td>
-                    <td>
-                        <a href="{{ route('catatanPembelians.show', $catatan->id) }}" class="btn btn-info btn-sm">Lihat</a>
-                        <a href="{{ route('catatanPembelians.edit', $catatan->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('catatanPembelians.destroy', $catatan->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus catatan pembelian ini?');">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <div class="row">
+        @foreach($catatanPembelians as $catatan)
+            <div class="col-lg-12 col-md-12 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Proyek Pembelian: {{ $catatan->projectPembelian->project ?? '-' }}
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            ID: {{ $catatan->id }}
+                        </div>
+                        <div class="text-gray-800">
+                            <p><strong>Waktu Pengiriman:</strong> {{ $catatan->waktu_pengiriman }}</p>
+                            <p><strong>Alamat Pengiriman:</strong> {{ $catatan->alamat_pengiriman }}</p>
+                            <p><strong>Contact Person:</strong> {{ $catatan->contact_person }}</p>
+                            <p><strong>Pembayaran:</strong> {{ $catatan->pembayaran }}</p>
+                        </div>
+                        <div class="mt-3">
+                            <a href="{{ route('catatanPembelians.edit', $catatan->id) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <form action="{{ route('catatanPembelians.destroy', $catatan->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus catatan pembelian ini?');">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </div>
 @endsection

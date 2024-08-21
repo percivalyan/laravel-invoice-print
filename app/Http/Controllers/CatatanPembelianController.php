@@ -18,17 +18,31 @@ class CatatanPembelianController extends Controller
     // Show the form for creating a new resource
     public function create(Request $request)
     {
-        // $projectPembelians = ProjectPembelian::all();
-        // return view('catatanPembelians.create', compact('projectPembelians'));
-
+        // Retrieve the project_pembelian_id from the query parameters
         $project_pembelian_id = $request->query('project_pembelian_id');
+        
+        // Find the ProjectPembelian by its ID
         $projectPembelian = ProjectPembelian::find($project_pembelian_id);
+        
+        // If the ProjectPembelian doesn't exist, redirect to the index with an error message
         if (!$projectPembelian) {
             return redirect()->route('catatanPembelians.index')
                              ->with('error', 'Invalid Project Pembelian ID.');
         }
+    
+        // Check if a CatatanPembelian already exists for this project_pembelian_id
+        $existingRecord = CatatanPembelian::where('project_pembelian_id', $project_pembelian_id)->first();
+    
+        // If a record exists, redirect to the index page
+        if ($existingRecord) {
+            return redirect()->route('catatanPembelians.index')
+                             ->with('info', 'Catatan Pembelian already exists for this project.');
+        }
+    
+        // If no record exists, show the create form
         return view('catatanPembelians.create', compact('projectPembelian'));
     }
+    
 
     // Store a newly created resource in storage
     public function store(Request $request)
@@ -45,14 +59,7 @@ class CatatanPembelianController extends Controller
 
         return redirect()->route('catatanPembelians.index')->with('success', 'Catatan Pembelian created successfully.');
     }
-
-    // Display the specified resource
-    public function show($id)
-    {
-        $catatanPembelian = CatatanPembelian::with('projectPembelian')->findOrFail($id);
-        return view('catatanPembelians.show', compact('catatanPembelian'));
-    }
-
+    
     // Show the form for editing the specified resource
     public function edit(CatatanPembelian $catatanPembelian)
     {
@@ -81,9 +88,14 @@ class CatatanPembelianController extends Controller
     // Remove the specified resource from storage
     public function destroy($id)
     {
+        // Find the CatatanPembelian record by its ID
         $catatanPembelian = CatatanPembelian::findOrFail($id);
+        
+        // Delete the record from the database
         $catatanPembelian->delete();
-
+    
+        // Redirect back to the index page with a success message
         return redirect()->route('catatanPembelians.index')->with('success', 'Catatan Pembelian deleted successfully.');
     }
+    
 }

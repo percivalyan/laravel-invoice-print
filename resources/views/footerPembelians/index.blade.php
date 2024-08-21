@@ -1,43 +1,41 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Footer Pembelians</h1>
-    <a href="{{ route('footerPembelians.create') }}" class="btn btn-primary mb-3">Add New Footer Pembelian</a>
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Daftar Footer Pembelian</h1>
     
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Project Pembelian</th>
-                <th>Diorder Oleh</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($footerPembelians as $footerPembelian)
-                <tr>
-                    <td>{{ $footerPembelian->id }}</td>
-                    <td>{{ $footerPembelian->projectPembelian->project }}</td>
-                    <td>{{ $footerPembelian->diorder_oleh }}</td>
-                    <td>
-                        <a href="{{ route('footerPembelians.show', $footerPembelian->id) }}" class="btn btn-info btn-sm">View</a>
-                        <a href="{{ route('footerPembelians.edit', $footerPembelian->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('footerPembelians.destroy', $footerPembelian->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+
+    <div class="row">
+        @foreach ($footerPembelians as $footerPembelian)
+            <div class="col-lg-12 col-md-12 mb-4">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body">
+                        <h5 class="card-title">ID: {{ $footerPembelian->id }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Project Pembelian</h6>
+                        <p class="card-text">{{ $footerPembelian->projectPembelian->project }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Diorder Oleh</h6>
+                        <p class="card-text">{{ $footerPembelian->diorder_oleh }}</p>
+                        <div class="mt-3">
+                            <a href="{{ route('footerPembelians.edit', $footerPembelian->id) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <form action="{{ route('footerPembelians.destroy', $footerPembelian->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus footer pembelian ini?');">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </div>
 @endsection
