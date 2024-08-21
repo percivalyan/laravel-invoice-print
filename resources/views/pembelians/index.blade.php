@@ -58,9 +58,6 @@
                                         <td>{{ $pembelian->keterangan }}</td>
                                         <td>{{ $pembelian->bahan_pembelian_id }}</td>
                                         <td>
-                                            <a class="btn btn-info btn-sm" href="{{ route('pembelians.show', $pembelian->id) }}">
-                                                <i class="fas fa-eye"></i> Show
-                                            </a>
                                             <a class="btn btn-warning btn-sm" href="{{ route('pembelians.edit', $pembelian->id) }}">
                                                 <i class="fas fa-pencil-alt"></i> Edit
                                             </a>
