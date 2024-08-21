@@ -153,18 +153,50 @@
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                             </tr>
+                            @foreach ($bahan->pembelians as $pembelian)
+                                <!-- Corrected to access pembelians from $bahan -->
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td> <!-- Use loop iteration for numbering -->
+                                    <td>{{ $pembelian->nama_bahan }}</td> <!-- Accessing properties from $pembelian -->
+                                    <td>{{ $pembelian->keterangan }}</td>
+                                    <td>{{ $pembelian->jumlah }}</td>
+                                    <td>{{ number_format($pembelian->harga_satuan, 0, ',', '.') }}</td>
+                                    <td>{{ number_format($pembelian->jumlah * $pembelian->harga_satuan, 0, ',', '.') }}
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endforeach
+                        @php
+                            $subTotal = 0;
+                        @endphp
+
+                        @foreach ($projectPembelian->bahanPembelian as $bahan)
+                            @foreach ($bahan->pembelians as $pembelian)
+                                @php
+                                    $subTotal += $pembelian->jumlah * $pembelian->harga_satuan;
+                                @endphp
+                            @endforeach
+                        @endforeach
+
+                        @php
+                            $ppn = $subTotal * 0.11; // Calculate 11% PPN
+                            $total = $subTotal + $ppn; // Calculate total
+                        @endphp
+
                         <tr>
                             <td colspan="5" class="text-right"><strong>Sub Total</strong></td>
-                            <td><strong>Rp 26.900.000</strong></td>
+                            <td><strong>Rp {{ number_format($subTotal, 0, ',', '.') }}</strong></td>
+                            <!-- Display Sub Total -->
                         </tr>
                         <tr>
                             <td colspan="5" class="text-right"><strong>PPN 11%</strong></td>
-                            <td><strong>Rp 2.959.000</strong></td>
+                            <td><strong>Rp {{ number_format($ppn, 0, ',', '.') }}</strong></td>
+                            <!-- Display PPN 11% -->
                         </tr>
                         <tr>
                             <td colspan="5" class="text-right"><strong>TOTAL</strong></td>
-                            <td><strong>Rp 29.859.000</strong></td>
+                            <td><strong>Rp {{ number_format($total, 0, ',', '.') }}</strong></td>
+                            <!-- Display TOTAL -->
                         </tr>
                     </tbody>
                 </table>

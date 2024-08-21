@@ -3,109 +3,141 @@
 namespace App\Http\Controllers;
 
 use App\Models\BahanPembelian;
+use App\Models\ProjectPembelian;
 use App\Models\Pembelian;
 use Illuminate\Http\Request;
 
 class BahanPembelianController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     // public function index()
     // {
-    //     $bahanPembelians = BahanPembelian::all();
+    //     $bahanPembelians = BahanPembelian::with('projectPembelian')->get();
     //     return view('bahanPembelians.index', compact('bahanPembelians'));
     // }
 
     public function index(Request $request)
     {
-        // Mendapatkan pembelian_id dari query string, atau default ke null jika tidak ada
-        $pembelian_id = $request->input('pembelian_id');
+        $projectPembelianId = $request->query('project_pembelian_id');
 
-        // Mengambil data BahanPembelian yang sesuai dengan pembelian_id
-        $bahanPembelians = BahanPembelian::where('project_pembelian_id', $pembelian_id)->get();
+        $query = BahanPembelian::with('projectPembelian');
 
-        // Mengirim data ke view
-        return view('bahanPembelians.index', compact('bahanPembelians'));
+        if ($projectPembelianId) {
+            $query->where('project_pembelian_id', $projectPembelianId);
+        }
+
+        $bahanPembelians = $query->get();
+
+        return view('bahanPembelians.index', compact('bahanPembelians', 'projectPembelianId'));
     }
 
-    // public function create(Request $request)
-    // {
-    //     // return view('bahanPembelians.create');
-    //     $pembelian_id = $request->query('pembelian_id');
-    //     $pembelian = Pembelian::find($pembelian_id);
-    //     if (!$pembelian) {
-    //         return redirect()->route('bahanPembelians.index')
-    //                          ->with('error', 'Invalid ID.');
-    //     }
-    //     return view('bahanPembelians.create', compact('pembelian'));
-    // }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create(Request $request)
     {
-        // Mendapatkan project_pembelian_id dari URL atau request
-        $projectPembelianId = $request->input('pembelian_id');
+        // Retrieve the optional 'project_pembelian_id' query parameter
+        $projectPembelianId = $request->query('project_pembelian_id');
 
-        // Kirim project_pembelian_id ke view create
-        return view('bahanPembelians.create', compact('projectPembelianId'));
+        // Get all ProjectPembelian records
+        $projectPembelians = ProjectPembelian::all();
+
+        // Pass the data to the view, including the selected project_pembelian_id
+        return view('bahanPembelians.create', compact('projectPembelians', 'projectPembelianId'));
     }
 
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        // Validasi data
+        // Validate the incoming request data
         $request->validate([
+            'project_pembelian_id' => 'required|exists:project_pembelians,id',
             'pembelian' => 'required|string|max:255',
-            'project_pembelian_id' => 'required|integer'
         ]);
 
-        // Menyimpan data baru
-        BahanPembelian::create([
-            'pembelian' => $request->input('pembelian'),
-            'project_pembelian_id' => $request->input('project_pembelian_id'),
-        ]);
+        // Create a new BahanPembelian record
+        BahanPembelian::create($request->all());
 
-        // Redirect ke halaman index dengan pembelian_id yang sama
-        return redirect()->route('bahanPembelians.index', ['pembelian_id' => $request->input('project_pembelian_id')])
+        // Redirect to the index page with a success message, including the selected project_pembelian_id
+        return redirect()->route('bahanPembelians.index', ['project_pembelian_id' => $request->project_pembelian_id])
             ->with('success', 'Bahan Pembelian created successfully.');
     }
 
-    public function show(BahanPembelian $bahanPembelian)
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\BahanPembelian  $bahanPembelian
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
+        $bahanPembelian = BahanPembelian::with('pembelians')->findOrFail($id);
+
         return view('bahanPembelians.show', compact('bahanPembelian'));
     }
 
-    public function edit(BahanPembelian $bahanPembelian)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\BahanPembelian  $bahanPembelian
+     * @return \Illuminate\Http\Response
+     */
+    // public function edit(BahanPembelian $bahanPembelian)
+    // {
+    //     $projectPembelians = ProjectPembelian::all();
+    //     return view('bahanPembelians.edit', compact('bahanPembelian', 'projectPembelians'));
+    // }
+    public function edit($id)
     {
-        $pembelians = Pembelian::all();
-        return view('bahanPembelians.edit', compact('bahanPembelian', 'pembelians'));
+        $bahanPembelian = BahanPembelian::findOrFail($id);
+        $projectPembelianId = $bahanPembelian->project_pembelian_id;
+
+        return view('bahanPembelians.edit', compact('bahanPembelian', 'projectPembelianId'));
     }
 
-    public function update(Request $request, BahanPembelian $bahanPembelian)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\BahanPembelian  $bahanPembelian
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
-        // Validasi data
         $request->validate([
+            'project_pembelian_id' => 'required|exists:project_pembelians,id',
             'pembelian' => 'required|string|max:255',
-            'project_pembelian_id' => 'required|integer'
         ]);
 
-        // Mengupdate data
-        $bahanPembelian->update([
-            'pembelian' => $request->input('pembelian'),
-            'project_pembelian_id' => $request->input('project_pembelian_id'),
-        ]);
+        $bahanPembelian = BahanPembelian::findOrFail($id);
+        $bahanPembelian->update($request->all());
 
-        // Redirect ke halaman index dengan pembelian_id yang sama
-        return redirect()->route('bahanPembelians.index', ['pembelian_id' => $request->input('project_pembelian_id')])
+        return redirect()->route('bahanPembelians.index', ['project_pembelian_id' => $request->project_pembelian_id])
             ->with('success', 'Bahan Pembelian updated successfully.');
     }
 
-    public function destroy(BahanPembelian $bahanPembelian, Request $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\BahanPembelian  $bahanPembelian
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(BahanPembelian $bahanPembelian)
     {
-        // Simpan project_pembelian_id dari query string
-        $projectPembelianId = $request->input('pembelian_id');
-
-        // Hapus data
         $bahanPembelian->delete();
 
-        // Redirect ke halaman index dengan pembelian_id yang sama
-        return redirect()->route('bahanPembelians.index', ['pembelian_id' => $projectPembelianId])
+        return redirect()->route('bahanPembelians.index')
             ->with('success', 'Bahan Pembelian deleted successfully.');
     }
 }

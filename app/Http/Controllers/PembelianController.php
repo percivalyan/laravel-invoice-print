@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
+use App\Models\BahanPembelian;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -12,36 +13,30 @@ class PembelianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     $pembelians = Pembelian::all();
-    //     return view('pembelians.index', compact('pembelians'));
-    // }
-
     public function index(Request $request)
     {
-        // Ambil bahan_pembelian_id dari query string
-        $bahan_pembelian_id = $request->input('bahan_pembelian_id');
+        $bahanPembelianId = $request->query('bahan_pembelian_id');
 
-        // Filter data pembelian berdasarkan bahan_pembelian_id jika ada
-        if ($bahan_pembelian_id) {
-            $pembelians = Pembelian::where('bahan_pembelian_id', $bahan_pembelian_id)->get();
-        } else {
-            $pembelians = Pembelian::all();
+        $query = Pembelian::with('bahanPembelian');
+
+        if ($bahanPembelianId) {
+            $query->where('bahan_pembelian_id', $bahanPembelianId);
         }
 
-        return view('pembelians.index', compact('pembelians'));
-    }
+        $pembelians = $query->get();
 
+        return view('pembelians.index', compact('pembelians', 'bahanPembelianId'));
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('pembelians.create');
+        $bahanPembelianId = $request->query('bahan_pembelian_id');
+        return view('pembelians.create', compact('bahanPembelianId'));
     }
 
     /**
@@ -53,28 +48,17 @@ class PembelianController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'bahan_pembelian_id' => 'required|exists:BahanPembelians,id',
-            'nama_bahan' => 'required|string|max:255',
-            'keterangan' => 'nullable|string',
-            'jumlah' => 'required|integer',
+            'nama_bahan' => 'required',
+            'jumlah' => 'required|numeric',
             'harga_satuan' => 'required|numeric',
+            'keterangan' => 'nullable',
+            'bahan_pembelian_id' => 'required|exists:bahan_pembelians,id'
         ]);
 
         Pembelian::create($request->all());
 
-        return redirect()->route('pembelians.index')
+        return redirect()->route('pembelians.index', ['bahan_pembelian_id' => $request->bahan_pembelian_id])
             ->with('success', 'Pembelian created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pembelian  $pembelian
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pembelian $pembelian)
-    {
-        return view('pembelians.show', compact('pembelian'));
     }
 
     /**
@@ -83,9 +67,12 @@ class PembelianController extends Controller
      * @param  \App\Models\Pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pembelian $pembelian)
+    public function edit($id)
     {
-        return view('pembelians.edit', compact('pembelian'));
+        $pembelian = Pembelian::findOrFail($id);
+        $bahanPembelianId = $pembelian->bahan_pembelian_id;
+
+        return view('pembelians.edit', compact('pembelian', 'bahanPembelianId'));
     }
 
     /**
@@ -95,19 +82,20 @@ class PembelianController extends Controller
      * @param  \App\Models\Pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pembelian $pembelian)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'bahan_pembelian_id' => 'required|exists:BahanPembelians,id',
-            'nama_bahan' => 'required|string|max:255',
-            'keterangan' => 'nullable|string',
-            'jumlah' => 'required|integer',
+            'nama_bahan' => 'required',
+            'jumlah' => 'required|numeric',
             'harga_satuan' => 'required|numeric',
+            'keterangan' => 'nullable',
+            'bahan_pembelian_id' => 'required|exists:bahan_pembelians,id'
         ]);
 
+        $pembelian = Pembelian::findOrFail($id);
         $pembelian->update($request->all());
 
-        return redirect()->route('pembelians.index')
+        return redirect()->route('pembelians.index', ['bahan_pembelian_id' => $request->bahan_pembelian_id])
             ->with('success', 'Pembelian updated successfully.');
     }
 
