@@ -41,57 +41,56 @@
                         class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="fas fa-home icon"></i> Dashboard
                     </a>
-                    <a href="#projectsSubmenu" data-bs-toggle="collapse"
-                        class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-project-diagram icon"></i> Surat Penawaran
-                        <span class="sub-menu-indicator"><i class="fas fa-chevron-down"></i></span>
-                    </a>
-                    <div id="projectsSubmenu" class="collapse">
-                        <a href="{{ route('projectPenawarans.index') }}"
-                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
-                            <i class="fas fa-plus sub-menu-icon"></i> Projek Penawaran
-                        </a>
-                        <a href="{{ route('penawarans.index') }}"
-                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
-                            <i class="fas fa-list sub-menu-icon"></i> List Penawaran
-                        </a>
-                    </div>
                     <a href="#dataPenawaranSubmenu" data-bs-toggle="collapse"
                         class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-file-alt icon"></i> Data Penawaran
+                        <i class="fas fa-file-alt icon"></i> Surat Penawaran
                         <span class="sub-menu-indicator"><i class="fas fa-chevron-down"></i></span>
                     </a>
                     <div id="dataPenawaranSubmenu" class="collapse">
+                        <a href="{{ route('projectPenawarans.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-folder-open sub-menu-icon"></i> Data Surat Penawaran
+                        </a>
                         <a href="{{ route('penawarans.index') }}"
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
-                            <i class="fas fa-tags sub-menu-icon"></i> Penawaran
+                            <i class="fas fa-file-alt sub-menu-icon"></i> Data Penawaran
                         </a>
                         <a href="{{ route('jenisPenawarans.index') }}"
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
-                            <i class="fas fa-briefcase sub-menu-icon"></i> Jenis
+                            <i class="fas fa-briefcase sub-menu-icon"></i> Jenis Penawaran
                         </a>
                         <a href="{{ route('uraianJenisPekerjaanPenawarans.index') }}"
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
-                            <i class="fas fa-list sub-menu-icon"></i> Uraian
+                            <i class="fas fa-list sub-menu-icon"></i> Uraian dari Jenis Penawaran
                         </a>
                     </div>
-                    <a href="#dataPenawaranSubmenu" data-bs-toggle="collapse"
+                    <a href="#dataPembelianSubmenu" data-bs-toggle="collapse"
                         class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-file-alt icon"></i> Purchase Order
+                        <i class="fas fa-file-invoice-dollar icon"></i> Purchase Order
                         <span class="sub-menu-indicator"><i class="fas fa-chevron-down"></i></span>
                     </a>
-                    <div id="dataPenawaranSubmenu" class="collapse">
+                    <div id="dataPembelianSubmenu" class="collapse">
                         <a href="{{ route('projectPembelians.index') }}"
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
-                            <i class="fas fa-tags sub-menu-icon"></i> Penawaran
+                            <i class="fas fa-tags sub-menu-icon"></i> Data Purchase Order (PO)
+                        </a>
+                        <a href="{{ route('catatanPembelians.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-clipboard-list sub-menu-icon"></i> Data Catatan PO
+                        </a>
+                        <a href="{{ route('footerPembelians.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-signature sub-menu-icon"></i> Data Penandatangan PO
+                        </a>
+                        <a href="{{ route('bahanPembelians.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-clipboard-check sub-menu-icon"></i> Semua Data Order
+                        </a>
+                        <a href="{{ route('pembelians.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-shopping-cart sub-menu-icon"></i> Semua Data Pembelian
                         </a>
                     </div>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-chart-line icon"></i> Analytics
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <i class="fas fa-cogs icon"></i> Settings
-                    </a>
                 </div>
             </nav>
 
@@ -208,16 +207,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var sidebar = document.querySelector('#sidebar');
-            var toggleBtn = document.querySelector('#menu-toggle');
+            var toggleBtn = document.querySelector('#menu-toggles');
             toggleBtn.addEventListener('click', function() {
                 sidebar.classList.toggle('show');
             });
         });
-
-        document.getElementById('menu-toggles').addEventListener('click', function() {
-            location.reload(); // Me-refresh halaman
-        });
     </script>
 </body>
+
 
 </html>
