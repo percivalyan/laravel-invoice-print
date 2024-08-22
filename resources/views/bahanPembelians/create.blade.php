@@ -2,50 +2,55 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2>Tambah Bahan Pembelian</h2>
-                <a class="btn btn-primary" href="{{ route('bahanPembelians.index') }}">Kembali</a>
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <strong>Whoops!</strong> Ada beberapa masalah dengan inputan Anda.<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="h5 mb-0">Tambah Bahan Pembelian</h2>
+                        {{-- <a href="{{ route('bahanPembelians.index') }}" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-arrow-left mr-1"></i> Kembali ke PO
+                        </a> --}}
+                        <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary text-white mb-3">
+                            Kembali ke PO
+                        </a> 
                     </div>
-                @endif
+                    <div class="card-body">
 
-                <form action="{{ route('bahanPembelians.store') }}" method="POST">
-                    @csrf
+                        <!-- Display validation errors -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <h6><strong>Whoops! Ada beberapa masalah dengan inputan Anda:</strong></h6>
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
+                        <!-- Form for creating new Bahan Pembelian -->
+                        <form action="{{ route('bahanPembelians.store') }}" method="POST">
+                            @csrf
 
-                    {{-- <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Project Pembelian:</strong>
-                            <select name="project_pembelian_id" class="form-control">
-                                @foreach ($projectPembelians as $projectPembelian)
-                                    <option value="{{ $projectPembelian->id }}">{{ $projectPembelian->project }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> --}}
+                            <!-- Hidden field for project_pembelian_id -->
+                            <input type="hidden" name="project_pembelian_id" value="{{ $projectPembelianId }}">
 
-                    <input type="hidden" name="project_pembelian_id" value="{{ $projectPembelianId }}">
+                            <!-- Pembelian Input Field -->
+                            <div class="form-group">
+                                <label for="pembelian" class="form-label"><strong>Pembelian:</strong></label>
+                                <input type="text" name="pembelian" id="pembelian" class="form-control" placeholder="Masukkan nama pembelian" required>
+                            </div>
 
-                    <div class="form-group">
-                        <strong>Pembelian:</strong>
-                        <input type="text" name="pembelian" class="form-control" placeholder="Pembelian">
+                            <!-- Submit Button -->
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save mr-1"></i> Simpan
+                                </button>
+                            </div>
+                        </form>
                     </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                </div>
             </div>
-            </form>
         </div>
-    </div>
     </div>
 @endsection

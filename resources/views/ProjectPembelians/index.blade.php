@@ -36,7 +36,7 @@
                                 <td>{{ $projectPembelian->tanggal_order }}</td>
                                 <td>{{ $projectPembelian->metode_pembayaran }}</td>
                                 <td>
-                                    <a href="{{ route('projectPembelians.show', $projectPembelian->id) }}" class="btn btn-info btn-sm">Show</a>
+                                    <a href="{{ route('projectPembelians.show', $projectPembelian->id) }}" class="btn btn-info btn-sm">Lihat Surat PO</a>
                                     <a href="{{ route('projectPembelians.edit', $projectPembelian->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                     <form action="{{ route('projectPembelians.destroy', $projectPembelian->id) }}" method="POST" style="display:inline-block;">
                                         @csrf
@@ -45,7 +45,7 @@
                                     </form>
                                     <a href="{{ route('catatanPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-success btn-sm">Catatan</a>
                                     <a href="{{ route('footerPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-primary btn-sm">Penanggungjawab</a>
-                                    <a href="{{ route('bahanPembelians.index', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-secondary btn-sm">Ke Bahans</a>
+                                    <a href="{{ route('bahanPembelians.index', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-secondary btn-sm">Buat Bahan Pembelian</a>
                                 </td>
                             </tr>
                         @endforeach

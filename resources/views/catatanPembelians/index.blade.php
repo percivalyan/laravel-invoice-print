@@ -3,6 +3,9 @@
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Daftar Catatan Pembelian</h1>
+    <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary text-white mb-3">
+        Kembali ke PO
+    </a> 
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -20,6 +23,11 @@
                         </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
                             ID: {{ $catatan->id }}
+                        </div>
+                        <div class="text-gray-800">
+                            <h5 class="card-title mb-4">
+                                {{ $catatan->projectPembelian->nomor_po }} - {{ $catatan->projectPembelian->project }} - {{ $catatan->projectPembelian->tanggal_order }}
+                            </h5>
                         </div>
                         <div class="text-gray-800">
                             <p><strong>Waktu Pengiriman:</strong> {{ $catatan->waktu_pengiriman }}</p>

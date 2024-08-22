@@ -19,14 +19,15 @@
                 <div class="card-header">
                     <h6 class="m-0 font-weight-bold text-primary">Project Pembelian ID</h6>
                 </div>
-                <div class="card-body">
-                    <p><strong>Project Pembelian ID:</strong> {{ $projectPembelianId }}</p>
-                </div>
             </div>
 
             <a class="btn btn-success mb-3" href="{{ route('bahanPembelians.create', ['project_pembelian_id' => $projectPembelianId]) }}">
                 <i class="fas fa-plus"></i> Tambah Bahan
             </a>
+
+            <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary mb-3">
+                Kembali ke PO
+            </a> 
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -47,11 +48,11 @@
                                 @foreach ($bahanPembelians as $bahanPembelian)
                                     <tr>
                                         <td>{{ $bahanPembelian->id }}</td>
-                                        <td>{{ $bahanPembelian->projectPembelian->project }}</td>
+                                        <td>  {{ $bahanPembelian->projectPembelian->project }} - {{ $bahanPembelian->projectPembelian->nomor_po }} - {{ $bahanPembelian->projectPembelian->tanggal_order }}</td>
                                         <td>{{ $bahanPembelian->pembelian }}</td>
                                         <td>
                                             <a class="btn btn-info btn-sm" href="{{ route('bahanPembelians.show', $bahanPembelian->id) }}">
-                                                <i class="fas fa-eye"></i> Show
+                                                <i class="fas fa-eye"></i> Melihat Daftar Pembelian
                                             </a>
                                             <a class="btn btn-primary btn-sm" href="{{ route('bahanPembelians.edit', $bahanPembelian->id) }}">
                                                 <i class="fas fa-pencil-alt"></i> Edit
@@ -64,7 +65,7 @@
                                                 </button>
                                             </form>
                                             <a class="btn btn-secondary btn-sm" href="{{ route('pembelians.index', ['bahan_pembelian_id' => $bahanPembelian->id]) }}">
-                                                <i class="fas fa-arrow-right"></i> Ke Pembelians
+                                                <i class="fas fa-arrow-right"></i> Buat Daftar PO
                                             </a>
                                         </td>
                                     </tr>

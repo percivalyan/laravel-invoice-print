@@ -51,6 +51,9 @@
                     <input type="text" name="email_mobile_number" class="form-control" value="{{ old('email_mobile_number') }}">
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
+                <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary text-white">
+                    Kembali ke PO
+                </a>                             
             </form>
         </div>
     </div>

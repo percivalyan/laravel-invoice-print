@@ -46,7 +46,9 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
-                <a href="{{ route('catatanPembelians.index') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary text-white">
+                    Kembali ke PO
+                </a> 
             </form>
         </div>
     </div>

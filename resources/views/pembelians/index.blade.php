@@ -20,15 +20,15 @@
                 <div class="card-header">
                     <h6 class="m-0 font-weight-bold text-primary">Bahan Pembelian ID</h6>
                 </div>
-                <div class="card-body">
-                    <p><strong>Bahan Pembelian ID:</strong> {{ $bahanPembelianId }}</p>
-                </div>
             </div>
 
             <!-- Button to create a new Pembelian with the bahan_pembelian_id -->
             <a class="btn btn-primary mb-4" href="{{ route('pembelians.create', ['bahan_pembelian_id' => $bahanPembelianId]) }}">
                 <i class="fas fa-plus"></i> Tambah Pembelian
             </a>
+            <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary text-white mb-4">
+                Kembali ke PO
+            </a> 
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -40,11 +40,11 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Bahan Pembelian</th>
                                     <th>Nama Bahan</th>
                                     <th>Jumlah</th>
                                     <th>Harga Satuan</th>
                                     <th>Keterangan</th>
-                                    <th>Bahan Pembelian ID</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -52,11 +52,13 @@
                                 @foreach ($pembelians as $pembelian)
                                     <tr>
                                         <td>{{ $pembelian->id }}</td>
+                                        <td>
+                                            Project: {{ $pembelian->bahanPembelian->projectPembelian->project }} - {{ $pembelian->bahanPembelian->projectPembelian->nomor_po }} - {{ $pembelian->bahanPembelian->projectPembelian->tanggal_order }} <br>
+                                            Order: {{ $pembelian->bahanPembelian->pembelian }}
                                         <td>{{ $pembelian->nama_bahan }}</td>
                                         <td>{{ $pembelian->jumlah }}</td>
                                         <td>{{ number_format($pembelian->harga_satuan, 2, ',', '.') }}</td>
                                         <td>{{ $pembelian->keterangan }}</td>
-                                        <td>{{ $pembelian->bahan_pembelian_id }}</td>
                                         <td>
                                             <a class="btn btn-warning btn-sm" href="{{ route('pembelians.edit', $pembelian->id) }}">
                                                 <i class="fas fa-pencil-alt"></i> Edit
