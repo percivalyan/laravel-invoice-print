@@ -21,7 +21,7 @@
                 @method('PUT')
                 <div class="form-group">
                     <label for="nomor_po">Nomor PO:</label>
-                    <input type="text" name="nomor_po" class="form-control" value="{{ $projectPembelian->nomor_po }}">
+                    <input type="text" name="nomor_po" class="form-control" value="{{ $projectPembelian->nomor_po }}" disabled>
                 </div>
                 <div class="form-group">
                     <label for="project">Project:</label>

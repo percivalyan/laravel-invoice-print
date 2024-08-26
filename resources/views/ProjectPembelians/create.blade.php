@@ -18,10 +18,13 @@
         <div class="card-body">
             <form action="{{ route('projectPembelians.store') }}" method="POST">
                 @csrf
-                <div class="form-group">
+
+                <!-- Removed the Nomor PO input field -->
+                <!-- <div class="form-group">
                     <label for="nomor_po">Nomor PO:</label>
                     <input type="text" name="nomor_po" class="form-control" value="{{ old('nomor_po') }}">
-                </div>
+                </div> -->
+
                 <div class="form-group">
                     <label for="project">Project:</label>
                     <input type="text" name="project" class="form-control" value="{{ old('project') }}">
@@ -50,10 +53,11 @@
                     <label for="email_mobile_number">Email/Mobile Number:</label>
                     <input type="text" name="email_mobile_number" class="form-control" value="{{ old('email_mobile_number') }}">
                 </div>
+
                 <button type="submit" class="btn btn-primary">Create</button>
                 <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary text-white">
                     Kembali ke PO
-                </a>                             
+                </a>
             </form>
         </div>
     </div>

@@ -87,7 +87,7 @@
         </div>
 
         <div class="container row py-3" style="margin-left: 2px; margin-top: -60px;">
-            <div class="col-6">
+            <div class="col-8">
                 <table class="table table-borderless" style="line-height: 0.2;">
                     <tbody>
                         <tr>
