@@ -70,8 +70,6 @@ class ProjectPembelianController extends Controller
         return redirect()->route('projectPembelians.index')->with('success', 'Project Pembelian created successfully.');
     }
 
-
-
     // Display the specified resource
     public function show(ProjectPembelian $projectPembelian)
     {
