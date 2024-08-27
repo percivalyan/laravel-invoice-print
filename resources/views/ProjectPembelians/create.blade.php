@@ -19,11 +19,36 @@
                 <form action="{{ route('projectPembelians.store') }}" method="POST">
                     @csrf
 
-                    <!-- Removed the Nomor PO input field -->
-                    <!-- <div class="form-group">
+                    <div class="form-group">
+                        <label for="input_mode">Pilih Mode Input Nomor PO:</label>
+                        <div>
+                            <label>
+                                <input type="radio" name="input_mode" value="manual" checked> Sudah ada Nomor PO
+                            </label>
+                            <label>
+                                <input type="radio" name="input_mode" value="otomatis"> Otomatis Dibuat
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="nomor_po_group">
                         <label for="nomor_po">Nomor PO:</label>
                         <input type="text" name="nomor_po" class="form-control" value="{{ old('nomor_po') }}">
-                    </div> -->
+                    </div>
+                    <script>
+                        document.querySelectorAll('input[name="input_mode"]').forEach((elem) => {
+                            elem.addEventListener('change', (event) => {
+                                const mode = event.target.value;
+                                const nomorPoGroup = document.getElementById('nomor_po_group');
+
+                                if (mode === 'manual') {
+                                    nomorPoGroup.style.display = 'block';
+                                } else {
+                                    nomorPoGroup.style.display = 'none';
+                                }
+                            });
+                        });
+                    </script>
 
                     <div class="form-group">
                         <label for="project">Project:</label>

@@ -23,7 +23,7 @@ class ProjectPembelianController extends Controller
     // Store a newly created resource in storage
     public function store(Request $request)
     {
-        // Validate the request data
+        // Validasi data permintaan
         $request->validate([
             'project' => 'required|string|max:255',
             'tanggal_order' => 'required|date',
@@ -32,30 +32,35 @@ class ProjectPembelianController extends Controller
             'alamat' => 'nullable|string|max:255',
             'kontak' => 'required|string|max:255',
             'email_mobile_number' => 'nullable|string|max:255',
+            'input_mode' => 'required|in:manual,otomatis',
+            'nomor_po' => 'nullable|string|max:255',
         ]);
 
-        // Auto-generate Nomor PO
-        $latest = ProjectPembelian::latest('id')->first();
-        $latestUrutan = $latest ? (int) substr($latest->nomor_po, 0, 3) : 0;
-        $urutan = str_pad($latestUrutan + 1, 3, '0', STR_PAD_LEFT);
+        // Tentukan Nomor PO
+        $nomorPo = null;
+        if ($request->input('input_mode') === 'otomatis') {
+            $latest = ProjectPembelian::latest('id')->first();
+            $latestUrutan = $latest ? (int) substr($latest->nomor_po, 0, 3) : 0;
+            $urutan = str_pad($latestUrutan + 1, 3, '0', STR_PAD_LEFT);
 
-        $poDitunjukanKepada = $request->input('po_ditunjukan_kepada');
+            $poDitunjukanKepada = $request->input('po_ditunjukan_kepada');
+            $excludedWords = ['PT', 'CV'];
+            $words = explode(' ', $poDitunjukanKepada);
+            $sba = strtoupper(implode('', array_map(function ($word) use ($excludedWords) {
+                $word = strtoupper($word);
+                return !in_array($word, $excludedWords) ? strtoupper(substr($word, 0, 1)) : '';
+            }, $words)));
 
-        // Generate SBA, excluding 'PT' and 'CV'
-        $excludedWords = ['PT', 'CV'];
-        $words = explode(' ', $poDitunjukanKepada);
-        $sba = strtoupper(implode('', array_map(function ($word) use ($excludedWords) {
-            $word = strtoupper($word);
-            return !in_array($word, $excludedWords) ? strtoupper(substr($word, 0, 1)) : '';
-        }, $words)));
+            $romanMonth = $this->getRomanMonth(now()->month);
+            $year = now()->year;
+            $tanggal = now()->day;
 
-        $romanMonth = $this->getRomanMonth(now()->month);
-        $year = now()->year;
-        $tanggal = now()->day;
+            $nomorPo = "{$urutan}/PO/IMG-{$sba}/{$romanMonth}/{$year}/{$tanggal}";
+        } else {
+            $nomorPo = $request->input('nomor_po');
+        }
 
-        $nomorPo = "{$urutan}/PO/IMG-{$sba}/{$romanMonth}/{$year}/{$tanggal}";
-
-        // Create a new ProjectPembelian instance and save it
+        // Simpan data baru ke ProjectPembelian
         ProjectPembelian::create([
             'nomor_po' => $nomorPo,
             'project' => $request->input('project'),
@@ -77,12 +82,38 @@ class ProjectPembelianController extends Controller
         return view('projectPembelians.show', compact('projectPembelian'));
     }
 
-    // Show the form for editing the specified resource
     public function edit($id)
     {
         $projectPembelian = ProjectPembelian::findOrFail($id);
         return view('projectPembelians.edit', compact('projectPembelian'));
     }
+
+    // Update the specified resource in storage
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nomor_po' => 'required|string|max:255',
+            'project' => 'required|string|max:255',
+            'tanggal_order' => 'required|date',
+            'metode_pembayaran' => 'required|string|max:255',
+            'po_ditunjukan_kepada' => 'required|string|max:255',
+            'alamat' => 'nullable|string|max:255',
+            'kontak' => 'required|string|max:255',
+            'email_mobile_number' => 'nullable|string|max:255',
+        ]);
+
+        $projectPembelian = ProjectPembelian::findOrFail($id);
+        $projectPembelian->update($request->all());
+
+        return redirect()->route('projectPembelians.index')->with('success', 'Project Pembelian updated successfully.');
+    }
+
+    // Show the form for editing the specified resource
+    // public function edit($id)
+    // {
+    //     $projectPembelian = ProjectPembelian::findOrFail($id);
+    //     return view('projectPembelians.edit', compact('projectPembelian'));
+    //}
 
     // Update the specified resource in storage (Awalan Bisa di edit)
     // public function update(Request $request, $id)
@@ -138,61 +169,61 @@ class ProjectPembelianController extends Controller
     // }
 
     // Tidak bisa di edit
-    public function update(Request $request, $id)
-    {
-        // Validate the request data
-        $request->validate([
-            'project' => 'required|string|max:255',
-            'tanggal_order' => 'required|date',
-            'metode_pembayaran' => 'required|string|max:255',
-            'po_ditunjukan_kepada' => 'required|string|max:255',
-            'alamat' => 'nullable|string|max:255',
-            'kontak' => 'required|string|max:255',
-            'email_mobile_number' => 'nullable|string|max:255',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     // Validate the request data
+    //     $request->validate([
+    //         'project' => 'required|string|max:255',
+    //         'tanggal_order' => 'required|date',
+    //         'metode_pembayaran' => 'required|string|max:255',
+    //         'po_ditunjukan_kepada' => 'required|string|max:255',
+    //         'alamat' => 'nullable|string|max:255',
+    //         'kontak' => 'required|string|max:255',
+    //         'email_mobile_number' => 'nullable|string|max:255',
+    //     ]);
 
-        // Find the ProjectPembelian instance
-        $projectPembelian = ProjectPembelian::findOrFail($id);
+    //     // Find the ProjectPembelian instance
+    //     $projectPembelian = ProjectPembelian::findOrFail($id);
 
-        // Generate new Nomor PO only if not set, e.g., during creation
-        if (!$projectPembelian->nomor_po) {
-            // Generate new Nomor PO
-            $latest = ProjectPembelian::latest('id')->first();
-            $latestUrutan = $latest ? (int) substr($latest->nomor_po, 0, 3) : 0;
-            $urutan = str_pad($latestUrutan + 1, 3, '0', STR_PAD_LEFT);
+    //     // Generate new Nomor PO only if not set, e.g., during creation
+    //     if (!$projectPembelian->nomor_po) {
+    //         // Generate new Nomor PO
+    //         $latest = ProjectPembelian::latest('id')->first();
+    //         $latestUrutan = $latest ? (int) substr($latest->nomor_po, 0, 3) : 0;
+    //         $urutan = str_pad($latestUrutan + 1, 3, '0', STR_PAD_LEFT);
 
-            $poDitunjukanKepada = $request->input('po_ditunjukan_kepada');
+    //         $poDitunjukanKepada = $request->input('po_ditunjukan_kepada');
 
-            // Generate SBA, excluding 'PT' and 'CV'
-            $excludedWords = ['PT', 'CV'];
-            $words = explode(' ', $poDitunjukanKepada);
-            $sba = strtoupper(implode('', array_map(function ($word) use ($excludedWords) {
-                $word = strtoupper($word);
-                return !in_array($word, $excludedWords) ? strtoupper(substr($word, 0, 1)) : '';
-            }, $words)));
+    //         // Generate SBA, excluding 'PT' and 'CV'
+    //         $excludedWords = ['PT', 'CV'];
+    //         $words = explode(' ', $poDitunjukanKepada);
+    //         $sba = strtoupper(implode('', array_map(function ($word) use ($excludedWords) {
+    //             $word = strtoupper($word);
+    //             return !in_array($word, $excludedWords) ? strtoupper(substr($word, 0, 1)) : '';
+    //         }, $words)));
 
-            $romanMonth = $this->getRomanMonth(now()->month);
-            $year = now()->year;
-            $tanggal = now()->day;
+    //         $romanMonth = $this->getRomanMonth(now()->month);
+    //         $year = now()->year;
+    //         $tanggal = now()->day;
 
-            $nomorPo = "{$urutan}/PO/IMG-{$sba}/{$romanMonth}/{$year}/{$tanggal}";
+    //         $nomorPo = "{$urutan}/PO/IMG-{$sba}/{$romanMonth}/{$year}/{$tanggal}";
 
-            $projectPembelian->nomor_po = $nomorPo;
-        }
+    //         $projectPembelian->nomor_po = $nomorPo;
+    //     }
 
-        // Update the ProjectPembelian instance
-        $projectPembelian->update([
-            'project' => $request->input('project'),
-            'tanggal_order' => $request->input('tanggal_order'),
-            'metode_pembayaran' => $request->input('metode_pembayaran'),
-            'po_ditunjukan_kepada' => $request->input('po_ditunjukan_kepada'),
-            'alamat' => $request->input('alamat'),
-            'kontak' => $request->input('kontak'),
-            'email_mobile_number' => $request->input('email_mobile_number'),
-        ]);
+    //     // Update the ProjectPembelian instance
+    //     $projectPembelian->update([
+    //         'project' => $request->input('project'),
+    //         'tanggal_order' => $request->input('tanggal_order'),
+    //         'metode_pembayaran' => $request->input('metode_pembayaran'),
+    //         'po_ditunjukan_kepada' => $request->input('po_ditunjukan_kepada'),
+    //         'alamat' => $request->input('alamat'),
+    //         'kontak' => $request->input('kontak'),
+    //         'email_mobile_number' => $request->input('email_mobile_number'),
+    //     ]);
 
-        return redirect()->route('projectPembelians.index')->with('success', 'Project Pembelian updated successfully.');
-    }
+    //     return redirect()->route('projectPembelians.index')->with('success', 'Project Pembelian updated successfully.');
+    // }
 
     // Remove the specified resource from storage
     public function destroy($id)
