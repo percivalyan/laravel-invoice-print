@@ -36,5 +36,10 @@ class ProjectPembelian extends Model
     {
         return $this->hasMany(BahanPembelian::class, 'project_pembelian_id');
     }
+
+    public function projectKwitansi()
+    {
+        return $this->hasOne(ProjectKwitansi::class, 'project_kwitansi_id');
+    }
     
 }
