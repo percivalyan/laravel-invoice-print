@@ -35,7 +35,7 @@ class CatatanPembelianController extends Controller
     
         // If a record exists, redirect to the index page
         if ($existingRecord) {
-            return redirect()->route('catatanPembelians.index')
+            return redirect()->route('catatanPembelians.show')
                              ->with('info', 'Catatan Pembelian already exists for this project.');
         }
     
