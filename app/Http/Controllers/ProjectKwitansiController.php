@@ -8,9 +8,78 @@ use Illuminate\Http\Request;
 
 class ProjectKwitansiController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     $projectKwitansis = ProjectKwitansi::with('projectPembelian')->get();
+    //     return view('projectKwitansis.index', compact('projectKwitansis'));
+    // }
+
+    // public function index(Request $request)
+    // {
+    //     // Get filter and sorting parameters
+    //     $filter = $request->input('filter');
+    //     $keyword = $request->input('keyword');
+    //     $sort = $request->input('sort');
+
+    //     // Build query
+    //     $query = ProjectKwitansi::query()->with('projectPembelian');
+
+    //     if ($keyword) {
+    //         if ($filter == 'project_pembelian.nomor_po') {
+    //             $query->whereHas('projectPembelian', function ($q) use ($keyword) {
+    //                 $q->where('nomor_po', 'like', "%{$keyword}%");
+    //             });
+    //         } else {
+    //             $query->where($filter, 'like', "%{$keyword}%");
+    //         }
+    //     }
+
+    //     if ($sort) {
+    //         $query->orderBy($sort);
+    //     }
+
+    //     $projectKwitansis = $query->paginate(10);
+
+    //     return view('projectKwitansis.index', compact('projectKwitansis'));
+    // }
+
+    public function index(Request $request)
     {
-        $projectKwitansis = ProjectKwitansi::with('projectPembelian')->get();
+        // Get filter and sorting parameters
+        $filter = $request->input('filter');
+        $keyword = $request->input('keyword');
+        $sort = $request->input('sort');
+
+        // Build query
+        $query = ProjectKwitansi::query()->with('projectPembelian');
+
+        if ($keyword) {
+            if ($filter == 'all') {
+                // Universal search across all columns
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('kepada_yth', 'like', "%{$keyword}%")
+                        ->orWhere('proyek', 'like', "%{$keyword}%")
+                        ->orWhere('lokasi', 'like', "%{$keyword}%")
+                        ->orWhere('nomor_surat_jalan', 'like', "%{$keyword}%")
+                        ->orWhere('nomor_invoice', 'like', "%{$keyword}%")
+                        ->orWhere('nomor_bast', 'like', "%{$keyword}%")
+                        ->orWhereHas('projectPembelian', function ($q) use ($keyword) {
+                            $q->where('nomor_po', 'like', "%{$keyword}%");
+                        });
+                });
+            } else {
+                // Search based on selected filter
+                $query->where($filter, 'like', "%{$keyword}%");
+            }
+        }
+
+        // Sorting
+        if ($sort) {
+            $query->orderBy($sort);
+        }
+
+        $projectKwitansis = $query->paginate(10);
+
         return view('projectKwitansis.index', compact('projectKwitansis'));
     }
 
@@ -89,8 +158,30 @@ class ProjectKwitansiController extends Controller
 
     public function show(ProjectKwitansi $projectKwitansi)
     {
-        $projectKwitansi->load('catatanKwitansi');
+        $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
         return view('projectKwitansis.show', compact('projectKwitansi'));
+    }
+
+    // public function showInvoice(ProjectKwitansi $projectKwitansi)
+    // {
+    //     $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
+    //     $pekerjaanKwitansis = $projectKwitansi->pekerjaanKwitansi; // Fetch related pekerjaan kwitansi
+    //     return view('projectKwitansis.showInvoice', compact('projectKwitansi', 'pekerjaanKwitansis'));
+    // }
+
+    public function showInvoice(ProjectKwitansi $projectKwitansi)
+    {
+        // Eager load related models
+        $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
+
+        // Fetch related pekerjaan kwitansi
+        $pekerjaanKwitansis = $projectKwitansi->pekerjaanKwitansi;
+
+        // Fetch related catatan kwitansi
+        $catatanKwitansis = $projectKwitansi->catatanKwitansi;
+
+        // Pass variables to the view
+        return view('projectKwitansis.showInvoice', compact('projectKwitansi', 'pekerjaanKwitansis', 'catatanKwitansis'));
     }
 
     public function edit(ProjectKwitansi $projectKwitansi)

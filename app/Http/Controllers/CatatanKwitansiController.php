@@ -35,7 +35,7 @@ class CatatanKwitansiController extends Controller
 
         // If a record exists, redirect to the index page
         if ($existingRecord) {
-            return redirect()->route('catatanKwitansis.index')
+            return redirect()->route('catatanKwitansis.show', $existingRecord->id)
                 ->with('info', 'Catatan Kwitansi already exists for this project.');
         }
 
@@ -64,14 +64,23 @@ class CatatanKwitansiController extends Controller
             'waktu_diterima_adm_kantor' => 'nullable|date_format:H:i',
         ]);
 
-        CatatanKwitansi::create($request->all());
+        // CatatanKwitansi::create($request->all());
+        $catatanKwitansi = CatatanKwitansi::create($request->all());
 
-        return redirect()->route('catatanKwitansis.index')->with('success', 'Catatan Kwitansi created successfully.');
+        return redirect()->route('catatanKwitansis.show', $catatanKwitansi->id)
+            ->with('success', 'Catatan Kwitansi created successfully.');
     }
 
     // Show the specified resource
-    public function show(CatatanKwitansi $catatanKwitansi)
+    public function show($id)
     {
+        $catatanKwitansi = CatatanKwitansi::find($id);
+
+        if (!$catatanKwitansi) {
+            return redirect()->route('catatanKwitansis.index')
+                ->with('error', 'Catatan Kwitansi not found.');
+        }
+
         return view('catatanKwitansis.show', compact('catatanKwitansi'));
     }
 
@@ -119,32 +128,32 @@ class CatatanKwitansiController extends Controller
     // }
 
     public function update(Request $request, CatatanKwitansi $catatanKwitansi)
-{
-    // Validate the request data
-    $request->validate([
-        'project_kwitansi_id' => 'required|exists:project_kwitansis,id',
-        'bank_pembayaran' => 'nullable|string',
-        'cabang' => 'nullable|string',
-        'nomor_rekening' => 'nullable|string',
-        'atas_nama' => 'nullable|string',
-        'penanggung_jawab' => 'nullable|string',
-        'nama_penerima' => 'nullable|string',
-        'tanggal_diterima_penerima' => 'nullable|date',
-        'waktu_diterima_penerima' => 'nullable|date_format:H:i',
-        'nama_driver' => 'nullable|string',
-        'tanggal_diterima_driver' => 'nullable|date',
-        'waktu_diterima_driver' => 'nullable|date_format:H:i',
-        'nama_adm_kantor' => 'nullable|string',
-        'tanggal_diterima_adm_kantor' => 'nullable|date',
-        'waktu_diterima_adm_kantor' => 'nullable|date_format:H:i',
-    ]);
+    {
+        // Validate the request data
+        $request->validate([
+            'project_kwitansi_id' => 'required|exists:project_kwitansis,id',
+            'bank_pembayaran' => 'nullable|string',
+            'cabang' => 'nullable|string',
+            'nomor_rekening' => 'nullable|string',
+            'atas_nama' => 'nullable|string',
+            'penanggung_jawab' => 'nullable|string',
+            'nama_penerima' => 'nullable|string',
+            'tanggal_diterima_penerima' => 'nullable|date',
+            'waktu_diterima_penerima' => 'nullable|date_format:H:i',
+            'nama_driver' => 'nullable|string',
+            'tanggal_diterima_driver' => 'nullable|date',
+            'waktu_diterima_driver' => 'nullable|date_format:H:i',
+            'nama_adm_kantor' => 'nullable|string',
+            'tanggal_diterima_adm_kantor' => 'nullable|date',
+            'waktu_diterima_adm_kantor' => 'nullable|date_format:H:i',
+        ]);
 
-    // Update the CatatanKwitansi record with validated data
-    $catatanKwitansi->update($request->all());
+        // Update the CatatanKwitansi record with validated data
+        $catatanKwitansi->update($request->all());
 
-    // Redirect with success message
-    return redirect()->route('catatanKwitansis.index')->with('success', 'Catatan Kwitansi updated successfully.');
-}
+        // Redirect with success message
+        return redirect()->route('catatanKwitansis.show', $catatanKwitansi->id)->with('success', 'Catatan Kwitansi updated successfully.');
+    }
 
 
     // Remove the specified resource from storage

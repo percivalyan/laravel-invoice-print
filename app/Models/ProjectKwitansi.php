@@ -36,4 +36,9 @@ class ProjectKwitansi extends Model
     {
         return $this->hasOne(CatatanKwitansi::class, 'project_kwitansi_id');
     }
+
+    public function pekerjaanKwitansi()
+    {
+        return $this->hasMany(pekerjaanKwitansi::class, 'project_kwitansi_id');
+    }
 }

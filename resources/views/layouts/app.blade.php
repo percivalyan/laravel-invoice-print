@@ -36,11 +36,16 @@
                 <button class="btn btn-white" id="menu-toggles">
                     <i class="fas fa-bars"></i>
                 </button>
+
                 <div class="list-group list-group-flush">
+
+                    {{-- Dashboard --}}
                     <a href="{{ route('dashboard') }}"
                         class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="fas fa-home icon"></i> Dashboard
                     </a>
+
+                    {{-- Surat Penawaran --}}
                     <a href="#dataPenawaranSubmenu" data-bs-toggle="collapse"
                         class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="fas fa-file-alt icon"></i> Surat Penawaran
@@ -64,6 +69,8 @@
                             <i class="fas fa-list sub-menu-icon"></i> Uraian dari Jenis Penawaran
                         </a>
                     </div>
+
+                    {{-- Purchase Order --}}
                     <a href="#dataPembelianSubmenu" data-bs-toggle="collapse"
                         class="list-group-item list-group-item-action d-flex align-items-center">
                         <i class="fas fa-file-invoice-dollar icon"></i> Purchase Order
@@ -89,6 +96,31 @@
                         <a href="{{ route('pembelians.index') }}"
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
                             <i class="fas fa-shopping-cart sub-menu-icon"></i> Semua Data Pembelian
+                        </a>
+                    </div>
+
+                    {{-- Surat Jalan - Invoice - BAST --}}
+                    <a href="#dataKwitansiSubmenu" data-bs-toggle="collapse"
+                        class="list-group-item list-group-item-action d-flex align-items-center">
+                        <i class="fas fa-file-invoice icon"></i> Surat Jalan/INV/BAST
+                        <span class="sub-menu-indicator"><i class="fas fa-chevron-down"></i></span>
+                    </a>
+                    <div id="dataKwitansiSubmenu" class="collapse">
+                        <a href="{{ route('projectKwitansis.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-file-alt sub-menu-icon"></i> Data SJ/INV/BAST
+                        </a>
+                        <a href="{{ route('catatanKwitansis.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-sticky-note sub-menu-icon"></i> Catatan SJ/INV/BAST
+                        </a>
+                        <a href="{{ route('batchKwitansis.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-boxes sub-menu-icon"></i> Data Batch
+                        </a>
+                        <a href="{{ route('uraianKwitansis.index') }}"
+                            class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
+                            <i class="fas fa-align-left sub-menu-icon"></i> Data Uraian Batch
                         </a>
                     </div>
                 </div>
@@ -213,6 +245,7 @@
             });
         });
     </script>
+
 </body>
 
 

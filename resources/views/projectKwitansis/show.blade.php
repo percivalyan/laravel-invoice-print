@@ -102,7 +102,7 @@
                     <div class="d-flex mb-2">
                         <div style="font-size: 18px; white-space: nowrap;">Ref PO No</div>
                         <div style="font-size: 18px; flex: 1; margin-left: 20px;">
-                            <strong>: {{ $projectKwitansi->projectPembelian->reff_po_no ?? 'N/A' }}</strong>
+                            <strong>: {{ $projectKwitansi->projectPembelian->nomor_po ?? 'N/A' }}</strong>
                         </div>
                     </div>
                     <div class="d-flex mb-2">
@@ -220,8 +220,11 @@
                             <table style="width: 70%; border-collapse: collapse;">
                                 <!-- Baris keterangan -->
                                 <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        <strong>Diorder oleh</strong>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_penerima ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_penerima ?? '' }}
                                     </td>
                                 </tr>
                                 <!-- Baris tanda tangan -->
@@ -233,13 +236,12 @@
                                 <!-- Baris nama -->
                                 <tr>
                                     <td style="padding: 10px; text-align: center; border: none;">
-
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_penerima ?? '' }}</strong>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px; border: none;">
-
-                                        *) Bagian Pembelian
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Penerima
                                     </td>
                                 </tr>
                             </table>
@@ -250,8 +252,11 @@
                             <table style="width: 70%; border-collapse: collapse;">
                                 <!-- Baris keterangan -->
                                 <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        <strong>Disetujui oleh</strong>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_driver ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_driver ?? '' }}
                                     </td>
                                 </tr>
                                 <!-- Baris tanda tangan -->
@@ -263,12 +268,12 @@
                                 <!-- Baris nama -->
                                 <tr>
                                     <td style="padding: 10px; text-align: center; border: none;">
-
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_driver ?? '' }}</strong>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px; border: none;">
-                                        *) Direktur/Manajer
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Driver
                                     </td>
                                 </tr>
                             </table>
@@ -276,11 +281,14 @@
 
                         <!-- Kolom 3 -->
                         <td style="width: 33%; vertical-align: top;">
-                            <table style="width: 100%; border-collapse: collapse;">
+                            <table style="width: 70%; border-collapse: collapse;">
                                 <!-- Baris keterangan -->
                                 <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        <strong>Order diterima oleh</strong>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_adm_kantor ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_adm_kantor ?? '' }}
                                     </td>
                                 </tr>
                                 <!-- Baris tanda tangan -->
@@ -291,13 +299,13 @@
                                 </tr>
                                 <!-- Baris nama -->
                                 <tr>
-                                    <td style="padding: 20px; text-align: center; border: none;">
-
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_adm_kantor ?? '' }}</strong>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding: 10px; border: none;">
-                                        *) Ttd, nama, tgl diterima & Stempel Supplier
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Adm Kantor
                                     </td>
                                 </tr>
                             </table>
@@ -307,7 +315,7 @@
             </div>
         </section>
 
-        <section>
+        <section class="py-2">
             <div style="margin-left: 20px;">
                 <div style="margin-bottom: 10px; font-weight: bold;">Segera Lapor Apabila</div>
                 <div style="margin-bottom: 10px; font-weight: bold;">Ada Ketidak Sesuaian</div>

@@ -10,7 +10,9 @@
         </div>
     @endif
 
-    <a href="{{ route('projectPembelians.create') }}" class="btn btn-primary mb-3">Create Project Pembelian</a>
+    <a href="{{ route('projectPembelians.create') }}" class="btn btn-primary mb-3">
+        <i class="fas fa-plus-circle"></i> Create Project Pembelian
+    </a>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -36,16 +38,28 @@
                                 <td>{{ $projectPembelian->tanggal_order }}</td>
                                 <td>{{ $projectPembelian->metode_pembayaran }}</td>
                                 <td>
-                                    <a href="{{ route('projectPembelians.show', $projectPembelian->id) }}" class="btn btn-info btn-sm">Lihat Surat PO</a>
-                                    <a href="{{ route('projectPembelians.edit', $projectPembelian->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="{{ route('projectPembelians.show', $projectPembelian->id) }}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i> Lihat Surat PO
+                                    </a>
+                                    <a href="{{ route('projectPembelians.edit', $projectPembelian->id) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
                                     <form action="{{ route('projectPembelians.destroy', $projectPembelian->id) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
                                     </form>
-                                    <a href="{{ route('catatanPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-success btn-sm">Catatan</a>
-                                    <a href="{{ route('footerPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-primary btn-sm">Penanggungjawab</a>
-                                    <a href="{{ route('bahanPembelians.index', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-secondary btn-sm">Buat Bahan Pembelian</a>
+                                    <a href="{{ route('catatanPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-success btn-sm">
+                                        <i class="fas fa-sticky-note"></i> Catatan
+                                    </a>
+                                    <a href="{{ route('footerPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-user-tie"></i> Penanggungjawab
+                                    </a>
+                                    <a href="{{ route('bahanPembelians.index', ['project_pembelian_id' => $projectPembelian->id]) }}" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-box"></i> Buat Bahan Pembelian
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

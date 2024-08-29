@@ -17,6 +17,7 @@ use App\Http\Controllers\CatatanKwitansiController;
 use App\Http\Controllers\ProjectKwitansiController;
 use App\Http\Controllers\BatchKwitansiController;
 use App\Http\Controllers\UraianKwitansiController;
+use App\Http\Controllers\PekerjaanKwitansiController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -60,3 +61,5 @@ Route::resource('catatanKwitansis', CatatanKwitansiController::class);
 
 Route::resource('batchKwitansis', BatchKwitansiController::class);
 Route::resource('uraianKwitansis', UraianKwitansiController::class);
+
+Route::resource('pekerjaanKwitansis', PekerjaanKwitansiController::class);
