@@ -8,36 +8,49 @@ use Illuminate\Http\Request;
 
 class ProjectKwitansiController extends Controller
 {
-    // public function index()
-    // {
-    //     $projectKwitansis = ProjectKwitansi::with('projectPembelian')->get();
-    //     return view('projectKwitansis.index', compact('projectKwitansis'));
-    // }
-
+    /**
+     * Display a listing of the project kwitansi with filtering and sorting options.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     // public function index(Request $request)
     // {
-    //     // Get filter and sorting parameters
+    //     // Get filter, keyword, and sort parameters from the request
     //     $filter = $request->input('filter');
     //     $keyword = $request->input('keyword');
     //     $sort = $request->input('sort');
 
-    //     // Build query
+    //     // Build the base query with eager loading for projectPembelian relation
     //     $query = ProjectKwitansi::query()->with('projectPembelian');
 
+    //     // Apply keyword search
     //     if ($keyword) {
-    //         if ($filter == 'project_pembelian.nomor_po') {
-    //             $query->whereHas('projectPembelian', function ($q) use ($keyword) {
-    //                 $q->where('nomor_po', 'like', "%{$keyword}%");
+    //         if ($filter === 'all') {
+    //             // Universal search across specific columns
+    //             $query->where(function ($q) use ($keyword) {
+    //                 $q->where('kepada_yth', 'like', "%{$keyword}%")
+    //                     ->orWhere('proyek', 'like', "%{$keyword}%")
+    //                     ->orWhere('lokasi', 'like', "%{$keyword}%")
+    //                     ->orWhere('nomor_surat_jalan', 'like', "%{$keyword}%")
+    //                     ->orWhere('nomor_invoice', 'like', "%{$keyword}%")
+    //                     ->orWhere('nomor_bast', 'like', "%{$keyword}%")
+    //                     ->orWhereHas('projectPembelian', function ($q) use ($keyword) {
+    //                         $q->where('nomor_po', 'like', "%{$keyword}%");
+    //                     });
     //             });
     //         } else {
+    //             // Search based on the selected filter
     //             $query->where($filter, 'like', "%{$keyword}%");
     //         }
     //     }
 
+    //     // Apply sorting if provided
     //     if ($sort) {
     //         $query->orderBy($sort);
     //     }
 
+    //     // Paginate the results
     //     $projectKwitansis = $query->paginate(10);
 
     //     return view('projectKwitansis.index', compact('projectKwitansis'));
@@ -45,17 +58,19 @@ class ProjectKwitansiController extends Controller
 
     public function index(Request $request)
     {
-        // Get filter and sorting parameters
+        // Get filter, keyword, and sort parameters from the request
         $filter = $request->input('filter');
         $keyword = $request->input('keyword');
         $sort = $request->input('sort');
 
-        // Build query
-        $query = ProjectKwitansi::query()->with('projectPembelian');
+        // Build the base query with eager loading for relationships
+        $query = ProjectKwitansi::query()
+            ->with(['projectPembelian', 'batchKwitansis.uraianKwitansis']); // Eager load BatchKwitansi and UraianKwitansi
 
+        // Apply keyword search
         if ($keyword) {
-            if ($filter == 'all') {
-                // Universal search across all columns
+            if ($filter === 'all') {
+                // Universal search across specific columns
                 $query->where(function ($q) use ($keyword) {
                     $q->where('kepada_yth', 'like', "%{$keyword}%")
                         ->orWhere('proyek', 'like', "%{$keyword}%")
@@ -68,41 +83,45 @@ class ProjectKwitansiController extends Controller
                         });
                 });
             } else {
-                // Search based on selected filter
+                // Search based on the selected filter
                 $query->where($filter, 'like', "%{$keyword}%");
             }
         }
 
-        // Sorting
+        // Apply sorting if provided
         if ($sort) {
             $query->orderBy($sort);
         }
 
+        // Paginate the results
         $projectKwitansis = $query->paginate(10);
 
         return view('projectKwitansis.index', compact('projectKwitansis'));
     }
 
-    // Many To One
-    // public function create()
-    // {
-    //     $projectPembelians = ProjectPembelian::all();
-    //     return view('projectKwitansis.create', compact('projectPembelians'));
-    // }
 
-    // One To One
+    /**
+     * Show the form for creating a new kwitansi.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        // Ambil ID ProjectPembelian yang sudah tertaut dengan ProjectKwitansi
+        // Get IDs of project pembelians that are already linked to kwitansi
         $usedProjectPembelianIds = ProjectKwitansi::pluck('project_pembelian_id')->toArray();
 
-        // Ambil ProjectPembelian yang ID-nya tidak ada di $usedProjectPembelianIds
+        // Fetch only project pembelians that haven't been linked yet
         $projectPembelians = ProjectPembelian::whereNotIn('id', $usedProjectPembelianIds)->get();
 
         return view('projectKwitansis.create', compact('projectPembelians'));
     }
 
-
+    /**
+     * Store a newly created kwitansi in the database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         // Validate the request data
@@ -116,7 +135,7 @@ class ProjectKwitansiController extends Controller
             'tanggal_surat_jalan' => 'nullable|date',
         ]);
 
-        // Generate identifiers
+        // Generate identifiers for nomor_surat_jalan, nomor_invoice, and nomor_bast
         $latest = ProjectKwitansi::latest('id')->first();
         $latestUrutan = $latest ? (int) substr($latest->nomor_surat_jalan, 0, 3) : 0;
         $urutan = str_pad($latestUrutan + 1, 3, '0', STR_PAD_LEFT);
@@ -127,19 +146,20 @@ class ProjectKwitansiController extends Controller
         $excludedWords = ['PT', 'CV'];
         $words = explode(' ', $kepadaYth);
         $abbreviation = strtoupper(implode('', array_map(function ($word) use ($excludedWords) {
-            $word = strtoupper($word);
             return !in_array($word, $excludedWords) ? strtoupper(substr($word, 0, 1)) : '';
         }, $words)));
 
+        // Get current date details
         $romanMonth = $this->getRomanMonth(now()->month);
         $year = now()->year;
         $tanggal = now()->day;
 
+        // Format the identifiers
         $nomorSuratJalan = "{$urutan}/SJ/IMG-{$abbreviation}/{$romanMonth}/{$year}/{$tanggal}";
         $nomorInvoice = "{$urutan}/INV/IMG-{$abbreviation}/{$romanMonth}/{$year}/{$tanggal}";
         $nomorBast = "{$urutan}/BAST/IMG-{$abbreviation}/{$romanMonth}/{$year}/{$tanggal}";
 
-        // Create a new ProjectKwitansi instance and save it
+        // Store the new kwitansi record
         ProjectKwitansi::create([
             'project_pembelian_id' => $request->input('project_pembelian_id'),
             'kepada_yth' => $request->input('kepada_yth'),
@@ -156,40 +176,57 @@ class ProjectKwitansiController extends Controller
         return redirect()->route('projectKwitansis.index')->with('success', 'Kwitansi berhasil ditambahkan.');
     }
 
+    /**
+     * Display the specified kwitansi details.
+     *
+     * @param  \App\Models\ProjectKwitansi  $projectKwitansi
+     * @return \Illuminate\Http\Response
+     */
     public function show(ProjectKwitansi $projectKwitansi)
-    {
-        $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
-        return view('projectKwitansis.show', compact('projectKwitansi'));
-    }
-
-    // public function showInvoice(ProjectKwitansi $projectKwitansi)
-    // {
-    //     $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
-    //     $pekerjaanKwitansis = $projectKwitansi->pekerjaanKwitansi; // Fetch related pekerjaan kwitansi
-    //     return view('projectKwitansis.showInvoice', compact('projectKwitansi', 'pekerjaanKwitansis'));
-    // }
-
-    public function showInvoice(ProjectKwitansi $projectKwitansi)
     {
         // Eager load related models
         $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
 
-        // Fetch related pekerjaan kwitansi
-        $pekerjaanKwitansis = $projectKwitansi->pekerjaanKwitansi;
+        return view('projectKwitansis.show', compact('projectKwitansi'));
+    }
 
-        // Fetch related catatan kwitansi
+    /**
+     * Show the invoice for the specified kwitansi.
+     *
+     * @param  \App\Models\ProjectKwitansi  $projectKwitansi
+     * @return \Illuminate\Http\Response
+     */
+    public function showInvoice(ProjectKwitansi $projectKwitansi)
+    {
+        // Eager load related models and pass to the view
+        $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
+        $pekerjaanKwitansis = $projectKwitansi->pekerjaanKwitansi;
         $catatanKwitansis = $projectKwitansi->catatanKwitansi;
 
-        // Pass variables to the view
         return view('projectKwitansis.showInvoice', compact('projectKwitansi', 'pekerjaanKwitansis', 'catatanKwitansis'));
     }
 
+    /**
+     * Show the form for editing the specified kwitansi.
+     *
+     * @param  \App\Models\ProjectKwitansi  $projectKwitansi
+     * @return \Illuminate\Http\Response
+     */
     public function edit(ProjectKwitansi $projectKwitansi)
     {
+        // Fetch all project pembelians
         $projectPembelians = ProjectPembelian::all();
+
         return view('projectKwitansis.edit', compact('projectKwitansi', 'projectPembelians'));
     }
 
+    /**
+     * Update the specified kwitansi in the database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ProjectKwitansi  $projectKwitansi
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, ProjectKwitansi $projectKwitansi)
     {
         // Validate the request data
@@ -203,28 +240,40 @@ class ProjectKwitansiController extends Controller
             'tanggal_surat_jalan' => 'nullable|date',
         ]);
 
-        // Update the ProjectKwitansi instance
-        $projectKwitansi->update([
-            'project_pembelian_id' => $request->input('project_pembelian_id'),
-            'kepada_yth' => $request->input('kepada_yth'),
-            'proyek' => $request->input('proyek'),
-            'lokasi' => $request->input('lokasi'),
-            'kendaraan' => $request->input('kendaraan'),
-            'nomor_polisi' => $request->input('nomor_polisi'),
-            'tanggal_surat_jalan' => $request->input('tanggal_surat_jalan'),
-        ]);
+        // Update the kwitansi record
+        $projectKwitansi->update($request->only([
+            'project_pembelian_id',
+            'kepada_yth',
+            'proyek',
+            'lokasi',
+            'kendaraan',
+            'nomor_polisi',
+            'tanggal_surat_jalan'
+        ]));
 
         return redirect()->route('projectKwitansis.index')->with('success', 'Kwitansi berhasil diperbarui.');
     }
 
+    /**
+     * Remove the specified kwitansi from the database.
+     *
+     * @param  \App\Models\ProjectKwitansi  $projectKwitansi
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(ProjectKwitansi $projectKwitansi)
     {
+        // Delete the kwitansi record
         $projectKwitansi->delete();
 
         return redirect()->route('projectKwitansis.index')->with('success', 'Kwitansi berhasil dihapus.');
     }
 
-    // Helper function to convert month to Roman numerals
+    /**
+     * Helper function to get the Roman numeral for a given month.
+     *
+     * @param  int  $month
+     * @return string
+     */
     private function getRomanMonth($month)
     {
         $romanMonths = [
@@ -239,8 +288,9 @@ class ProjectKwitansiController extends Controller
             9 => 'IX',
             10 => 'X',
             11 => 'XI',
-            12 => 'XII'
+            12 => 'XII',
         ];
-        return $romanMonths[$month];
+
+        return $romanMonths[$month] ?? '';
     }
 }

@@ -67,10 +67,14 @@
                                 <th>No</th>
                                 <th>Client</th>
                                 <th>Proyek</th>
-                                <th>Reff PO No</th>
-                                <th>Informasi Dokumen</th>
+                                {{-- <th>Reff PO No</th> --}}
+                                <th>Nomor Dokumen</th>
+                                {{-- <th>Nomor Surat Jalan</th>
+                                <th>Nomor Invoice</th>
+                                <th>Nomor BAST</th> --}}
                                 <th>Lokasi</th>
-                                <th>Surat</th>
+                                <th>Batch dan Uraian</th>
+                                <th>Cetak Dokumen</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -80,17 +84,24 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $projectKwitansi->kepada_yth }}</td>
                                     <td>{{ $projectKwitansi->proyek }}</td>
-                                    <td>{{ $projectKwitansi->projectPembelian ? $projectKwitansi->projectPembelian->nomor_po : 'N/A' }}
+                                    {{-- <td>{{ $projectKwitansi->projectPembelian ? $projectKwitansi->projectPembelian->nomor_po : 'N/A' }} --}}
                                     </td>
                                     <td>
-                                        <div>
-                                            <strong>Nomor Surat Jalan:</strong>
-                                            {{ $projectKwitansi->nomor_surat_jalan }}<br>
-                                            <strong>Nomor Invoice:</strong> {{ $projectKwitansi->nomor_invoice }}<br>
-                                            <strong>Nomor BAST:</strong> {{ $projectKwitansi->nomor_bast }}
-                                        </div>
+                                        <li>Reff PO No: {{ $projectKwitansi->projectPembelian ? $projectKwitansi->projectPembelian->nomor_po : 'N/A' }}</li>
+                                        <li>Surat Jalan: {{ $projectKwitansi->nomor_surat_jalan }}</li>
+                                        <li>Invoice: {{ $projectKwitansi->nomor_invoice }}</li>
+                                        <li>BAST: {{ $projectKwitansi->nomor_bast }}
                                     </td>
                                     <td>{{ $projectKwitansi->lokasi }}</td>
+                                    <td>
+                                        @foreach ($projectKwitansi->batchKwitansis as $batch)
+                                            <strong>Batch: {{ $batch->nama_batch }}</strong><br>
+                                            @foreach ($batch->uraianKwitansis as $uraian)
+                                                <div>- {{ $uraian->nama_uraian }}: {{ $uraian->jumlah_uraian }}
+                                                    {{ $uraian->satuan_uraian }}</div>
+                                            @endforeach
+                                        @endforeach
+                                    </td>
                                     <td class="text-center">
                                         <div class="dropdown">
                                             <button class="btn btn-info btn-sm dropdown-toggle" type="button"
@@ -121,24 +132,15 @@
                                             </button>
                                             <ul class="dropdown-menu"
                                                 aria-labelledby="dropdownMenuButton{{ $projectKwitansi->id }}">
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('projectKwitansis.edit', $projectKwitansi->id) }}">
-                                                        <i class="fas fa-edit"></i> Edit
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('catatanKwitansis.create', ['project_kwitansi_id' => $projectKwitansi->id]) }}">
-                                                        <i class="fas fa-sticky-note"></i> Catatan
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('pekerjaanKwitansis.index', ['project_kwitansi_id' => $projectKwitansi->id]) }}">
-                                                        <i class="fas fa-plus"></i> Tambahkan Pekerjaan
-                                                    </a>
-                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        href="{{ route('projectKwitansis.edit', $projectKwitansi->id) }}"><i
+                                                            class="fas fa-edit"></i> Edit</a></li>
+                                                <li><a class="dropdown-item"
+                                                        href="{{ route('catatanKwitansis.create', ['project_kwitansi_id' => $projectKwitansi->id]) }}"><i
+                                                            class="fas fa-sticky-note"></i> Catatan</a></li>
+                                                <li><a class="dropdown-item"
+                                                        href="{{ route('pekerjaanKwitansis.index', ['project_kwitansi_id' => $projectKwitansi->id]) }}">Tambahkan
+                                                        Pekerjaan</a></li>
                                                 <li>
                                                     <form
                                                         action="{{ route('projectKwitansis.destroy', $projectKwitansi->id) }}"
@@ -146,21 +148,22 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item"
-                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                            <i class="fas fa-trash"></i> Hapus
-                                                        </button>
+                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i
+                                                                class="fas fa-trash"></i> Hapus</button>
                                                     </form>
                                                 </li>
-                                                {{-- <li>
+                                                <li>
                                                     @php
                                                         $relationshipExists = \App\Models\BatchKwitansiProjectKwitansi::where(
                                                             'project_kwitansi_id',
                                                             $projectKwitansi->id,
                                                         )->exists();
                                                         $searchQuery = $projectKwitansi->nomor_surat_jalan; // No encoding
-                                                        $route = route('relationships.index', [
-                                                            'search' => $searchQuery,
-                                                        ]);
+                                                        $route = $relationshipExists
+                                                            ? route('relationships.index', ['search' => $searchQuery])
+                                                            : route('relationships.create', [
+                                                                'project_kwitansi_id' => $projectKwitansi->id,
+                                                            ]);
                                                         $label = $relationshipExists
                                                             ? 'Edit Relationship'
                                                             : 'Create Relationship';
@@ -168,7 +171,7 @@
                                                     <a class="dropdown-item" href="{{ $route }}">
                                                         <i class="fas fa-link"></i> {{ $label }}
                                                     </a>
-                                                </li> --}}
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>
