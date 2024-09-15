@@ -16,7 +16,15 @@
             <p><strong>Order Diterima Oleh Jabatan:</strong> {{ $footerPembelian->order_diterima_oleh_jabatan }}</p>
             
             <a href="{{ route('footerPembelians.edit', $footerPembelian->id) }}" class="btn btn-warning">Edit</a>
-            <a href="{{ route('footerPembelians.index') }}" class="btn btn-secondary">Back</a>
+            <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary">Back to Purchase Order</a>
+            {{-- Delete --}}
+            <form action="{{ route('footerPembelians.destroy', $footerPembelian->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </form>
         </div>
     </div>
 </div>
