@@ -16,17 +16,6 @@ class FooterPembelianController extends Controller
     }
 
     // Show the form for creating a new resource
-    // public function create(Request $request)
-    // {
-    //     $project_pembelian_id = $request->query('project_pembelian_id');
-    //     $projectPembelian = ProjectPembelian::find($project_pembelian_id);
-    //     if (!$projectPembelian) {
-    //         return redirect()->route('footerPembelians.index')
-    //             ->with('error', 'Invalid Project Pembelian ID.');
-    //     }
-    //     return view('footerPembelians.create', compact('projectPembelian'));
-    // }
-
     public function create(Request $request)
     {
         // Retrieve the project_pembelian_id from the query parameters
@@ -40,16 +29,16 @@ class FooterPembelianController extends Controller
             return redirect()->route('footerPembelians.index')
                              ->with('error', 'Invalid Project Pembelian ID.');
         }
-    
-        // Check if a CatatanPembelian already exists for this project_pembelian_id
+
+        // Check if a FooterPembelian already exists for this project_pembelian_id
         $existingRecord = FooterPembelian::where('project_pembelian_id', $project_pembelian_id)->first();
-    
-        // If a record exists, redirect to the index page
+
+        // If a record exists, redirect to the show page of the existing record
         if ($existingRecord) {
-            return redirect()->route('footerPembelians.index')
-                             ->with('info', 'Catatan Pembelian already exists for this project.');
+            return redirect()->route('footerPembelians.show', $existingRecord->id)
+                             ->with('info', 'Footer Pembelian already exists for this project.');
         }
-    
+
         // If no record exists, show the create form
         return view('footerPembelians.create', compact('projectPembelian'));
     }
@@ -67,14 +56,24 @@ class FooterPembelianController extends Controller
             'order_diterima_oleh_jabatan' => 'nullable|string|max:255',
         ]);
 
-        FooterPembelian::create($request->all());
+        // Create the new FooterPembelian
+        $footerPembelian = FooterPembelian::create($request->all());
 
-        return redirect()->route('footerPembelians.index')->with('success', 'Footer Pembelian created successfully.');
+        // Redirect to the show page of the newly created record
+        return redirect()->route('footerPembelians.show', $footerPembelian->id)
+                         ->with('success', 'Footer Pembelian created successfully.');
+    }
+
+    // Display the specified resource
+    public function show(FooterPembelian $footerPembelian)
+    {
+        return view('footerPembelians.show', compact('footerPembelian'));
     }
 
     // Show the form for editing the specified resource
     public function edit(FooterPembelian $footerPembelian)
     {
+        // Get all ProjectPembelian for the edit form
         $projectPembelians = ProjectPembelian::all();
         return view('footerPembelians.edit', compact('footerPembelian', 'projectPembelians'));
     }
@@ -92,29 +91,25 @@ class FooterPembelianController extends Controller
             'order_diterima_oleh_jabatan' => 'nullable|string|max:255',
         ]);
 
+        // Update the existing FooterPembelian
         $footerPembelian->update($request->all());
 
-        return redirect()->route('footerPembelians.index')->with('success', 'Footer Pembelian updated successfully.');
+        // Redirect to the show page of the updated record
+        return redirect()->route('projectPembelians.index')
+                         ->with('success', 'Footer Pembelian updated successfully.');
     }
 
     // Remove the specified resource from storage
-    // public function destroy($id)
-    // {
-    //     $footerPembelian = FooterPembelian::findOrFail($id);
-    //     $footerPembelian->delete();
-
-    //     return redirect()->route('footerPembelians.index')->with('success', 'Footer Pembelian deleted successfully.');
-    // }
-
     public function destroy($id)
     {
-        // Find the CatatanPembelian record by its ID
+        // Find the FooterPembelian record by its ID
         $footerPembelian = FooterPembelian::findOrFail($id);
-        
+
         // Delete the record from the database
         $footerPembelian->delete();
-    
-        // Redirect back to the index page with a success message
-        return redirect()->route('footerPembelians.index')->with('success', 'Footer Pembelian deleted successfully.');
+
+        // Redirect back to the projectPembelians index page with a success message
+        return redirect()->route('projectPembelians.index')
+                         ->with('success', 'Footer Pembelian deleted successfully.');
     }
 }
