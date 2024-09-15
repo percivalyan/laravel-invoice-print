@@ -21,13 +21,15 @@ class BatchKwitansi extends Model
         'dimensi_berat',
     ];
 
-    // public function projectKwitansi()
-    // {
-    //     return $this->belongsTo(ProjectKwitansi::class);
-    // }
-
     public function uraianKwitansis()
     {
         return $this->hasMany(UraianKwitansi::class, 'batch_kwitansi_id');
+    }
+
+    // Define many-to-many relationship with ProjectKwitansi using a pivot table
+    public function projectKwitansis()
+    {
+        return $this->belongsToMany(ProjectKwitansi::class, 'batch_kwitansi_project_kwitansis', 'batch_kwitansi_id', 'project_kwitansi_id')
+                    ->withTimestamps(); // Automatically manage created_at and updated_at fields
     }
 }

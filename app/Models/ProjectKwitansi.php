@@ -27,11 +27,6 @@ class ProjectKwitansi extends Model
         return $this->belongsTo(ProjectPembelian::class, 'project_pembelian_id');
     }
 
-    // public function batchKwitansi()
-    // {
-    //     return $this->hasMany(BatchKwitansi::class);
-    // }
-
     public function catatanKwitansi()
     {
         return $this->hasOne(CatatanKwitansi::class, 'project_kwitansi_id');
@@ -39,6 +34,13 @@ class ProjectKwitansi extends Model
 
     public function pekerjaanKwitansi()
     {
-        return $this->hasMany(pekerjaanKwitansi::class, 'project_kwitansi_id');
+        return $this->hasMany(PekerjaanKwitansi::class, 'project_kwitansi_id');
+    }
+
+    // Define many-to-many relationship with BatchKwitansi using a pivot table
+    public function batchKwitansis()
+    {
+        return $this->belongsToMany(BatchKwitansi::class, 'batch_kwitansi_project_kwitansis', 'project_kwitansi_id', 'batch_kwitansi_id')
+                    ->withTimestamps(); // Automatically manage created_at and updated_at fields
     }
 }
