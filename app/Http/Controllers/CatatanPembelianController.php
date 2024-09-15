@@ -115,7 +115,9 @@ class CatatanPembelianController extends Controller
         $catatanPembelian->delete();
 
         // Redirect back to the index page with a success message
-        return redirect()->route('catatanPembelians.index')
+        // return redirect()->route('catatanPembelians.index')
+        //                  ->with('success', 'Catatan Pembelian deleted successfully.');
+        return redirect()->route('projectPembelians.index')
                          ->with('success', 'Catatan Pembelian deleted successfully.');
     }
 }
