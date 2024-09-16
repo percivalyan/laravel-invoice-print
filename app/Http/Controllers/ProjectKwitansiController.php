@@ -184,10 +184,22 @@ class ProjectKwitansiController extends Controller
      */
     public function show(ProjectKwitansi $projectKwitansi)
     {
-        // Eager load related models
-        $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
+        // Eager load related models to fetch all details
+        $projectKwitansi->load([
+            'projectPembelian',      // Load the related ProjectPembelian
+            'catatanKwitansi',       // Load the related CatatanKwitansi
+            'pekerjaanKwitansi',     // Load the related PekerjaanKwitansi
+            'batchKwitansis.uraianKwitansis' // Load related BatchKwitansi and its UraianKwitansi
+        ]);
 
-        return view('projectKwitansis.show', compact('projectKwitansi'));
+        // Pass the fetched data to the view
+        return view('projectKwitansis.show', [
+            'projectKwitansi' => $projectKwitansi,
+            'projectPembelian' => $projectKwitansi->projectPembelian,
+            'catatanKwitansis' => $projectKwitansi->catatanKwitansi,
+            'pekerjaanKwitansis' => $projectKwitansi->pekerjaanKwitansi,
+            'batchKwitansis' => $projectKwitansi->batchKwitansis
+        ]);
     }
 
     /**
@@ -198,12 +210,26 @@ class ProjectKwitansiController extends Controller
      */
     public function showInvoice(ProjectKwitansi $projectKwitansi)
     {
-        // Eager load related models and pass to the view
-        $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
+        // Eager load related models to fetch all details needed for the invoice
+        $projectKwitansi->load([
+            'projectPembelian',      // Load the related ProjectPembelian
+            'catatanKwitansi',       // Load the related CatatanKwitansi
+            'pekerjaanKwitansi',     // Load the related PekerjaanKwitansi
+            'batchKwitansis.uraianKwitansis' // Load related BatchKwitansi and its UraianKwitansi
+        ]);
+
+        // Extract related data for detailed display
         $pekerjaanKwitansis = $projectKwitansi->pekerjaanKwitansi;
         $catatanKwitansis = $projectKwitansi->catatanKwitansi;
+        $batchKwitansis = $projectKwitansi->batchKwitansis;
 
-        return view('projectKwitansis.showInvoice', compact('projectKwitansi', 'pekerjaanKwitansis', 'catatanKwitansis'));
+        // Pass all relevant data to the view
+        return view('projectKwitansis.showInvoice', [
+            'projectKwitansi' => $projectKwitansi,
+            'pekerjaanKwitansis' => $pekerjaanKwitansis,
+            'catatanKwitansis' => $catatanKwitansis,
+            'batchKwitansis' => $batchKwitansis
+        ]);
     }
 
     /**

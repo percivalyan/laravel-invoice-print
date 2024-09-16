@@ -159,53 +159,72 @@
                             <th>Uraian</th>
                             <th>Jumlah</th>
                             <th>Satuan</th>
-                            <th>Keterangan </th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>
-                                <ol>
-                                    <li>Test</li>
-                                </ol>
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>
-                                <strong>Dimensi Produk</strong><br>
-                                <span
-                                    style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang
-                                </span>
-                                <span>: [Nilai Panjang]</span><br>
-                                <span
-                                    style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar
-                                </span>
-                                <span>: [Nilai Lebar]</span><br>
-                                <span
-                                    style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi
-                                </span>
-                                <span>: [Nilai Tinggi]</span><br>
-                                <span
-                                    style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat
-                                </span>
-                                <span>: [Nilai Berat]</span>
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        @foreach ($projectKwitansi->batchKwitansis as $index => $batch)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>
+                                    <strong>Batch: {{ $batch->nama_batch }}</strong>
+                                    @php
+                                    $counter = 1;
+                                @endphp
+                                
+                                @foreach ($batch->uraianKwitansis as $uraian)
+                                    <div>{{ $counter }}. {{ $uraian->nama_uraian }}</div>
+                                    @php
+                                        $counter++;
+                                    @endphp
+                                @endforeach
+                                
+                                </td>
+                                <td>
+                                    <strong>&nbsp;</strong>
+                                    @foreach ($batch->uraianKwitansis as $uraian)
+                                        <div>
+                                            {{ $uraian->satuan_uraian }}</div>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <strong>&nbsp;</strong>
+                                    @foreach ($batch->uraianKwitansis as $uraian)
+                                        <div>
+                                            {{ $uraian->satuan_uraian }}</div>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <strong>&nbsp;</strong>
+                                    @foreach ($batch->uraianKwitansis as $uraian)
+                                        <div>
+                                            {{ $uraian->keterangan_uraian }}</div>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            <!-- Dimensions Row -->
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>
+                                    <strong>Dimensi Produk</strong><br>
+                                    <span
+                                        style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang</span>
+                                    <span>: {{ $batch->dimensi->panjang ?? 'N/A' }}</span><br>
+                                    <span
+                                        style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar</span>
+                                    <span>: {{ $batch->dimensi->lebar ?? 'N/A' }}</span><br>
+                                    <span
+                                        style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi</span>
+                                    <span>: {{ $batch->dimensi->tinggi ?? 'N/A' }}</span><br>
+                                    <span
+                                        style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat</span>
+                                    <span>: {{ $batch->dimensi->berat ?? 'N/A' }}</span>
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -336,153 +355,6 @@
                 </div>
             </div>
         </section>
-
-
-
-
-        {{-- <section class="po-catatan" style="margin-top: 20px;">
-            <h5 style="margin-bottom: 20px; margin-left: 20px; margin-top: -20px">CATATAN:</h5>
-            <div style="border: 1px solid #000; padding: 10px; width: 100%; margin-left: 20px; margin-top: -20px;">
-                <table style="width: 100%; border-collapse: collapse; line-height: 1.1;">
-                    <tr>
-                        <td style="padding: 8px; width: 5%;">1</td>
-                        <td style="padding: 8px; width: 35%;">Waktu pengiriman</td>
-                        <td style="padding: 8px;">:</td>
-                        <td style="padding: 8px; width: 60%;">
-                            {{ $projectPembelian->catatanPembelian->waktu_pengiriman ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px;">2</td>
-                        <td style="padding: 8px;">Alamat pengiriman</td>
-                        <td style="padding: 8px;">:</td>
-                        <td style="padding: 8px;">
-                            {{ $projectPembelian->catatanPembelian->alamat_pengiriman ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px;">3</td>
-                        <td style="padding: 8px;">Contact person</td>
-                        <td style="padding: 8px;">:</td>
-                        <td style="padding: 8px;">
-                            {{ $projectPembelian->catatanPembelian->contact_person ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px;">4</td>
-                        <td style="padding: 8px;">Pembayaran</td>
-                        <td style="padding: 8px;">:</td>
-                        <td style="padding: 8px;">
-                            {{ $projectPembelian->catatanPembelian->pembayaran ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 8px;">5</td>
-                        <td style="padding: 8px;" colspan="3">
-                            Harga sesuai dengan penawaran, jika berbeda akan ditolak/retur
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </section>
-
-        <section class="po-footer" style="margin-top: 20px;">
-            <div style="margin-left: 20px;">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                        <!-- Kolom 1 -->
-                        <td style="width: 33%; vertical-align: top;">
-                            <table style="width: 70%; border-collapse: collapse;">
-                                <!-- Baris keterangan -->
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        <strong>Diorder oleh</strong>
-                                    </td>
-                                </tr>
-                                <!-- Baris tanda tangan -->
-                                <tr>
-                                    <td style="padding: 60px 20px; text-align: center; border: 1px solid #000;">
-                                        <!-- Tempat untuk tanda tangan -->
-                                    </td>
-                                </tr>
-                                <!-- Baris nama -->
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        {{ $projectPembelian->footerPembelian->diorder_oleh ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; border: 1px solid #ffffff;">
-
-                                        *) Bagian Pembelian
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-
-                        <!-- Kolom 2 -->
-                        <td style="width: 33%; vertical-align: top;">
-                            <table style="width: 70%; border-collapse: collapse;">
-                                <!-- Baris keterangan -->
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        <strong>Disetujui oleh</strong>
-                                    </td>
-                                </tr>
-                                <!-- Baris tanda tangan -->
-                                <tr>
-                                    <td style="padding: 60px 20px; text-align: center; border: 1px solid #000;">
-                                        <!-- Tempat untuk tanda tangan -->
-                                    </td>
-                                </tr>
-                                <!-- Baris nama -->
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        {{ $projectPembelian->footerPembelian->disetujui_oleh ?? '' }}
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; border: 1px solid #ffffff;">
-                                        *) Direktur/Manajer
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-
-                        <!-- Kolom 3 -->
-                        <td style="width: 33%; vertical-align: top;">
-                            <table style="width: 100%; border-collapse: collapse;">
-                                <!-- Baris keterangan -->
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: 1px solid #000;">
-                                        <strong>Order diterima oleh</strong>
-                                    </td>
-                                </tr>
-                                <!-- Baris tanda tangan -->
-                                <tr>
-                                    <td style="padding: 60px 20px; text-align: center; border: 1px solid #000;">
-                                        <!-- Tempat untuk tanda tangan -->
-                                    </td>
-                                </tr>
-                                <!-- Baris nama -->
-                                <tr>
-                                    <td style="padding: 20px; text-align: center; border: 1px solid #000;">
-                                        {{ $projectPembelian->footerPembelian->order_diterima_oleh ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; border: 1px solid #ffffff;">
-                                        <!-- Tempat untuk nama, tanggal, dan stempel -->
-                                        *) Ttd, nama, tgl diterima & Stempel Supplier
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </section> --}}
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
