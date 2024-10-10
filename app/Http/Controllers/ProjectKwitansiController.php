@@ -158,7 +158,11 @@ class ProjectKwitansiController extends Controller
 
     public function show(ProjectKwitansi $projectKwitansi)
     {
-        $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
+        $projectKwitansi->load([
+            'catatanKwitansi',
+            'pekerjaanKwitansi.batchPekerjaanKwitansi.batchKwitansi.uraianKwitansis'
+        ]);
+
         return view('projectKwitansis.show', compact('projectKwitansi'));
     }
 

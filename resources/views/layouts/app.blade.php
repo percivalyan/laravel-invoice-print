@@ -118,9 +118,9 @@
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
                             <i class="fas fa-boxes sub-menu-icon"></i> Data Batch
                         </a>
-                        <a href="{{ route('uraianKwitansis.index') }}"
+                        <a href="{{ route('batchPekerjaanKwitansi.index') }}"
                             class="list-group-item list-group-item-action d-flex align-items-center sub-menu-item">
-                            <i class="fas fa-align-left sub-menu-icon"></i> Data Uraian Batch
+                            <i class="fas fa-align-left sub-menu-icon"></i> Data Batch Pekerjaan
                         </a>
                     </div>
                 </div>

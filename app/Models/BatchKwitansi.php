@@ -10,7 +10,6 @@ class BatchKwitansi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'project_kwitansi_id',
         'nama_batch',
         'jumlah_batch',
         'satuan_batch',
@@ -21,10 +20,12 @@ class BatchKwitansi extends Model
         'dimensi_berat',
     ];
 
-    // public function projectKwitansi()
-    // {
-    //     return $this->belongsTo(ProjectKwitansi::class);
-    // }
+    // Define the many-to-many relationship with PekerjaanKwitansi
+    public function pekerjaanKwitansis()
+    {
+        return $this->belongsToMany(PekerjaanKwitansi::class, 'batch_pekerjaan_kwitansi')
+            ->withTimestamps(); // Include timestamps for pivot table
+    }
 
     public function uraianKwitansis()
     {

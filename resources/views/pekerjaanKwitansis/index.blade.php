@@ -44,6 +44,7 @@
                                 <th>Nama Pekerjaan</th>
                                 <th>Project Kwitansi</th>
                                 <th>Aksi</th>
+                                <th>Batch Pekerjaan</th> <!-- New Column -->
                             </tr>
                         </thead>
                         <tbody>
@@ -65,10 +66,16 @@
                                                     class="fas fa-trash"></i> Delete</button>
                                         </form>
                                     </td>
+                                    <td>
+                                        <a href="{{ route('batchPekerjaanKwitansi.create')}}"
+                                            class="btn btn-info btn-sm"><i class="fas fa-plus"></i> Tambah Batch</a>
+                                        {{-- <a href="{{ route('batchPekerjaanKwitansi.create', ['pekerjaan_id' => $pekerjaanKwitansi->id]) }}"
+                                            class="btn btn-info btn-sm"><i class="fas fa-plus"></i> Tambah Batch</a> --}}
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">Tidak ada data Pekerjaan Kwitansi.</td>
+                                    <td colspan="5" class="text-center">Tidak ada data Pekerjaan Kwitansi.</td>
                                 </tr>
                             @endforelse
                         </tbody>

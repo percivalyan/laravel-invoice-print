@@ -150,6 +150,58 @@
             </div>
         </div>
 
+        <!-- Pekerjaan Kwitansi dan Batch -->
+        {{-- <div class="card mb-4">
+            <div class="card-header">
+                Pekerjaan Kwitansi
+            </div>
+            <div class="card-body">
+                @foreach ($projectKwitansi->pekerjaanKwitansi as $pekerjaan)
+                    <div class="mb-3">
+                        <h5>Pekerjaan: {{ $pekerjaan->pekerjaan }}</h5>
+                        <ul>
+                            @foreach ($pekerjaan->batchPekerjaanKwitansi as $batchPekerjaan)
+                                <li>
+                                    Batch: {{ $batchPekerjaan->batchKwitansi->nama_batch }}
+                                    <!-- Tambahkan informasi batch lainnya jika diperlukan -->
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
+            </div>
+        </div> --}}
+
+        {{-- <div class="card mb-4">
+            <div class="card-header">
+                Pekerjaan Kwitansi
+            </div>
+            <div class="card-body">
+                @foreach ($projectKwitansi->pekerjaanKwitansi as $pekerjaan)
+                    <div class="mb-3">
+                        <h5>Pekerjaan: {{ $pekerjaan->pekerjaan }}</h5>
+                        <ul>
+                            @foreach ($pekerjaan->batchPekerjaanKwitansi as $batchPekerjaan)
+                                <li>
+                                    <strong>Batch:</strong> {{ $batchPekerjaan->batchKwitansi->nama_batch }}
+                                    <ul>
+                                        @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                            <li>
+                                                <strong>Uraian:</strong> {{ $uraian->nama_uraian }}<br>
+                                                <strong>Jumlah:</strong> {{ $uraian->jumlah_uraian }}
+                                                {{ $uraian->satuan_uraian }}<br>
+                                                <strong>Keterangan:</strong> {{ $uraian->keterangan_uraian }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endforeach
+            </div>
+        </div> --}}
+
         <section class="po-table-data">
             <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
                 <table class="table table-bordered invoice-table">
@@ -159,57 +211,72 @@
                             <th>Uraian</th>
                             <th>Jumlah</th>
                             <th>Satuan</th>
-                            <th>Keterangan </th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                            <td>Test</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>
-                                <ol>
-                                    <li>Test</li>
-                                </ol>
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>
-                                <strong>Dimensi Produk</strong><br>
-                                <span
-                                    style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang
-                                </span>
-                                <span>: [Nilai Panjang]</span><br>
-                                <span
-                                    style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar
-                                </span>
-                                <span>: [Nilai Lebar]</span><br>
-                                <span
-                                    style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi
-                                </span>
-                                <span>: [Nilai Tinggi]</span><br>
-                                <span
-                                    style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat
-                                </span>
-                                <span>: [Nilai Berat]</span>
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        @php
+                            $counter = 1; // Penomoran urut
+                        @endphp
+                        @foreach ($projectKwitansi->pekerjaanKwitansi as $pekerjaan)
+                            @foreach ($pekerjaan->batchPekerjaanKwitansi as $batchPekerjaan)
+                                <tr>
+                                    <td>{{ $counter++ }}</td> <!-- Penomoran urut tanpa menghiraukan pekerjaan -->
+                                    <td>{{ $batchPekerjaan->batchKwitansi->nama_batch }}</td>
+                                    <td>{{ $batchPekerjaan->batchKwitansi->jumlah_batch }}</td>
+                                    <td>{{ $batchPekerjaan->batchKwitansi->satuan_batch }}</td>
+                                    <td>{{ $batchPekerjaan->batchKwitansi->keterangan_batch }}</td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        @php
+                                            $total = 1;
+                                        @endphp
+                                        @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                            <ol>{{ $total++ }}. {{ $uraian->nama_uraian }}</ol>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                            <ol>{{ $uraian->jumlah_uraian }}</ol>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                            <ol>{{ $uraian->satuan_uraian }}</ol>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                            <ol>{{ $uraian->keterangan_uraian }}</ol>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <strong>Dimensi Produk</strong><br>
+                                        <span style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang</span>
+                                        <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_panjang }}</span><br>
+                                        <span style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar</span>
+                                        <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_lebar }}</span><br>
+                                        <span style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi</span>
+                                        <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_tinggi }}</span><br>
+                                        <span style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat</span>
+                                        <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_berat }}</span>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </section>
+        
 
         <section class="po-footer" style="margin-top: 20px;">
             <div style="margin-left: 20px;">
