@@ -30,17 +30,23 @@ class BatchPekerjaanKwitansiController extends Controller
     // Show the form for creating a new BatchPekerjaanKwitansi
     public function create(Request $request)
     {
-        // Fetch batchKwitansis with their associated uraianKwitansis
+        // Ambil semua batchKwitansi beserta relasi uraianKwitansi
         $batchKwitansis = BatchKwitansi::with('uraianKwitansis')->get();
-
-        // Fetch pekerjaanKwitansis that do not have associated batchKwitansis
+    
+        // Ambil pekerjaanKwitansi yang belum memiliki batch kwitansi
         $pekerjaanKwitansis = PekerjaanKwitansi::whereDoesntHave('batchKwitansis')->get();
-
-        // Check if there is a pre-selected pekerjaanKwitansi from the request
+    
+        // Periksa apakah ada pekerjaan_kwitansi_id yang dipilih dari request
         $selectedPekerjaanKwitansiId = $request->input('pekerjaan_kwitansi_id', null);
-
-        return view('batchPekerjaanKwitansi.create', compact('batchKwitansis', 'pekerjaanKwitansis', 'selectedPekerjaanKwitansiId'));
+    
+        // Kirim data ke view dengan batch kwitansi, pekerjaan kwitansi, dan pekerjaan kwitansi yang dipilih (jika ada)
+        return view('batchPekerjaanKwitansi.create', [
+            'batchKwitansis' => $batchKwitansis,
+            'pekerjaanKwitansis' => $pekerjaanKwitansis,
+            'selectedPekerjaanKwitansiId' => $selectedPekerjaanKwitansiId,
+        ]);
     }
+    
 
     // Store a new BatchPekerjaanKwitansi
     public function store(Request $request)

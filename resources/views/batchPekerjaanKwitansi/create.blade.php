@@ -26,7 +26,7 @@
                     </option>
                 @endforeach
             </select>
-        </div>
+        </div>        
 
         <div class="mb-3">
             <label class="form-label">Batch Kwitansi</label>

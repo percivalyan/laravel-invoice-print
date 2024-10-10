@@ -67,11 +67,10 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <a href="{{ route('batchPekerjaanKwitansi.create')}}"
-                                            class="btn btn-info btn-sm"><i class="fas fa-plus"></i> Tambah Batch</a>
-                                        {{-- <a href="{{ route('batchPekerjaanKwitansi.create', ['pekerjaan_id' => $pekerjaanKwitansi->id]) }}"
-                                            class="btn btn-info btn-sm"><i class="fas fa-plus"></i> Tambah Batch</a> --}}
+                                        <a href="{{ route('batchPekerjaanKwitansi.create', ['pekerjaan_kwitansi_id' => $pekerjaanKwitansi->id]) }}"
+                                           class="btn btn-info btn-sm"><i class="fas fa-plus"></i> Tambah Batch</a>
                                     </td>
+                                    
                                 </tr>
                             @empty
                                 <tr>
