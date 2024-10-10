@@ -151,24 +151,6 @@
                                                         </button>
                                                     </form>
                                                 </li>
-                                                {{-- <li>
-                                                    @php
-                                                        $relationshipExists = \App\Models\BatchKwitansiProjectKwitansi::where(
-                                                            'project_kwitansi_id',
-                                                            $projectKwitansi->id,
-                                                        )->exists();
-                                                        $searchQuery = $projectKwitansi->nomor_surat_jalan; // No encoding
-                                                        $route = route('relationships.index', [
-                                                            'search' => $searchQuery,
-                                                        ]);
-                                                        $label = $relationshipExists
-                                                            ? 'Edit Relationship'
-                                                            : 'Create Relationship';
-                                                    @endphp
-                                                    <a class="dropdown-item" href="{{ $route }}">
-                                                        <i class="fas fa-link"></i> {{ $label }}
-                                                    </a>
-                                                </li> --}}
                                             </ul>
                                         </div>
                                     </td>
