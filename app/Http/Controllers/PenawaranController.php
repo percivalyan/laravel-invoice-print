@@ -15,13 +15,18 @@ class PenawaranController extends Controller
         return view('penawarans.index', compact('penawarans'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $projects = ProjectPenawaran::all();
         $jenisPenawarans = JenisPenawaran::all();
-        return view('penawarans.create', compact('projects', 'jenisPenawarans'));
+    
+        // Cek jika project_penawaran_id diberikan dan cari proyek yang sesuai
+        $selectedProjectId = $request->input('project_penawaran_id');
+        $selectedProject = $projects->find($selectedProjectId); // Mencari proyek berdasarkan ID
+    
+        return view('penawarans.create', compact('projects', 'jenisPenawarans', 'selectedProjectId', 'selectedProject'));
     }
-
+    
     public function store(Request $request)
     {
         $request->validate([

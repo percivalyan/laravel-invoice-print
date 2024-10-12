@@ -9,7 +9,7 @@
             <a href="{{ route('projectPenawarans.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Projek SP Baru
             </a>
-            <a href="{{ route('penawarans.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+            {{-- <a href="{{ route('penawarans.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Membuat Penawaran
             </a>
             <a href="{{ route('jenisPenawarans.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
@@ -17,7 +17,7 @@
             </a>
             <a href="{{ route('uraianJenisPekerjaanPenawarans.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Membuat Uraian Penawaran
-            </a>
+            </a> --}}
         </div>
     </div>
 
@@ -45,6 +45,7 @@
                             <th>Proyek</th>
                             <th>Lokasi</th>
                             <th>Actions</th>
+                            <th>Surat Penawaran</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,34 +68,16 @@
                                     <a href="{{ route('tujuanPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}" class="btn btn-success btn-sm">Keterangan SP</a>
                                     <a href="{{ route('footerPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}" class="btn btn-primary btn-sm">Penanggungjawab</a>
                                 </td>
+                                <td>
+                                    {{-- Langsung masuk create dengan id dari projectPenawarans --}}
+                                    <a href="{{ route('penawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                                        <i class="fas fa-plus fa-sm text-white-50"></i> Membuat Penawaran
+                                    </a>                                    
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-            </div>
-
-            <!-- Mobile View -->
-            <div class="d-block d-md-none">
-                @foreach ($projectPenawarans as $projectPenawaran)
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $projectPenawaran->kepada }}</h5>
-                            <p class="card-text"><strong>Nomor:</strong> {{ $projectPenawaran->nomor }}</p>
-                            <p class="card-text"><strong>Tanggal:</strong> {{ $projectPenawaran->tanggal }}</p>
-                            <p class="card-text"><strong>Proyek:</strong> {{ $projectPenawaran->proyek }}</p>
-                            <p class="card-text"><strong>Lokasi:</strong> {{ $projectPenawaran->lokasi }}</p>
-                            <a href="{{ route('projectPenawarans.edit', $projectPenawaran->id) }}" class="btn btn-warning btn-sm mb-1">Ubah Data Projek</a>
-                            <a href="{{ route('projectPenawarans.show', $projectPenawaran->id) }}" class="btn btn-info btn-sm mb-1">Lihat Surat Penawaran</a>
-                            <form action="{{ route('projectPenawarans.destroy', $projectPenawaran->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm mb-1">Delete</button>
-                            </form>
-                            <a href="{{ route('tujuanPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}" class="btn btn-success btn-sm mb-1">Keterangan SP</a>
-                            <a href="{{ route('footerPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}" class="btn btn-primary btn-sm mb-1">Penanggungjawab</a>
-                        </div>
-                    </div>
-                @endforeach
             </div>
         </div>
     </div>

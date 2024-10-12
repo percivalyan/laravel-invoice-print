@@ -17,12 +17,16 @@
                 @csrf
                 <div class="form-group">
                     <label for="project_penawaran_id">Project Penawaran</label>
-                    <select name="project_penawaran_id" id="project_penawaran_id" class="form-control" required>
+                    <select name="project_penawaran_id" id="project_penawaran_id" class="form-control" required disabled>
                         @foreach($projects as $project)
-                            <option value="{{ $project->id }}">{{ $project->kepada }}</option>
+                            <option value="{{ $project->id }}" {{ isset($selectedProjectId) && $selectedProjectId == $project->id ? 'selected' : '' }}>
+                                {{ $project->kepada }}
+                            </option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="project_penawaran_id" value="{{ isset($selectedProjectId) ? $selectedProjectId : '' }}">
                 </div>
+                             
                 <div class="form-group">
                     <label for="pekerjaan">Pekerjaan</label>
                     <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" required>

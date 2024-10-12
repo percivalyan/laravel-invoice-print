@@ -9,12 +9,12 @@
             <a href="{{ route('penawarans.create') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Penawaran Baru
             </a>
-            <a href="{{ route('jenisPenawarans.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
+            {{-- <a href="{{ route('jenisPenawarans.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Membuat Jenis Penawaran
             </a>
             <a href="{{ route('uraianJenisPekerjaanPenawarans.index') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Membuat Uraian Penawaran
-            </a>
+            </a> --}}
         </div>
     </div>
     

@@ -14,10 +14,11 @@ class UraianJenisPekerjaanPenawaranController extends Controller
         return view('uraianJenisPekerjaanPenawarans.index', compact('uraianJenisPekerjaanPenawarans'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $jenis_penawaran_id = $request->query('jenis_penawaran_id');
         $jenisPenawarans = JenisPenawaran::all();
-        return view('uraianJenisPekerjaanPenawarans.create', compact('jenisPenawarans'));
+        return view('uraianJenisPekerjaanPenawarans.create', compact('jenisPenawarans', 'jenis_penawaran_id'));
     }
 
     public function store(Request $request)
