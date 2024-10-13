@@ -22,6 +22,13 @@ use App\Http\Controllers\Pembelian\CatatanPembelianController;
 use App\Http\Controllers\Pembelian\FooterPembelianController;
 use App\Http\Controllers\Pembelian\BahanPembelianController;
 
+use App\Http\Controllers\Kwitansi\CatatanKwitansiController;
+use App\Http\Controllers\Kwitansi\ProjectKwitansiController;
+use App\Http\Controllers\Kwitansi\BatchKwitansiController;
+use App\Http\Controllers\Kwitansi\UraianKwitansiController;
+use App\Http\Controllers\Kwitansi\PekerjaanKwitansiController;
+use App\Http\Controllers\Kwitansi\BatchPekerjaanKwitansiController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,3 +81,15 @@ Route::resource('pembelians', PembelianController::class);
 Route::resource('catatanPembelians', CatatanPembelianController::class);
 Route::resource('footerPembelians', FooterPembelianController::class);
 Route::resource('bahanPembelians', BahanPembelianController::class);
+
+Route::resource('projectKwitansis', ProjectKwitansiController::class);
+Route::get('projectKwitansis/{projectKwitansi}/surat-jalan', [ProjectKwitansiController::class, 'showSuratJalan'])->name('projectKwitansis.showsuratjalan');
+Route::get('projectKwitansis/{projectKwitansi}/invoice', [ProjectKwitansiController::class, 'showInvoice'])->name('projectKwitansis.showinvoice');
+Route::get('projectKwitansis/{projectKwitansi}/bast', [ProjectKwitansiController::class, 'showBast'])->name('projectKwitansis.showbast');
+Route::resource('catatanKwitansis', CatatanKwitansiController::class);
+
+Route::resource('batchKwitansis', BatchKwitansiController::class);
+Route::resource('uraianKwitansis', UraianKwitansiController::class);
+
+Route::resource('pekerjaanKwitansis', PekerjaanKwitansiController::class);
+Route::resource('batchPekerjaanKwitansi', BatchPekerjaanKwitansiController::class);
