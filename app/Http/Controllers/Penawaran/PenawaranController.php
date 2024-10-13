@@ -14,14 +14,14 @@ class PenawaranController extends Controller
     {
         $projectPenawaranId = $request->input('project_penawaran_id');
         $penawarans = Penawaran::with('projectPenawaran', 'jenisPenawarans');
-    
+
         if ($projectPenawaranId) {
             $penawarans->where('project_penawaran_id', $projectPenawaranId);
         }
-    
+
         return view('penawarans.index', ['penawarans' => $penawarans->get()]);
     }
-    
+
 
 
     public function create(Request $request)
@@ -41,13 +41,10 @@ class PenawaranController extends Controller
         $request->validate([
             'project_penawaran_id' => 'required|exists:project_penawarans,id',
             'pekerjaan' => 'required|string',
-            'quantitas' => 'nullable|integer',
-            'unit' => 'nullable|string',
-            'harga_satuan' => 'nullable|integer',
             'jenis_penawaran_ids' => 'array|exists:jenis_penawarans,id', // Validation for many-to-many relationship
         ]);
 
-        $penawaran = Penawaran::create($request->only(['project_penawaran_id', 'pekerjaan', 'quantitas', 'unit', 'harga_satuan']));
+        $penawaran = Penawaran::create($request->only(['project_penawaran_id', 'pekerjaan']));
         $penawaran->jenisPenawarans()->attach($request->jenis_penawaran_ids);
 
         // Redirect to the index with project_penawaran_id
@@ -77,13 +74,10 @@ class PenawaranController extends Controller
         $request->validate([
             'project_penawaran_id' => 'required|exists:project_penawarans,id',
             'pekerjaan' => 'required|string',
-            'quantitas' => 'nullable|integer',
-            'unit' => 'nullable|string',
-            'harga_satuan' => 'nullable|integer',
             'jenis_penawaran_ids' => 'array|exists:jenis_penawarans,id', // Validation for many-to-many relationship
         ]);
 
-        $penawaran->update($request->only(['project_penawaran_id', 'pekerjaan', 'quantitas', 'unit', 'harga_satuan']));
+        $penawaran->update($request->only(['project_penawaran_id', 'pekerjaan']));
         $penawaran->jenisPenawarans()->sync($request->jenis_penawaran_ids);
 
         return redirect()->route('penawarans.index', ['project_penawaran_id' => $request->project_penawaran_id])

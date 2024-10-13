@@ -37,14 +37,19 @@ class UraianJenisPekerjaanPenawaranController extends Controller
         $request->validate([
             'jenis_penawaran_id' => 'required|exists:jenis_penawarans,id',
             'uraian' => 'required|string',
-            'jenis_pekerjaan' => 'required|string',
             'quantitas' => 'nullable|integer',
             'unit' => 'nullable|string',
             'harga_satuan' => 'nullable|integer',
         ]);
 
+        // Simpan data
         UraianJenisPekerjaanPenawaran::create($request->all());
-        return redirect()->route('uraianJenisPekerjaanPenawarans.index')->with('success', 'Uraian Jenis Pekerjaan Penawaran created successfully.');
+
+        // Redirect ke index dengan parameter jenis_penawaran_id yang sama
+        // return redirect()->route('uraianJenisPekerjaanPenawarans.index', ['jenis_penawaran_id' => $request->jenis_penawaran_id])
+        //     ->with('success', 'Uraian Jenis Pekerjaan Penawaran created successfully.');
+        // Redirect ke jenisPenawaran
+        return redirect()->route('jenisPenawarans.index')->with('success', 'Jenis Penawaran created successfully.');
     }
 
     public function show(UraianJenisPekerjaanPenawaran $uraianJenisPekerjaanPenawaran)
@@ -63,14 +68,17 @@ class UraianJenisPekerjaanPenawaranController extends Controller
         $request->validate([
             'jenis_penawaran_id' => 'required|exists:jenis_penawarans,id',
             'uraian' => 'required|string',
-            'jenis_pekerjaan' => 'required|string',
             'quantitas' => 'nullable|integer',
             'unit' => 'nullable|string',
             'harga_satuan' => 'nullable|integer',
         ]);
 
+        // Update data
         $uraianJenisPekerjaanPenawaran->update($request->all());
-        return redirect()->route('uraianJenisPekerjaanPenawarans.index')->with('success', 'Uraian Jenis Pekerjaan Penawaran updated successfully.');
+
+        // Redirect ke index dengan parameter jenis_penawaran_id yang sama
+        return redirect()->route('uraianJenisPekerjaanPenawarans.index', ['jenis_penawaran_id' => $request->jenis_penawaran_id])
+            ->with('success', 'Uraian Jenis Pekerjaan Penawaran updated successfully.');
     }
 
     public function destroy(UraianJenisPekerjaanPenawaran $uraianJenisPekerjaanPenawaran)
