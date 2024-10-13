@@ -199,88 +199,80 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>
-                                <ul style="list-style-type: none; padding: 0; text-align: left;">
-                                    <li><strong>Pekerjaan: {{ $penawaran->pekerjaan }}</strong></li>
-                                    <li>Dengan rincian sebagai berikut:</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ $jenisPenawaran->jenis_pekerjaan }}</li>
-                                        @if ($jenisPenawaran->uraianJenisPekerjaanPenawarans->isNotEmpty())
-                                            <ol style="list-style-type: decimal;">
-                                                @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                                    <li>{{ $uraian->uraian }}</li>
-                                                @endforeach
-                                            </ol>
-                                        @endif
-                                    @endforeach
-                                </ul>
+                                <strong>Pekerjaan: {{ $penawaran->pekerjaan }}</strong><br>
+                                Dengan rincian sebagai berikut:
+                                @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                    <div>{{ $jenisPenawaran->jenis_pekerjaan }}</div>
+                                    @if ($jenisPenawaran->uraianJenisPekerjaanPenawarans->isNotEmpty())
+                                        <ol>
+                                            @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                                <li>{{ $uraian->uraian }}</li>
+                                            @endforeach
+                                        </ol>
+                                    @endif
+                                @endforeach
                             </td>
                             <td>
-                                <ul style="list-style-type: none; padding: 0;">
-                                    <li>{{ $penawaran->quantitas }}</li>
-                                    <li>&nbsp;</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ $jenisPenawaran->quantitas }}</li>
-                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ $uraian->quantitas }}</li>
-                                        @endforeach
+                                <br>
+                                <br>
+                                @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                    {{ $jenisPenawaran->quantitas }}<br>
+                                    @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                        {{ $uraian->quantitas }}<br>
                                     @endforeach
-                                </ul>
+                                @endforeach
                             </td>
                             <td>
-                                <ul style="list-style-type: none; padding: 0;">
-                                    <li>{{ $penawaran->unit }}</li>
-                                    <li>&nbsp;</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ $jenisPenawaran->unit }}</li>
-                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ $uraian->unit }}</li>
-                                        @endforeach
+                                <br>
+                                <br>
+                                @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                    {{ $jenisPenawaran->unit }}<br>
+                                    @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                        {{ $uraian->unit }}<br>
                                     @endforeach
-                                </ul>
+                                @endforeach
                             </td>
                             <td>
-                                <ul style="list-style-type: none; padding: 0;">
-                                    <li>{{ number_format($penawaran->harga_satuan, 0, ',', '.') }}</li>
-                                    <li>&nbsp;</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ number_format($jenisPenawaran->harga_satuan, 0, ',', '.') }}</li>
-                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ number_format($uraian->harga_satuan, 0, ',', '.') }}</li>
-                                        @endforeach
+                                <br>
+                                <br>
+                                @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                    {{ number_format($jenisPenawaran->harga_satuan, 0, ',', '.') }}<br>
+                                    @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                        {{ number_format($uraian->harga_satuan, 0, ',', '.') }}<br>
                                     @endforeach
-                                </ul>
+                                @endforeach
                             </td>
                             <td>
-                                <ul style="list-style-type: none; padding: 0;">
-                                    <li>{{ number_format($penawaran->harga_satuan * $penawaran->quantitas, 0, ',', '.') }}</li>
-                                    <li>&nbsp;</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ number_format($jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan, 0, ',', '.') }}</li>
-                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ number_format($uraian->quantitas * $uraian->harga_satuan, 0, ',', '.') }}</li>
-                                        @endforeach
+                                <br>
+                                <br>
+                                @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
+                                    {{ number_format($jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan, 0, ',', '.') }}<br>
+                                    @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
+                                        {{ number_format($uraian->quantitas * $uraian->harga_satuan, 0, ',', '.') }}<br>
                                     @endforeach
-                                </ul>
+                                @endforeach
                             </td>
                         </tr>
                     @endforeach
+
                     @php
                         use App\Helpers\NumberToWords;
                         $totalAmount = $projectPenawaran->penawaran->sum(function ($penawaran) {
                             $totalPenawaran = $penawaran->harga_satuan * $penawaran->quantitas;
-                
+
                             foreach ($penawaran->jenisPenawarans as $jenisPenawaran) {
                                 $totalPenawaran += $jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan;
-                
+
                                 foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian) {
                                     $totalPenawaran += $uraian->quantitas * $uraian->harga_satuan;
                                 }
                             }
-                
+
                             return $totalPenawaran;
                         });
                         $terbilang = NumberToWords::convert($totalAmount);
                     @endphp
+
                     <tr>
                         <td colspan="5" class="text-right"><strong>Total</strong></td>
                         <td><strong>{{ number_format($totalAmount, 0, ',', '.') }}</strong></td>
@@ -289,9 +281,10 @@
                         <td colspan="6">Terbilang: {{ $terbilang }} Rupiah</td>
                     </tr>
                 </tbody>
+
             </table>
         </div>
-        
+
 
         <p class="text-muted" style="margin-left: 20px;">Note: Harga tersebut diatas sudah termasuk PPN 11%</p>
 
