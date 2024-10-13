@@ -12,7 +12,7 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">List Operational Time</h4>
+                        <h4 class="page-title pull-left">Surat Penawaran</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                             <li><span>List Projek Surat Penawaran</span></li>

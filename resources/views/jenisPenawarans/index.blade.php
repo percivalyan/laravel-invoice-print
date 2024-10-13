@@ -60,7 +60,7 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>ID</th>
+                                <th>ID.</th>
                                 <th>Jenis Penawaran</th>
                                 <th>Quantitas</th>
                                 <th>Unit</th>
@@ -100,12 +100,12 @@
                                     <td class="text-center">
                                         <!-- Uraian Penawaran Buttons -->
                                         <a href="{{ route('uraianJenisPekerjaanPenawarans.create', ['jenis_penawaran_id' => $jenisPenawaran->id]) }}"
-                                            class="btn btn-secondary btn-sm mb-2" data-toggle="tooltip" title="Buat Uraian Penawaran">
+                                            class="btn btn-primary btn-sm mb-2" data-toggle="tooltip" title="Buat Uraian Penawaran">
                                             <i class="fas fa-plus"></i> Buat Uraian
                                         </a>
 
                                         <a href="{{ route('uraianJenisPekerjaanPenawarans.index', ['jenis_penawaran_id' => $jenisPenawaran->id]) }}"
-                                            class="btn btn-secondary btn-sm mb-2" data-toggle="tooltip"
+                                            class="btn btn-info btn-sm mb-2" data-toggle="tooltip"
                                             title="Lihat Uraian Penawaran">
                                             <i class="fas fa-list"></i> Lihat Uraian
                                         </a>
