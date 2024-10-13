@@ -5,65 +5,60 @@
 @endsection
 
 @section('admin-content')
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Edit Penawaran</h1>
-    </div>
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Edit Penawaran</h1>
+        </div>
 
-    <!-- Form Card -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Edit Penawaran Form</h6>
-        </div>
-        <div class="card-body">
-            <form action="{{ route('penawarans.update', $penawaran) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="form-group">
-                    <label for="project_penawaran_id">Project Penawaran</label>
-                    <select name="project_penawaran_id" id="project_penawaran_id" class="form-control" required disabled>
-                        @foreach($projects as $project)
-                            <option value="{{ $project->id }}" {{ $penawaran->project_penawaran_id == $project->id ? 'selected' : '' }}>
-                                {{ $project->kepada }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <input type="hidden" name="project_penawaran_id" value="{{ $penawaran->project_penawaran_id }}">
-                </div>
-                <div class="form-group">
-                    <label for="pekerjaan">Pekerjaan</label>
-                    <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" value="{{ $penawaran->pekerjaan }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="quantitas">Quantitas</label>
-                    <input type="number" name="quantitas" id="quantitas" class="form-control" value="{{ $penawaran->quantitas }}">
-                </div>
-                <div class="form-group">
-                    <label for="unit">Unit</label>
-                    <input type="text" name="unit" id="unit" class="form-control" value="{{ $penawaran->unit }}">
-                </div>
-                <div class="form-group">
-                    <label for="harga_satuan">Harga Satuan</label>
-                    <input type="number" name="harga_satuan" id="harga_satuan" class="form-control" value="{{ $penawaran->harga_satuan }}">
-                </div>
-                <div class="form-group">
-                    <label for="jenis_penawaran_ids">Jenis Penawaran</label>
-                    <select name="jenis_penawaran_ids[]" id="jenis_penawaran_ids" class="form-control" multiple="multiple">
-                        @foreach($jenisPenawarans as $jenis)
-                            <option value="{{ $jenis->id }}" 
-                                {{ $penawaran->jenisPenawarans->contains($jenis) ? 'selected' : '' }}>
-                                {{ $jenis->jenis_pekerjaan }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ route('penawarans.index') }}" class="btn btn-secondary">Back to List Pekerjaan</a>
-            </form>
+        <!-- Form Card -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Edit Penawaran Form</h6>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('penawarans.update', $penawaran) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group">
+                        <label for="project_penawaran_id">Project Penawaran</label>
+                        <select name="project_penawaran_id" id="project_penawaran_id" class="form-control" required
+                            disabled>
+                            @foreach ($projects as $project)
+                                <option value="{{ $project->id }}"
+                                    {{ $penawaran->project_penawaran_id == $project->id ? 'selected' : '' }}>
+                                    {{ $project->kepada }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="project_penawaran_id" value="{{ $penawaran->project_penawaran_id }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="pekerjaan">Pekerjaan</label>
+                        <input type="text" name="pekerjaan" id="pekerjaan" class="form-control"
+                            value="{{ $penawaran->pekerjaan }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_penawaran_ids">Jenis Penawaran</label>
+                        <select name="jenis_penawaran_ids[]" id="jenis_penawaran_ids" class="form-control"
+                            multiple="multiple">
+                            @foreach ($jenisPenawarans as $jenis)
+                                @php
+                                    // Check if the current jenis is in the selected jenisPenawarans for the penawaran being edited
+                                    $isSelected = $penawaran->jenisPenawarans->contains($jenis->id);
+                                @endphp
+                                <option value="{{ $jenis->id }}" {{ $isSelected ? 'selected' : '' }}>
+                                    BID0{{ $jenis->id }} - {{ $jenis->jenis_pekerjaan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="{{ route('penawarans.index') }}" class="btn btn-secondary">Back to List Pekerjaan</a>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 <!-- Tambahkan jQuery dan Select2 -->
