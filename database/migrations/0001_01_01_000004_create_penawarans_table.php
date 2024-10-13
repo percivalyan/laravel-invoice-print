@@ -16,10 +16,7 @@ class CreatePenawaransTable extends Migration
         Schema::create('penawarans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_penawaran_id');
-            $table->string('pekerjaan');
-            $table->integer('quantitas')->nullable();
-            $table->string('unit')->nullable();
-            $table->integer('harga_satuan')->nullable();
+            $table->string('pekerjaan', 30);
             $table->timestamps();
 
             // Foreign key constraints

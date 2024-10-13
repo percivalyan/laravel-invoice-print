@@ -17,7 +17,6 @@ class CreateUraianJenisPekerjaanPenawaransTable extends Migration
             $table->id();
             $table->string('uraian');
             $table->unsignedBigInteger('jenis_penawaran_id'); // Corrected the column name
-            $table->string('jenis_pekerjaan');
             $table->integer('quantitas')->nullable();
             $table->string('unit')->nullable();
             $table->integer('harga_satuan')->nullable();

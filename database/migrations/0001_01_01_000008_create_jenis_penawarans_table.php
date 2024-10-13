@@ -15,7 +15,7 @@ class CreateJenisPenawaransTable extends Migration
     {
         Schema::create('jenis_penawarans', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_pekerjaan');
+            $table->string('jenis_pekerjaan')->nullable();
             $table->integer('quantitas')->nullable();
             $table->string('unit')->nullable();
             $table->integer('harga_satuan')->nullable();
