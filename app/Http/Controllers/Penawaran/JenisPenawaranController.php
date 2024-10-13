@@ -8,9 +8,23 @@ use Illuminate\Http\Request;
 
 class JenisPenawaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $jenisPenawarans = JenisPenawaran::all();
+        $query = JenisPenawaran::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+
+            $query->where(function ($q) use ($search) {
+                $q->where('jenis_pekerjaan', 'like', '%' . $search . '%')
+                    ->orWhere('quantitas', $search)
+                    ->orWhere('unit', 'like', '%' . $search . '%')
+                    ->orWhere('harga_satuan', $search);
+            });
+        }
+
+        $jenisPenawarans = $query->get();
+
         return view('jenisPenawarans.index', compact('jenisPenawarans'));
     }
 
