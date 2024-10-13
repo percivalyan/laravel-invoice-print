@@ -16,6 +16,12 @@ use App\Http\Controllers\Penawaran\JenisPenawaranController;
 use App\Http\Controllers\Penawaran\UraianJenisPekerjaanPenawaranController;
 use App\Http\Controllers\Penawaran\TujuanPenawaranController;
 
+use App\Http\Controllers\Pembelian\ProjectPembelianController;
+use App\Http\Controllers\Pembelian\PembelianController;
+use App\Http\Controllers\Pembelian\CatatanPembelianController;
+use App\Http\Controllers\Pembelian\FooterPembelianController;
+use App\Http\Controllers\Pembelian\BahanPembelianController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,3 +68,9 @@ Route::resource('tujuanPenawarans', TujuanPenawaranController::class);
 Route::resource('penawarans', PenawaranController::class);
 Route::resource('jenisPenawarans', JenisPenawaranController::class);
 Route::resource('uraianJenisPekerjaanPenawarans', UraianJenisPekerjaanPenawaranController::class);
+
+Route::resource('projectPembelians', ProjectPembelianController::class);
+Route::resource('pembelians', PembelianController::class);
+Route::resource('catatanPembelians', CatatanPembelianController::class);
+Route::resource('footerPembelians', FooterPembelianController::class);
+Route::resource('bahanPembelians', BahanPembelianController::class);
