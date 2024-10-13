@@ -37,6 +37,9 @@
             </div>
         @endif
 
+        <!-- Back Button -->
+        <a href="{{ route('projectPenawarans.index') }}" class="btn btn-primary mb-3">Back to Project Penawaran</a>
+
         <!-- DataTable Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
@@ -50,9 +53,7 @@
                                 <th>No.</th>
                                 <th>Project</th>
                                 <th>Pekerjaan</th>
-                                <th>Quantitas</th>
-                                <th>Unit</th>
-                                <th>Harga Satuan</th>
+                                <th>Jenis Penawaran</th> <!-- Added Column -->
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -62,17 +63,19 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $penawaran->projectPenawaran->kepada }}</td>
                                     <td>{{ $penawaran->pekerjaan }}</td>
-                                    <td>{{ $penawaran->quantitas }}</td>
-                                    <td>{{ $penawaran->unit }}</td>
-                                    <td>{{ $penawaran->harga_satuan }}</td>
+                                    <td>
+                                        @foreach($penawaran->jenisPenawarans as $jenis)
+                                            <span class="badge badge-primary">BID0{{ $jenis->id }} - {{ $jenis->jenis_pekerjaan }}</span><br>
+                                        @endforeach
+                                    </td> <!-- Displaying Jenis Penawaran -->
                                     <td class="text-center">
                                         <!-- View Button -->
-                                        <a href="{{ route('penawarans.show', $penawaran) }}" class="btn btn-info btn-sm" data-toggle="tooltip" title="View Penawaran">
+                                        <a href="{{ route('penawarans.show', $penawaran) }}" class="btn btn-info btn-sm mb-2" data-toggle="tooltip" title="View Penawaran">
                                             <i class="fas fa-eye"></i> Lihat Penawaran
                                         </a>
 
                                         <!-- Edit Button -->
-                                        <a href="{{ route('penawarans.edit', $penawaran) }}" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Edit Penawaran">
+                                        <a href="{{ route('penawarans.edit', $penawaran) }}" class="btn btn-warning btn-sm mb-2" data-toggle="tooltip" title="Edit Penawaran">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
 
@@ -80,7 +83,7 @@
                                         <form action="{{ route('penawarans.destroy', $penawaran) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')" data-toggle="tooltip" title="Delete Penawaran">
+                                            <button type="submit" class="btn btn-danger btn-sm mb-2" onclick="return confirm('Are you sure you want to delete this item?')" data-toggle="tooltip" title="Delete Penawaran">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -100,7 +103,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable(); // Initialize DataTable for sorting, pagination, etc.
+            $('#dataTable').DataTable(); // Initialize DataTable
             $('[data-toggle="tooltip"]').tooltip(); // Initialize tooltips
         });
     </script>
