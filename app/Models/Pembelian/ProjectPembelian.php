@@ -4,6 +4,7 @@ namespace App\Models\Pembelian;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Kwitansi\ProjectKwitansi;
 
 class ProjectPembelian extends Model
 {
