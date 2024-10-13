@@ -11,15 +11,22 @@ class UraianJenisPekerjaanPenawaranController extends Controller
 {
     public function index(Request $request)
     {
-        // Retrieve the jenis_penawaran_id from the query string
         $jenisPenawaranId = $request->query('jenis_penawaran_id');
+        $query = UraianJenisPekerjaanPenawaran::with('jenisPenawaran')
+            ->where('jenis_penawaran_id', $jenisPenawaranId);
 
-        // Fetch the UraianJenisPekerjaanPenawaran based on jenis_penawaran_id
-        $uraianJenisPekerjaanPenawarans = UraianJenisPekerjaanPenawaran::with('jenisPenawaran')
-            ->where('jenis_penawaran_id', $jenisPenawaranId)
-            ->get();
+        // Add search functionality
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('uraian', 'like', '%' . $search . '%')
+                    ->orWhere('quantitas', 'like', '%' . $search . '%')
+                    ->orWhere('unit', 'like', '%' . $search . '%')
+                    ->orWhere('harga_satuan', 'like', '%' . $search . '%');
+            });
+        }
 
-        // Retrieve the specific jenisPenawaran for the header
+        $uraianJenisPekerjaanPenawarans = $query->get();
         $jenisPenawaran = JenisPenawaran::find($jenisPenawaranId);
 
         return view('uraianJenisPekerjaanPenawarans.index', compact('uraianJenisPekerjaanPenawarans', 'jenisPenawaran'));
