@@ -34,10 +34,6 @@
                         <input type="text" name="uraian" id="uraian" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
-                        <input type="text" name="jenis_pekerjaan" id="jenis_pekerjaan" class="form-control" required>
-                    </div>
-                    <div class="form-group">
                         <label for="quantitas">Quantitas</label>
                         <input type="number" name="quantitas" id="quantitas" class="form-control">
                     </div>

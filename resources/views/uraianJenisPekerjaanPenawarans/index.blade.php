@@ -47,7 +47,6 @@
                                 <th>No</th>
                                 <th>Jenis Penawaran</th>
                                 <th>Uraian</th>
-                                <th>Jenis Pekerjaan</th>
                                 <th>Quantitas</th>
                                 <th>Unit</th>
                                 <th>Harga Satuan</th>
@@ -60,17 +59,10 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $uraian->jenisPenawaran->jenis_pekerjaan }}</td>
                                     <td>{{ $uraian->uraian }}</td>
-                                    <td>{{ $uraian->jenis_pekerjaan }}</td>
                                     <td>{{ $uraian->quantitas }}</td>
                                     <td>{{ $uraian->unit }}</td>
                                     <td>{{ $uraian->harga_satuan }}</td>
                                     <td class="text-center">
-                                        <!-- View Button -->
-                                        {{-- <a href="{{ route('uraianJenisPekerjaanPenawarans.show', $uraian->id) }}"
-                                            class="btn btn-info btn-sm mb-2" data-toggle="tooltip" title="Lihat Uraian">
-                                            <i class="fas fa-eye"></i>
-                                        </a> --}}
-
                                         <!-- Edit Button -->
                                         <a href="{{ route('uraianJenisPekerjaanPenawarans.edit', $uraian->id) }}"
                                             class="btn btn-warning btn-sm mb-2" data-toggle="tooltip" title="Edit Uraian">

@@ -10,7 +10,7 @@
         <div class="card-body">
             <p><strong>Jenis Penawaran:</strong> {{ $uraianJenisPekerjaanPenawaran->jenisPenawaran->nama }}</p>
             <p><strong>Uraian:</strong> {{ $uraianJenisPekerjaanPenawaran->uraian }}</p>
-            <p><strong>Jenis Pekerjaan:</strong> {{ $uraianJenisPekerjaanPenawaran->jenis_pekerjaan }}</p>
+            {{-- <p><strong>Jenis Pekerjaan:</strong> {{ $uraianJenisPekerjaanPenawaran->jenis_pekerjaan }}</p> --}}
             <p><strong>Quantitas:</strong> {{ $uraianJenisPekerjaanPenawaran->quantitas }}</p>
             <p><strong>Unit:</strong> {{ $uraianJenisPekerjaanPenawaran->unit }}</p>
             <p><strong>Harga Satuan:</strong> {{ $uraianJenisPekerjaanPenawaran->harga_satuan }}</p>
