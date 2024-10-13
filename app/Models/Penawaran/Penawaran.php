@@ -12,9 +12,6 @@ class Penawaran extends Model
     protected $fillable = [
         'project_penawaran_id',
         'pekerjaan',
-        'quantitas',
-        'unit',
-        'harga_satuan',
     ];
 
     public function projectPenawaran()

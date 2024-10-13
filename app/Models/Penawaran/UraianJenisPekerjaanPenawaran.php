@@ -12,7 +12,6 @@ class UraianJenisPekerjaanPenawaran extends Model
     protected $fillable = [
         'jenis_penawaran_id',
         'uraian',
-        'jenis_pekerjaan',
         'quantitas',
         'unit',
         'harga_satuan',
