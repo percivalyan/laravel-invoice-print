@@ -1,6 +1,10 @@
-@extends('layouts.app')
+@extends('backend.layouts.master')
 
-@section('content')
+@section('title')
+    Surat Penawaran Pages
+@endsection
+
+@section('admin-content')
 <div class="container">
     <h1>Detail Uraian Jenis Pekerjaan Penawaran</h1>
     <div class="card">

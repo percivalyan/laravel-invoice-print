@@ -41,8 +41,8 @@
         <form method="GET" action="{{ route('uraianJenisPekerjaanPenawarans.index') }}" class="py-3">
             <input type="hidden" name="jenis_penawaran_id" value="{{ request()->query('jenis_penawaran_id') }}">
             <div class="form-group d-flex align-items-center">
-                <input type="text" name="search" class="form-control mr-2" placeholder="Cari Uraian, Quantitas, Unit, atau Harga"
-                    value="{{ request()->query('search') }}">
+                <input type="text" name="search" class="form-control mr-2"
+                    placeholder="Cari Uraian, Quantitas, Unit, atau Harga" value="{{ request()->query('search') }}">
                 <button type="submit" class="btn btn-sm btn-primary shadow-sm">Search</button>
             </div>
         </form>
@@ -58,15 +58,15 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    Daftar Uraian Jenis Penawaran 
-                    @if($uraianJenisPekerjaanPenawarans->first() && $uraianJenisPekerjaanPenawarans->first()->jenisPenawaran)
+                    Daftar Uraian Jenis Penawaran
+                    @if ($uraianJenisPekerjaanPenawarans->first() && $uraianJenisPekerjaanPenawarans->first()->jenisPenawaran)
                         {{ $uraianJenisPekerjaanPenawarans->first()->jenisPenawaran->jenis_pekerjaan }}
                     @else
                         Jenis Penawaran Tidak Tersedia
                     @endif
                 </h6>
-                <a href="{{ route('uraianJenisPekerjaanPenawarans.create', ['jenis_penawaran_id' => request()->query('jenis_penawaran_id')]) }}" class="btn btn-sm btn-primary shadow-sm"
-                    data-toggle="tooltip" title="Tambah Uraian Baru">
+                <a href="{{ route('uraianJenisPekerjaanPenawarans.create', ['jenis_penawaran_id' => request()->query('jenis_penawaran_id')]) }}"
+                    class="btn btn-sm btn-primary shadow-sm" data-toggle="tooltip" title="Tambah Uraian Baru">
                     <i class="fas fa-plus fa-sm text-white-50"></i> Uraian Baru
                 </a>
             </div>
@@ -85,11 +85,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($uraianJenisPekerjaanPenawarans as $uraian)
+                            @foreach ($uraianJenisPekerjaanPenawarans as $uraian)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
-                                        @if($uraian->jenisPenawaran)
+                                        @if ($uraian->jenisPenawaran)
                                             {{ $uraian->jenisPenawaran->jenis_pekerjaan }}
                                         @else
                                             <span class="text-danger">Jenis Penawaran Tidak Ditemukan</span>
@@ -106,17 +106,24 @@
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
 
-                                        <!-- Delete Button -->
                                         <form action="{{ route('uraianJenisPekerjaanPenawarans.destroy', $uraian->id) }}"
                                             method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
+
+                                            <!-- Hidden input for jenis_penawaran_id -->
+                                            @if (request()->has('jenis_penawaran_id'))
+                                                <input type="hidden" name="jenis_penawaran_id"
+                                                    value="{{ request('jenis_penawaran_id') }}">
+                                            @endif
+
                                             <button type="submit" class="btn btn-danger btn-sm mb-2"
-                                                onclick="return confirm('Apakah Anda yakin?')" data-toggle="tooltip"
+                                                onclick="return confirm('Are you sure you want to delete this item?')" data-toggle="tooltip"
                                                 title="Hapus Uraian">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+
                                     </td>
                                 </tr>
                             @endforeach
