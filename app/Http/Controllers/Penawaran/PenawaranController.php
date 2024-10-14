@@ -22,8 +22,6 @@ class PenawaranController extends Controller
         return view('penawarans.index', ['penawarans' => $penawarans->get()]);
     }
 
-
-
     public function create(Request $request)
     {
         $projects = ProjectPenawaran::all();
@@ -84,10 +82,24 @@ class PenawaranController extends Controller
             ->with('success', 'Penawaran created successfully.');
     }
 
-    public function destroy(Penawaran $penawaran)
+    public function destroy(Penawaran $penawaran, Request $request)
     {
+        // Detach associated jenisPenawarans and delete the Penawaran record
         $penawaran->jenisPenawarans()->detach();
         $penawaran->delete();
-        return redirect()->route('penawarans.index')->with('success', 'Penawaran deleted successfully.');
+
+        // Prepare to redirect with the project_penawaran_id if it exists
+        $redirectRoute = route('penawarans.index');
+
+        // Check if project_penawaran_id is present in the request
+        if ($request->has('project_penawaran_id')) {
+            $redirectRoute = route('penawarans.index', [
+                'project_penawaran_id' => $request->input('project_penawaran_id') // Corrected here
+            ]);
+        }
+
+        // Redirect to the index page with a success message
+        return redirect($redirectRoute)
+            ->with('success', 'Penawaran deleted successfully.');
     }
 }
