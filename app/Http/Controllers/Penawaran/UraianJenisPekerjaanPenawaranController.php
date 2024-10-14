@@ -88,9 +88,22 @@ class UraianJenisPekerjaanPenawaranController extends Controller
             ->with('success', 'Uraian Jenis Pekerjaan Penawaran updated successfully.');
     }
 
-    public function destroy(UraianJenisPekerjaanPenawaran $uraianJenisPekerjaanPenawaran)
+    public function destroy(UraianJenisPekerjaanPenawaran $uraianJenisPekerjaanPenawaran, Request $request)
     {
+        // Delete the record
         $uraianJenisPekerjaanPenawaran->delete();
-        return redirect()->route('uraianJenisPekerjaanPenawarans.index')->with('success', 'Uraian Jenis Pekerjaan Penawaran deleted successfully.');
+
+        // Prepare redirect route
+        $redirectRoute = route('uraianJenisPekerjaanPenawarans.index');
+
+        // Check if jenis_penawaran_id is present in the request
+        if ($request->has('jenis_penawaran_id')) {
+            $redirectRoute = route('uraianJenisPekerjaanPenawarans.index', [
+                'jenis_penawaran_id' => $request->input('jenis_penawaran_id')
+            ]);
+        }
+
+        // Redirect with success message
+        return redirect($redirectRoute)->with('success', 'Uraian Jenis Pekerjaan Penawaran deleted successfully.');
     }
 }
