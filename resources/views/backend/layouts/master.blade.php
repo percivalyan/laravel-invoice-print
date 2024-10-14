@@ -227,6 +227,22 @@
                         </div>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownSuratPO"
+                            data-bs-toggle="collapse" data-bs-target="#submenuSuratPO" aria-expanded="false"
+                            aria-controls="submenuSuratPO">
+                            <i class="fa fa-envelope me-2"></i> Surat Masuk <br>| Purchase Order
+                        </a>
+                        <div class="collapse" id="submenuSuratPO">
+                            <ul class="list-unstyled ps-3">
+                                <li><a class="dropdown-item text-light" href="{{ route('projectPembelians.index') }}">
+                                        <i class="fa fa-file-alt me-2"></i> Purchase Orders</a></li>
+                                {{-- <li><a class="dropdown-item text-light" href="{{ route('jenisPenawarans.index') }}">
+                                        <i class="fa fa-tags me-2"></i> Jenis Penawaran</a></li> --}}
+                            </ul>
+                        </div>
+                    </li>
+
                     {{-- <li class="nav-item">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownSuratMasuk"
                             data-bs-toggle="collapse" data-bs-target="#submenuSuratMasuk" aria-expanded="false"
