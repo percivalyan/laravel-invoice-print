@@ -9,9 +9,16 @@ use Illuminate\Http\Request;
 class ProjectPembelianController extends Controller
 {
     // Display a listing of the resource
-    public function index()
+    public function index(Request $request)
     {
-        $projectPembelians = ProjectPembelian::all();
+        $search = $request->input('search');
+
+        $projectPembelians = ProjectPembelian::when($search, function ($query, $search) {
+            return $query->where('project', 'like', '%' . $search . '%')
+                ->orWhere('nomor_po', 'like', '%' . $search . '%')
+                ->orWhere('metode_pembayaran', 'like', '%' . $search . '%');
+        })->get();
+
         return view('projectPembelians.index', compact('projectPembelians'));
     }
 
