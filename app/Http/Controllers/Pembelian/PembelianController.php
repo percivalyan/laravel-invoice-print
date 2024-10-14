@@ -106,11 +106,23 @@ class PembelianController extends Controller
      * @param  \App\Models\Pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pembelian $pembelian)
+    public function destroy(Pembelian $pembelian, Request $request)
     {
+        // Hapus record Pembelian
         $pembelian->delete();
 
-        return redirect()->route('pembelians.index')
+        // Siapkan untuk redirect dengan bahan_pembelian_id jika ada
+        $redirectRoute = route('pembelians.index');
+
+        // Cek apakah bahan_pembelian_id ada dalam permintaan
+        if ($request->has('bahan_pembelian_id')) {
+            $redirectRoute = route('pembelians.index', [
+                'bahan_pembelian_id' => $request->input('bahan_pembelian_id')
+            ]);
+        }
+
+        // Redirect ke halaman index dengan pesan sukses
+        return redirect($redirectRoute)
             ->with('success', 'Pembelian deleted successfully.');
     }
 }
