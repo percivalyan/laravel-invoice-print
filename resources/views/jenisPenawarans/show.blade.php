@@ -1,6 +1,10 @@
-@extends('layouts.app')
+@extends('backend.layouts.master')
 
-@section('content')
+@section('title')
+    Surat Penawaran Pages
+@endsection
+
+@section('admin-content')
 <div class="container">
     <h1>Jenis Penawaran Details</h1>
     
