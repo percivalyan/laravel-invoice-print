@@ -14,7 +14,7 @@
                     <style>
                         .login-form-head {
                             position: relative;
-                            background-image: url('{{ asset('images/logo_rsg.jpg') }}');
+                            background-image: url('{{ asset('images/bussiness.png') }}');
                             background-size: cover;
                             background-position: center;
                             color: white;
@@ -31,7 +31,7 @@
                             left: 0;
                             width: 100%;
                             height: 100%;
-                            background: rgba(0, 0, 0, 0.6); /* Black overlay with transparency */
+                            background: rgba(0, 0, 0, 0.4); /* Black overlay with transparency */
                             z-index: 1; /* Overlay above image but below text */
                         }
                     
@@ -44,7 +44,7 @@
                     <div class="login-form-head">
                         <div>
                             <h4>Sign In</h4>
-                            <p>Information System of Reliability and Safety</p>
+                            <p>Optimize Business Performance</p>
                         </div>
                     </div>
                     
