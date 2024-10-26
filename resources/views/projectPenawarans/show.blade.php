@@ -107,10 +107,10 @@
             <p>Dengan hormat,<br>
                 @if (isset($projectPenawaran->tujuanPenawaran) &&
                         $projectPenawaran->tujuanPenawaran->count() > 0 &&
-                        isset($projectPenawaran->tujuanPenawaran->first()->pengajuan) &&
-                        !empty($projectPenawaran->tujuanPenawaran->first()->pengajuan))
+                        isset($projectPenawaran->tujuanPenawaran->pengajuan) &&
+                        !empty($projectPenawaran->tujuanPenawaran->pengajuan))
                     Bersama ini kami mengajukan Penawaran Pekerjaan
-                    {{ $projectPenawaran->tujuanPenawaran->first()->pengajuan }}, dengan spesifikasi sebagai berikut:
+                    {{ $projectPenawaran->tujuanPenawaran->pengajuan }}, dengan spesifikasi sebagai berikut:
                 @else
                     Bersama ini kami mengajukan Penawaran Pekerjaan, dengan spesifikasi sebagai berikut:
                 @endif
@@ -293,9 +293,9 @@
                 Demikian surat penawaran ini kami sampaikan, sebagai bahan pertimbangan pengadaan
                 @if (isset($projectPenawaran->tujuanPenawaran) &&
                         $projectPenawaran->tujuanPenawaran->count() > 0 &&
-                        isset($projectPenawaran->tujuanPenawaran->first()->tujuan) &&
-                        !empty($projectPenawaran->tujuanPenawaran->first()->tujuan))
-                    kebutuhan {{ $projectPenawaran->tujuanPenawaran->first()->tujuan }}.
+                        isset($projectPenawaran->tujuanPenawaran->tujuan) &&
+                        !empty($projectPenawaran->tujuanPenawaran->tujuan))
+                    kebutuhan {{ $projectPenawaran->tujuanPenawaran->tujuan }}.
                 @else
                     kebutuhan.
                 @endif
@@ -308,18 +308,18 @@
                 <strong>
                     @if (isset($projectPenawaran->footerPenawaran) &&
                             $projectPenawaran->footerPenawaran->count() > 0 &&
-                            isset($projectPenawaran->footerPenawaran->first()->nama) &&
-                            !empty($projectPenawaran->footerPenawaran->first()->nama))
-                        {{ $projectPenawaran->footerPenawaran->first()->nama }}.
+                            isset($projectPenawaran->footerPenawaran->nama) &&
+                            !empty($projectPenawaran->footerPenawaran->nama))
+                        {{ $projectPenawaran->footerPenawaran->nama }}.
                     @else
                     @endif
                 </strong>
                 <br>
                 @if (isset($projectPenawaran->footerPenawaran) &&
                         $projectPenawaran->footerPenawaran->count() > 0 &&
-                        isset($projectPenawaran->footerPenawaran->first()->jabatan) &&
-                        !empty($projectPenawaran->footerPenawaran->first()->jabatan))
-                    {{ $projectPenawaran->footerPenawaran->first()->jabatan }}.
+                        isset($projectPenawaran->footerPenawaran->jabatan) &&
+                        !empty($projectPenawaran->footerPenawaran->jabatan))
+                    {{ $projectPenawaran->footerPenawaran->jabatan }}.
                 @else
                 @endif
             </p>

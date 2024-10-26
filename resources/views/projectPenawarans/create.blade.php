@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Surat Penawaran Pages
+    Surat Penawaran
 @endsection
 
 @section('admin-content')
