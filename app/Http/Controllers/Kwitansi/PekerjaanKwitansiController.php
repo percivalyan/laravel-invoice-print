@@ -4,16 +4,12 @@ namespace App\Http\Controllers\Kwitansi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kwitansi\PekerjaanKwitansi;
+use App\Models\Kwitansi\BatchKwitansi; // Import the BatchKwitansi model
 use Illuminate\Http\Request;
 
 class PekerjaanKwitansiController extends Controller
 {
-    /**
-     * Display a listing of the resource for a specific project.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Display a listing of the resource
     public function index(Request $request)
     {
         $projectKwitansiId = $request->query("project_kwitansi_id");
@@ -24,92 +20,75 @@ class PekerjaanKwitansiController extends Controller
         }
 
         $pekerjaanKwitansis = $query->get();
+        $allBatches = BatchKwitansi::all(); // Load all batches
 
-        return view('pekerjaanKwitansis.index', compact('pekerjaanKwitansis', 'projectKwitansiId'));
+        return view('pekerjaanKwitansis.index', compact('pekerjaanKwitansis', 'projectKwitansiId', 'allBatches'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Show the form for creating a new resource
     public function create(Request $request)
     {
         $projectKwitansiId = $request->query("project_kwitansi_id");
         return view('pekerjaanKwitansis.create', compact('projectKwitansiId'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Store a newly created resource in storage
     public function store(Request $request)
     {
         $validated = $request->validate([
             'project_kwitansi_id' => 'required|exists:project_kwitansis,id',
             'pekerjaan' => 'nullable|string|max:255',
+            'batch_kwitansi_ids' => 'required|array',
+            'batch_kwitansi_ids.*' => 'exists:batch_kwitansis,id',
         ]);
 
-        PekerjaanKwitansi::create($request->all());
+        $pekerjaanKwitansi = PekerjaanKwitansi::create($validated);
+
+        // Attach multiple batch_kwitansi_ids to the pekerjaanKwitansi
+        $pekerjaanKwitansi->batchKwitansis()->attach($request->batch_kwitansi_ids);
+
         return redirect()->route('pekerjaanKwitansis.index', ['project_kwitansi_id' => $request->project_kwitansi_id])
             ->with('success', 'Pekerjaan Kwitansi created successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Show the form for editing the specified resource
     public function edit($id)
     {
-        $pekerjaanKwitansi = PekerjaanKwitansi::findOrFail($id);
+        $pekerjaanKwitansi = PekerjaanKwitansi::with('batchKwitansis')->findOrFail($id);
         $projectKwitansiId = $pekerjaanKwitansi->project_kwitansi_id;
+        $allBatches = BatchKwitansi::all(); // Load all batches
 
-        return view('pekerjaanKwitansis.edit', compact('pekerjaanKwitansi', 'projectKwitansiId'));
+        return view('pekerjaanKwitansis.edit', compact('pekerjaanKwitansi', 'projectKwitansiId', 'allBatches'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Update the specified resource in storage
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'project_kwitansi_id' => 'required|exists:project_kwitansis,id',
             'pekerjaan' => 'nullable|string|max:255',
+            'batch_kwitansi_ids' => 'required|array',
+            'batch_kwitansi_ids.*' => 'exists:batch_kwitansis,id',
         ]);
 
         $pekerjaanKwitansi = PekerjaanKwitansi::findOrFail($id);
-        $pekerjaanKwitansi->update($request->all());
+        $pekerjaanKwitansi->update($validated);
+
+        // Sync the batch_kwitansi_ids with the pekerjaanKwitansi
+        $pekerjaanKwitansi->batchKwitansis()->sync($request->batch_kwitansi_ids);
+
         return redirect()->route('pekerjaanKwitansis.index', ['project_kwitansi_id' => $request->project_kwitansi_id])
             ->with('success', 'Pekerjaan Kwitansi updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // Remove the specified resource from storage
     public function destroy($id)
     {
-        // Find the Pekerjaan Kwitansi by its ID and delete it
         $pekerjaanKwitansi = PekerjaanKwitansi::findOrFail($id);
-
-        // Retrieve the project_kwitansi_id before deletion
         $projectKwitansiId = $pekerjaanKwitansi->project_kwitansi_id;
 
-        // Delete the Pekerjaan Kwitansi
         $pekerjaanKwitansi->delete();
 
-        // Redirect back to the Pekerjaan Kwitansi list with the appropriate project_kwitansi_id
         return redirect()->route('pekerjaanKwitansis.index', ['project_kwitansi_id' => $projectKwitansiId])
             ->with('success', 'Pekerjaan Kwitansi deleted successfully.');
     }

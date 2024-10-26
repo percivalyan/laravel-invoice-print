@@ -178,18 +178,36 @@
                                         @endforeach
                                     </td>
                                     <td>
+                                        @php
+                                            $jumlah_uraians = 1; // Initialize the counter, but it's not used for display
+                                        @endphp
                                         @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
-                                            <ol>{{ $uraian->jumlah_uraian }}</ol>
+                                            {{ $uraian->jumlah_uraian }} <br>
+                                            @php
+                                                $jumlah_uraians++; // Increment for any internal logic if needed
+                                            @endphp
                                         @endforeach
                                     </td>
                                     <td>
+                                        @php
+                                            $satuan_uraians = 1; // Initialize the counter, but it's not used for display
+                                        @endphp
                                         @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
-                                            <ol>{{ $uraian->satuan_uraian }}</ol>
+                                            {{ $uraian->satuan_uraian }} <br>
+                                            @php
+                                                $satuan_uraians++; // Initialize the counter, but it's not used for display
+                                            @endphp
                                         @endforeach
                                     </td>
                                     <td>
+                                        @php
+                                            $keterangan_uraians = 1; // Initialize the counter, but it's not used for display
+                                        @endphp
                                         @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
-                                            <ol>{{ $uraian->keterangan_uraian }}</ol>
+                                            {{ $uraian->keterangan_uraian }} <br>
+                                            @php
+                                                $keterangan_uraians++; // Initialize the counter, but it's not used for display
+                                            @endphp
                                         @endforeach
                                     </td>
                                 </tr>
@@ -197,13 +215,17 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <strong>Dimensi Produk</strong><br>
-                                        <span style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang</span>
+                                        <span
+                                            style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang</span>
                                         <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_panjang }}</span><br>
-                                        <span style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar</span>
+                                        <span
+                                            style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar</span>
                                         <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_lebar }}</span><br>
-                                        <span style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi</span>
+                                        <span
+                                            style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi</span>
                                         <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_tinggi }}</span><br>
-                                        <span style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat</span>
+                                        <span
+                                            style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat</span>
                                         <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_berat }}</span>
                                     </td>
                                     <td>&nbsp;</td>
@@ -216,229 +238,243 @@
                 </table>
             </div>
         </section>
-        
-       <!-- Existing Footer Section -->
-<section id="po-footer" class="po-footer" style="margin-top: 10px;">
-    <div style="margin-left: 20px;">
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <!-- Kolom 1 -->
-                <td style="width: 33%; vertical-align: top;">
-                    <table style="width: 70%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 10px; text-align: left; border: none;">
-                                Diterima Tgl :
-                                {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_penerima ?? '' }} <br>
-                                Diterima Jam :
-                                {{ $projectKwitansi->catatanKwitansi->waktu_diterima_penerima ?? '' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 60px 20px; text-align: center; border: none;">
-                                <!-- Tempat untuk tanda tangan -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                <strong>{{ $projectKwitansi->catatanKwitansi->nama_penerima ?? '' }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                Penerima
-                            </td>
-                        </tr>
-                    </table>
-                </td>
 
-                <!-- Kolom 2 -->
-                <td style="width: 33%; vertical-align: top;">
-                    <table style="width: 70%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 10px; text-align: left; border: none;">
-                                Diterima Tgl :
-                                {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_driver ?? '' }} <br>
-                                Diterima Jam :
-                                {{ $projectKwitansi->catatanKwitansi->waktu_diterima_driver ?? '' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 60px 20px; text-align: center; border: none;">
-                                <!-- Tempat untuk tanda tangan -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                <strong>{{ $projectKwitansi->catatanKwitansi->nama_driver ?? '' }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                Driver
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+        <!-- Existing Footer Section -->
+        <section id="po-footer" class="po-footer" style="margin-top: 10px;">
+            <div style="margin-left: 20px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <!-- Kolom 1 -->
+                        <td style="width: 33%; vertical-align: top;">
+                            <table style="width: 70%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_penerima ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_penerima ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 60px 20px; text-align: center; border: none;">
+                                        <!-- Tempat untuk tanda tangan -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_penerima ?? '' }}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Penerima
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
 
-                <!-- Kolom 3 -->
-                <td style="width: 33%; vertical-align: top;">
-                    <table style="width: 70%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 10px; text-align: left; border: none;">
-                                Diterima Tgl :
-                                {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_adm_kantor ?? '' }} <br>
-                                Diterima Jam :
-                                {{ $projectKwitansi->catatanKwitansi->waktu_diterima_adm_kantor ?? '' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 60px 20px; text-align: center; border: none;">
-                                <!-- Tempat untuk tanda tangan -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                <strong>{{ $projectKwitansi->catatanKwitansi->nama_adm_kantor ?? '' }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                Adm Kantor
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
+                        <!-- Kolom 2 -->
+                        <td style="width: 33%; vertical-align: top;">
+                            <table style="width: 70%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_driver ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_driver ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 60px 20px; text-align: center; border: none;">
+                                        <!-- Tempat untuk tanda tangan -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_driver ?? '' }}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Driver
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
 
-    <!-- Tanda Tangan -->   
-    <div style="margin-left: 20px;">
-        <div style="margin-bottom: 10px; font-weight: bold;">Segera Lapor Apabila <br> Ada Ketidak Sesuaian</div>
-        {{-- <div style="margin-bottom: 10px; font-weight: bold;">Ada Ketidak Sesuaian</div> --}}
+                        <!-- Kolom 3 -->
+                        <td style="width: 33%; vertical-align: top;">
+                            <table style="width: 70%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_adm_kantor ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_adm_kantor ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 60px 20px; text-align: center; border: none;">
+                                        <!-- Tempat untuk tanda tangan -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_adm_kantor ?? '' }}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Adm Kantor
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-        <div>
-            <span style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar 1</span>
-            <span>: Pengirim</span><br>
-            <span style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar 2</span>
-            <span>: Penerima</span><br>
-            <span style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar 3</span>
-            <span>: Arsip</span>
-        </div>
-    </div>
-</section>
+            <!-- Tanda Tangan -->
+            <div style="margin-left: 20px;">
+                <div style="margin-bottom: 10px; font-weight: bold;">Segera Lapor Apabila <br> Ada Ketidak Sesuaian
+                </div>
+                {{-- <div style="margin-bottom: 10px; font-weight: bold;">Ada Ketidak Sesuaian</div> --}}
 
-<!-- New Footer Section (if cut off) -->
-<section id="po-footer-new" class="po-footer-new" style="margin-top: 10px; page-break-before: always">
-    <div style="margin-left: 20px;">
-        <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <!-- Repeat the same structure -->
-                <td style="width: 33%; vertical-align: top;">
-                    <table style="width: 70%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 10px; text-align: left; border: none;">
-                                Diterima Tgl :
-                                {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_penerima ?? '' }} <br>
-                                Diterima Jam :
-                                {{ $projectKwitansi->catatanKwitansi->waktu_diterima_penerima ?? '' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 50px 20px; text-align: center; border: none;">
-                                <!-- Tempat untuk tanda tangan -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                <strong>{{ $projectKwitansi->catatanKwitansi->nama_penerima ?? '' }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                Penerima
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+                <div>
+                    <span
+                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
+                        1</span>
+                    <span>: Pengirim</span><br>
+                    <span
+                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
+                        2</span>
+                    <span>: Penerima</span><br>
+                    <span
+                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
+                        3</span>
+                    <span>: Arsip</span>
+                </div>
+            </div>
+        </section>
 
-                <td style="width: 33%; vertical-align: top;">
-                    <table style="width: 70%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 10px; text-align: left; border: none;">
-                                Diterima Tgl :
-                                {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_driver ?? '' }} <br>
-                                Diterima Jam :
-                                {{ $projectKwitansi->catatanKwitansi->waktu_diterima_driver ?? '' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 50px 20px; text-align: center; border: none;">
-                                <!-- Tempat untuk tanda tangan -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                <strong>{{ $projectKwitansi->catatanKwitansi->nama_driver ?? '' }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                Driver
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+        <!-- New Footer Section (if cut off) -->
+        <section id="po-footer-new" class="po-footer-new" style="margin-top: 10px; page-break-before: always">
+            <div style="margin-left: 20px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <!-- Repeat the same structure -->
+                        <td style="width: 33%; vertical-align: top;">
+                            <table style="width: 70%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_penerima ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_penerima ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 50px 20px; text-align: center; border: none;">
+                                        <!-- Tempat untuk tanda tangan -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_penerima ?? '' }}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Penerima
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
 
-                <td style="width: 33%; vertical-align: top;">
-                    <table style="width: 70%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 10px; text-align: left; border: none;">
-                                Diterima Tgl :
-                                {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_adm_kantor ?? '' }} <br>
-                                Diterima Jam :
-                                {{ $projectKwitansi->catatanKwitansi->waktu_diterima_adm_kantor ?? '' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 50px 20px; text-align: center; border: none;">
-                                <!-- Tempat untuk tanda tangan -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                <strong>{{ $projectKwitansi->catatanKwitansi->nama_adm_kantor ?? '' }}</strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 10px; text-align: center; border: none;">
-                                Adm Kantor
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
+                        <td style="width: 33%; vertical-align: top;">
+                            <table style="width: 70%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_driver ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_driver ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 50px 20px; text-align: center; border: none;">
+                                        <!-- Tempat untuk tanda tangan -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_driver ?? '' }}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Driver
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
 
-    <!-- Tanda Tangan for New Section -->
-    <div style="margin-left: 20px;">
-        <div style="margin-bottom: 10px; font-weight: bold;">Segera Lapor Apabila <br> Ada Ketidak Sesuaian</div>
-        {{-- <div style="margin-bottom: 10px; font-weight: bold;">Ada Ketidak Sesuaian</div> --}}
+                        <td style="width: 33%; vertical-align: top;">
+                            <table style="width: 70%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 10px; text-align: left; border: none;">
+                                        Diterima Tgl :
+                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_adm_kantor ?? '' }} <br>
+                                        Diterima Jam :
+                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_adm_kantor ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 50px 20px; text-align: center; border: none;">
+                                        <!-- Tempat untuk tanda tangan -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_adm_kantor ?? '' }}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; text-align: center; border: none;">
+                                        Adm Kantor
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-        <div>
-            <span style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar 1</span>
-            <span>: Pengirim</span><br>
-            <span style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar 2</span>
-            <span>: Penerima</span><br>
-            <span style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar 3</span>
-            <span>: Arsip</span>
-        </div>
-    </div>
-</section>
+            <!-- Tanda Tangan for New Section -->
+            <div style="margin-left: 20px;">
+                <div style="margin-bottom: 10px; font-weight: bold;">Segera Lapor Apabila <br> Ada Ketidak Sesuaian
+                </div>
+                {{-- <div style="margin-bottom: 10px; font-weight: bold;">Ada Ketidak Sesuaian</div> --}}
 
-         <!-- Print Button -->
-         <div class="text-center">
+                <div>
+                    <span
+                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
+                        1</span>
+                    <span>: Pengirim</span><br>
+                    <span
+                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
+                        2</span>
+                    <span>: Penerima</span><br>
+                    <span
+                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
+                        3</span>
+                    <span>: Arsip</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Print Button -->
+        <div class="text-center">
             <button class="btn btn-primary print-button" onclick="window.print()">Print Invoice</button>
         </div>
     </div>
@@ -448,10 +484,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const footer = document.getElementById("po-footer");
             const newFooter = document.getElementById("po-footer-new");
-    
+
             // Function to check if the footer is visible in the viewport
             function isElementInViewport(el) {
                 const rect = el.getBoundingClientRect();
@@ -462,18 +498,18 @@
                     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
                 );
             }
-    
+
             // Check if the original footer is visible and toggle the new footer
             if (!isElementInViewport(footer)) {
-                footer.style.display = "none";  // Hide the original footer if cut off
-                newFooter.style.display = "block";  // Show the new footer
+                footer.style.display = "none"; // Hide the original footer if cut off
+                newFooter.style.display = "block"; // Show the new footer
             } else {
-                footer.style.display = "block";  // Show the original footer
-                newFooter.style.display = "none";  // Hide the new footer
+                footer.style.display = "block"; // Show the original footer
+                newFooter.style.display = "none"; // Hide the new footer
             }
         });
     </script>
-    
+
 </body>
 
 </html>

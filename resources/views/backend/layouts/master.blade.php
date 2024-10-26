@@ -253,9 +253,6 @@
                                         <i class="fa fa-file-contract me-2"></i> SP/INV/BAST</a></li>
                                 <li><a class="dropdown-item text-light" href="{{ route('batchKwitansis.index') }}">
                                         <i class="fa fa-boxes me-2"></i> Batch Barang</a></li>
-                                <li><a class="dropdown-item text-light"
-                                        href="{{ route('batchPekerjaanKwitansi.index') }}">
-                                        <i class="fa fa-tasks me-2"></i> Batch - Pekerjaan</a></li>
                             </ul>
                         </div>
                     </li>
