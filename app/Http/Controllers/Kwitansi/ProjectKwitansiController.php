@@ -49,14 +49,17 @@ class ProjectKwitansiController extends Controller
         // Get filter and sorting parameters
         $filter = $request->input('filter');
         $keyword = $request->input('keyword');
-        $sort = $request->input('sort');
-
+        $sort = $request->input('sort', 'kepada_yth'); // Default sort by 'kepada_yth'
+        
+        // Define valid filters
+        $validFilters = ['kepada_yth', 'proyek', 'project_pembelian.nomor_po', 'nomor_surat_jalan', 'nomor_invoice', 'nomor_bast', 'lokasi'];
+    
         // Build query
         $query = ProjectKwitansi::query()->with('projectPembelian');
-
+    
         if ($keyword) {
             if ($filter == 'all') {
-                // Universal search across all columns
+                // Universal search across all relevant columns
                 $query->where(function ($q) use ($keyword) {
                     $q->where('kepada_yth', 'like', "%{$keyword}%")
                         ->orWhere('proyek', 'like', "%{$keyword}%")
@@ -68,21 +71,33 @@ class ProjectKwitansiController extends Controller
                             $q->where('nomor_po', 'like', "%{$keyword}%");
                         });
                 });
-            } else {
-                // Search based on selected filter
-                $query->where($filter, 'like', "%{$keyword}%");
+            } elseif (in_array($filter, $validFilters)) {
+                // Search based on the selected filter if valid
+                if ($filter == 'project_pembelian.nomor_po') {
+                    // Handle the special case for the related 'project_pembelian' table
+                    $query->whereHas('projectPembelian', function ($q) use ($keyword) {
+                        $q->where('nomor_po', 'like', "%{$keyword}%");
+                    });
+                } else {
+                    $query->where($filter, 'like', "%{$keyword}%");
+                }
             }
         }
-
-        // Sorting
-        if ($sort) {
-            $query->orderBy($sort);
+    
+        // Sorting by valid columns, defaulting to 'kepada_yth'
+        if (in_array($sort, ['kepada_yth', 'proyek', 'lokasi'])) {
+            $query->orderBy($sort, 'asc');
+        } else {
+            // Default sorting if an invalid sort column is requested
+            $query->orderBy('kepada_yth', 'asc');
         }
-
+    
+        // Paginate the results
         $projectKwitansis = $query->paginate(10);
-
+    
         return view('projectKwitansis.index', compact('projectKwitansis'));
     }
+    
 
     // Many To One
     // public function create()

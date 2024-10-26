@@ -15,7 +15,7 @@
                         <h4 class="page-title pull-left">Surat Penawaran</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><span>List Projek Surat Penawaran</span></li>
+                            <li><span>Project Surat Penawaran</span></li>
                         </ul>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Daftar Project Penawaran</h6>
                 <a href="{{ route('projectPenawarans.create') }}" class="btn btn-sm btn-primary shadow-sm"
                     data-toggle="tooltip" title="Tambah Projek SP Baru">
-                    <i class="fas fa-plus fa-sm text-white-50"></i> Projek SP Baru
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Buat Project Surat Penawaran
                 </a>
             </div>
             <div class="card-body">

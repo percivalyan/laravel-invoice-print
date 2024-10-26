@@ -10,9 +10,19 @@ use Illuminate\Http\Request;
 class CatatanKwitansiController extends Controller
 {
     // Display a listing of the resource
-    public function index()
+    public function index(Request $request)
     {
-        $catatanKwitansis = CatatanKwitansi::with('projectKwitansi')->get();
+        $query = CatatanKwitansi::with('projectKwitansi');
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->whereHas('projectKwitansi', function ($q) use ($search) {
+                $q->where('proyek', 'like', "%{$search}%")
+                    ->orWhere('kepada_yth', 'like', "%{$search}%");
+            });
+        }
+
+        $catatanKwitansis = $query->get();
         return view('catatanKwitansis.index', compact('catatanKwitansis'));
     }
 

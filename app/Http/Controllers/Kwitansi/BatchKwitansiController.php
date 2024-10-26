@@ -10,11 +10,24 @@ use Illuminate\Http\Request;
 class BatchKwitansiController extends Controller
 {
     // Menampilkan daftar semua batch kwitansi
-    public function index()
+    public function index(Request $request)
     {
-        $batchKwitansis = BatchKwitansi::with('uraianKwitansis')->get();
+        // Start the query with the relation
+        $query = BatchKwitansi::with('uraianKwitansis');
+    
+        // Check if there's a search term
+        if ($request->filled('search')) {
+            $searchTerm = $request->input('search');
+            // Filter by the desired field(s), here assuming 'nama_batch'
+            $query->where('nama_batch', 'like', "%{$searchTerm}%");
+        }
+    
+        // Use paginate(10) for pagination
+        $batchKwitansis = $query->paginate(10);
+    
         return view('batchKwitansis.index', compact('batchKwitansis'));
     }
+    
 
     // Menampilkan form untuk membuat batch kwitansi baru
     public function create()

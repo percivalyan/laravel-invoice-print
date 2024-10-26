@@ -78,80 +78,60 @@
                 </div>
             </div>
 
-            {{-- <!-- Custom Sections -->
-            <!-- Teras Section -->
+            <!-- Custom Sections -->
             <div class="col-md-4 mt-3 mb-4">
                 <div class="card shadow-sm rounded hover-effect">
-                    <a href="{{ route('teras.index') }}" class="text-decoration-none">
+                    <a href="{{ route('projectPembelians.index') }}" class="text-decoration-none">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="fa fa-tree icon-lg mb-3"></i>
-                                <h5 class="card-title">Cores</h5>
+                                <i class="fa fa-shopping-cart icon-lg mb-3"></i>
+                                <h5 class="card-title">Purchase Order</h5>
                             </div>
                             <div>
-                                <h2>{{ $total_teras }}</h2>
+                                <h2>{{ $total_pembelian }}</h2>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
 
-            <!-- Komponen Section -->
             <div class="col-md-4 mt-3 mb-4">
                 <div class="card shadow-sm rounded hover-effect">
-                    <a href="{{ route('komponen.index') }}" class="text-decoration-none">
+                    <a href="{{ route('projectPenawarans.index') }}" class="text-decoration-none">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="fa fa-cogs icon-lg mb-3"></i>
-                                <h5 class="card-title">Key - Component</h5>
+                                <i class="fa fa-envelope icon-lg mb-3"></i>
+                                <h5 class="card-title">Surat Penawaran</h5>
                             </div>
                             <div>
-                                <h2>{{ $total_komponen }}</h2>
+                                <h2>{{ $total_penawaran }}</h2>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
 
-            <!-- Waktu Ops Komponen Section -->
             <div class="col-md-4 mt-3 mb-4">
                 <div class="card shadow-sm rounded hover-effect">
-                    <a href="{{ route('waktu_ops_komponen.index') }}" class="text-decoration-none">
+                    <a href="{{ route('projectKwitansis.index') }}" class="text-decoration-none">
                         <div class="card-body d-flex justify-content-between align-items-center">
                             <div>
-                                <i class="fa fa-clock icon-lg mb-3"></i>
-                                <h5 class="card-title">Operational Time Component</h5>
+                                <i class="fa fa-file-invoice icon-lg mb-3"></i>
+                                <h5 class="card-title">Surat Pembelian / Invoice / BAST</h5>
                             </div>
                             <div>
-                                <h2>{{ $total_waktu_ops_komponen }}</h2>
+                                <h2>{{ $total_kwitansi }}</h2>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
-
-            <!-- Gangguan Section -->
-            <div class="col-md-4 mt-3 mb-4">
-                <div class="card shadow-sm rounded hover-effect">
-                    <a href="{{ route('gangguan.index') }}" class="text-decoration-none">
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fa fa-exclamation-triangle icon-lg mb-3"></i>
-                                <h5 class="card-title">Failure and Repair</h5>
-                            </div>
-                            <div>
-                                <h2>{{ $total_gangguan }}</h2>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div> --}}
 
             <!-- Chart Section -->
             <div class="col-md-12 mt-3 mb-4">
                 <div class="card shadow-sm rounded hover-effect">
                     <div class="card-body">
-                        <h5 class="card-title">Reliability and Safety Chart</h5>
+                        <h5 class="card-title">Data Chart</h5>
                         <canvas id="myChart" width="400" height="200"></canvas>
                     </div>
                 </div>
@@ -161,20 +141,20 @@
     <!-- Main content area end -->
 
     <!-- Chart Initialization Script -->
-    {{-- <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line', // Modify chart type as needed (e.g., 'bar', 'line')
                 data: {
-                    labels: ['Komponen', 'Gangguan', 'Waktu Ops Komponen', 'Teras'], // Updated labels
+                    labels: ['Surat Pembelian', 'Surat Pemawaran',
+                    'Surat Pembelian / Invoice / BAST'], // Updated labels
                     datasets: [{
                         label: 'Data Overview',
                         data: [
-                            {{ $total_komponen }},
-                            {{ $total_gangguan }},
-                            {{ $total_waktu_ops_komponen }},
-                            {{ $total_teras }}
+                            {{ $total_kwitansi }},
+                            {{ $total_penawaran }},
+                            {{ $total_pembelian }},
                         ], // Data from backend
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -200,5 +180,5 @@
                 }
             });
         });
-    </script> --}}
+    </script>
 @endsection

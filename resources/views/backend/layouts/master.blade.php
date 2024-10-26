@@ -212,12 +212,12 @@
                     @endif
 
                     <li class="nav-item">
-                        <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownSuratMasuk"
-                            data-bs-toggle="collapse" data-bs-target="#submenuSuratMasuk" aria-expanded="false"
-                            aria-controls="submenuSuratMasuk">
-                            <i class="fa fa-envelope me-2"></i> Surat Keluar <br>| Surat Penawaran
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownSuratKeluarPenawaran"
+                            data-bs-toggle="collapse" data-bs-target="#submenuSuratKeluarPenawaran"
+                            aria-expanded="false" aria-controls="submenuSuratKeluarPenawaran">
+                            <i class="fa fa-paper-plane me-2"></i> Surat Keluar <br>| Surat Penawaran
                         </a>
-                        <div class="collapse" id="submenuSuratMasuk">
+                        <div class="collapse" id="submenuSuratKeluarPenawaran">
                             <ul class="list-unstyled ps-3">
                                 <li><a class="dropdown-item text-light" href="{{ route('projectPenawarans.index') }}">
                                         <i class="fa fa-file-alt me-2"></i> Surat Penawaran</a></li>
@@ -228,17 +228,34 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownSuratPO"
-                            data-bs-toggle="collapse" data-bs-target="#submenuSuratPO" aria-expanded="false"
-                            aria-controls="submenuSuratPO">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownSuratMasukPO"
+                            data-bs-toggle="collapse" data-bs-target="#submenuSuratMasukPO" aria-expanded="false"
+                            aria-controls="submenuSuratMasukPO">
                             <i class="fa fa-envelope me-2"></i> Surat Masuk <br>| Purchase Order
                         </a>
-                        <div class="collapse" id="submenuSuratPO">
+                        <div class="collapse" id="submenuSuratMasukPO">
                             <ul class="list-unstyled ps-3">
                                 <li><a class="dropdown-item text-light" href="{{ route('projectPembelians.index') }}">
-                                        <i class="fa fa-file-alt me-2"></i> Purchase Orders</a></li>
-                                {{-- <li><a class="dropdown-item text-light" href="{{ route('jenisPenawarans.index') }}">
-                                        <i class="fa fa-tags me-2"></i> Jenis Penawaran</a></li> --}}
+                                        <i class="fa fa-file-invoice me-2"></i> Purchase Orders</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownSuratKeluarSPINVBAST"
+                            data-bs-toggle="collapse" data-bs-target="#submenuSuratKeluarSPINVBAST"
+                            aria-expanded="false" aria-controls="submenuSuratKeluarSPINVBAST">
+                            <i class="fa fa-paper-plane me-2"></i> Surat Keluar <br>| SP/INV/BAST
+                        </a>
+                        <div class="collapse" id="submenuSuratKeluarSPINVBAST">
+                            <ul class="list-unstyled ps-3">
+                                <li><a class="dropdown-item text-light" href="{{ route('projectKwitansis.index') }}">
+                                        <i class="fa fa-file-contract me-2"></i> SP/INV/BAST</a></li>
+                                <li><a class="dropdown-item text-light" href="{{ route('batchKwitansis.index') }}">
+                                        <i class="fa fa-boxes me-2"></i> Batch Barang</a></li>
+                                <li><a class="dropdown-item text-light"
+                                        href="{{ route('batchPekerjaanKwitansi.index') }}">
+                                        <i class="fa fa-tasks me-2"></i> Batch - Pekerjaan</a></li>
                             </ul>
                         </div>
                     </li>

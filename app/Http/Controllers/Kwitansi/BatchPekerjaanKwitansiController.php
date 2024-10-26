@@ -16,30 +16,37 @@ class BatchPekerjaanKwitansiController extends Controller
         $search = $request->query('search');
 
         // Fetch relationships with optional search filter and only with related batchKwitansi
-        $batchPekerjaanKwitansi = BatchPekerjaanKwitansi::with(['batchKwitansi', 'pekerjaanKwitansi'])
+        $batchPekerjaanKwitansi = BatchPekerjaanKwitansi::with(['batchKwitansi', 'pekerjaanKwitansi.projectKwitansi'])
             ->whereHas('batchKwitansi') // Ensures only records with related batchKwitansi are fetched
             ->when($search, function ($query, $search) {
                 return $query->whereHas('pekerjaanKwitansi', function ($query) use ($search) {
-                    $query->where('nomor_pekerjaan', 'like', "%{$search}%");
-                });
+                    $query->where('pekerjaan', 'like', "%{$search}%") // Search by pekerjaan
+                        ->orWhereHas('projectKwitansi', function ($query) use ($search) {
+                            $query->whereRaw("CONCAT(proyek, ' - ', nomor_invoice) LIKE ?", "%{$search}%");
+                        });
+                })
+                    ->orWhereHas('batchKwitansi', function ($query) use ($search) {
+                        $query->where('nama_batch', 'like', "%{$search}%");
+                    });
             })
             ->paginate(10); // Add pagination for better performance
 
         return view('batchPekerjaanKwitansi.index', compact('batchPekerjaanKwitansi'));
     }
 
+
     // Show the form for creating a new BatchPekerjaanKwitansi
     public function create(Request $request)
     {
         // Ambil semua batchKwitansi beserta relasi uraianKwitansi
         $batchKwitansis = BatchKwitansi::with('uraianKwitansis')->get();
-    
+
         // Ambil pekerjaanKwitansi yang belum memiliki batch kwitansi
         $pekerjaanKwitansis = PekerjaanKwitansi::whereDoesntHave('batchKwitansis')->get();
-    
+
         // Periksa apakah ada pekerjaan_kwitansi_id yang dipilih dari request
         $selectedPekerjaanKwitansiId = $request->input('pekerjaan_kwitansi_id', null);
-    
+
         // Kirim data ke view dengan batch kwitansi, pekerjaan kwitansi, dan pekerjaan kwitansi yang dipilih (jika ada)
         return view('batchPekerjaanKwitansi.create', [
             'batchKwitansis' => $batchKwitansis,
@@ -47,7 +54,7 @@ class BatchPekerjaanKwitansiController extends Controller
             'selectedPekerjaanKwitansiId' => $selectedPekerjaanKwitansiId,
         ]);
     }
-    
+
 
     // Store a new BatchPekerjaanKwitansi
     public function store(Request $request)
@@ -71,8 +78,10 @@ class BatchPekerjaanKwitansiController extends Controller
             ]);
         }
 
-        return redirect()->route('batchPekerjaanKwitansi.index')->with('success', 'Relationships created successfully.');
+        // return redirect()->route('pekerjaanKwitansis.index', $request->pekerjaan_kwitansi_id)->with('success', 'Relationships created successfully.');
+        return redirect()->route('projectKwitansis.index')->with('success', 'Relationships created successfully.');
     }
+
 
     // Show the form for editing an existing BatchPekerjaanKwitansi
     public function edit($id)
@@ -86,6 +95,7 @@ class BatchPekerjaanKwitansiController extends Controller
         return view('batchPekerjaanKwitansi.edit', compact('batchPekerjaanKwitansi', 'batchKwitansis', 'pekerjaanKwitansis', 'selectedBatchKwitansiIds'));
     }
 
+    // Update an existing BatchPekerjaanKwitansi
     // Update an existing BatchPekerjaanKwitansi
     public function update(Request $request, $id)
     {
@@ -109,8 +119,10 @@ class BatchPekerjaanKwitansiController extends Controller
             ]);
         }
 
-        return redirect()->route('batchPekerjaanKwitansi.index')->with('success', 'Relationships updated successfully.');
+        // return redirect()->route('pekerjaanKwitansis.index', $request->pekerjaan_kwitansi_id)->with('success', 'Relationships updated successfully.');
+        return redirect()->route('projectKwitansis.index')->with('success', 'Relationships updated successfully.');
     }
+
 
     // Delete an existing BatchPekerjaanKwitansi
     public function destroy($id)
