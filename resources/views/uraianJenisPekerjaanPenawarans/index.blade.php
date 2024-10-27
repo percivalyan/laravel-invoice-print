@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Uraian Jenis Pekerjaan Penawaran List
+    Surat Penawaran
 @endsection
 
 @section('admin-content')
@@ -12,10 +12,10 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">Uraian Jenis Penawaran List</h4>
+                        <h4 class="page-title pull-left">Uraian Jenis Penawaran</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><a href="{{ route('jenisPenawarans.index') }}">Jenis Penawaran</a></li>
+                            <li><a href="{{ route('jenisPenawarans.index') }}">Daftar Jenis Penawaran</a></li>
                             <li><span>Daftar Uraian</span></li>
                         </ul>
                     </div>
@@ -49,6 +49,9 @@
 
         <!-- Back Button -->
         <div class="d-sm-flex justify-content-between mb-4">
+            <button class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#createModal">
+                <i class="fas fa-plus fa-sm text-white-50"></i> Uraian Baru
+            </button>
             <a href="{{ route('jenisPenawarans.index') }}" class="btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-arrow-left"></i> Back to Jenis Penawaran
             </a>
@@ -65,10 +68,6 @@
                         Jenis Penawaran Tidak Tersedia
                     @endif
                 </h6>
-                <a href="{{ route('uraianJenisPekerjaanPenawarans.create', ['jenis_penawaran_id' => request()->query('jenis_penawaran_id')]) }}"
-                    class="btn btn-sm btn-primary shadow-sm" data-toggle="tooltip" title="Tambah Uraian Baru">
-                    <i class="fas fa-plus fa-sm text-white-50"></i> Uraian Baru
-                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -100,11 +99,9 @@
                                     <td>{{ $uraian->unit }}</td>
                                     <td>{{ $uraian->harga_satuan }}</td>
                                     <td class="text-center">
-                                        <!-- Edit Button -->
-                                        <a href="{{ route('uraianJenisPekerjaanPenawarans.edit', $uraian->id) }}"
-                                            class="btn btn-warning btn-sm mb-2" data-toggle="tooltip" title="Edit Uraian">
+                                        <button class="btn btn-warning btn-sm mb-2" data-toggle="modal" data-target="#editModal{{ $uraian->id }}">
                                             <i class="fas fa-pencil-alt"></i>
-                                        </a>
+                                        </button>
 
                                         <form action="{{ route('uraianJenisPekerjaanPenawarans.destroy', $uraian->id) }}"
                                             method="POST" style="display:inline;">
@@ -123,20 +120,95 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
-
                                     </td>
                                 </tr>
+
+                                <!-- Edit Modal -->
+                                <div class="modal fade" id="editModal{{ $uraian->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $uraian->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form action="{{ route('uraianJenisPekerjaanPenawarans.update', $uraian->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel{{ $uraian->id }}">Edit Uraian</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="jenis_penawaran_id" value="{{ $uraian->jenis_penawaran_id }}">
+                                                    <div class="form-group">
+                                                        <label for="uraian">Uraian</label>
+                                                        <input type="text" class="form-control" name="uraian" value="{{ $uraian->uraian }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="quantitas">Quantitas</label>
+                                                        <input type="number" class="form-control" name="quantitas" value="{{ $uraian->quantitas }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="unit">Unit</label>
+                                                        <input type="text" class="form-control" name="unit" value="{{ $uraian->unit }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="harga_satuan">Harga Satuan</label>
+                                                        <input type="number" class="form-control" name="harga_satuan" value="{{ $uraian->harga_satuan }}">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+        <!-- Create Modal -->
+        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="{{ route('uraianJenisPekerjaanPenawarans.store') }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createModalLabel">Buat Uraian Baru</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="jenis_penawaran_id" value="{{ request()->query('jenis_penawaran_id') }}">
+                            <div class="form-group">
+                                <label for="uraian">Uraian</label>
+                                <input type="text" class="form-control" name="uraian" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantitas">Quantitas</label>
+                                <input type="number" class="form-control" name="quantitas">
+                            </div>
+                            <div class="form-group">
+                                <label for="unit">Unit</label>
+                                <input type="text" class="form-control" name="unit">
+                            </div>
+                            <div class="form-group">
+                                <label for="harga_satuan">Harga Satuan</label>
+                                <input type="number" class="form-control" name="harga_satuan">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
 @endsection

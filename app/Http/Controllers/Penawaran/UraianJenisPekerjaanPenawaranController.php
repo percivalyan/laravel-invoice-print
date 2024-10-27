@@ -56,7 +56,8 @@ class UraianJenisPekerjaanPenawaranController extends Controller
         // return redirect()->route('uraianJenisPekerjaanPenawarans.index', ['jenis_penawaran_id' => $request->jenis_penawaran_id])
         //     ->with('success', 'Uraian Jenis Pekerjaan Penawaran created successfully.');
         // Redirect ke jenisPenawaran
-        return redirect()->route('jenisPenawarans.index')->with('success', 'Jenis Penawaran created successfully.');
+        return redirect()->route('uraianJenisPekerjaanPenawarans.index', ['jenis_penawaran_id' => $request->jenis_penawaran_id])
+        ->with('success', 'Uraian Jenis Pekerjaan Penawaran created successfully');
     }
 
     public function show(UraianJenisPekerjaanPenawaran $uraianJenisPekerjaanPenawaran)

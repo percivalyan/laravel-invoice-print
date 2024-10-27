@@ -1,20 +1,20 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Surat Penawaran Pages
+    Surat Penawaran
 @endsection
 
 @section('admin-content')
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Tambah Uraian Jenis Pekerjaan Penawaran</h1>
+            <h1 class="h3 mb-0 text-gray-800">Tambah Uraian</h1>
         </div>
 
         <!-- Form Card -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Tambah Uraian Jenis Pekerjaan Penawaran</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Tambah Uraian</h6>
             </div>
             <div class="card-body">
                 <form action="{{ route('uraianJenisPekerjaanPenawarans.store') }}" method="POST">

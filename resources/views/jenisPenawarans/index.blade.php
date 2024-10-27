@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Jenis Penawaran List
+    Surat Penawaran
 @endsection
 
 @section('admin-content')
@@ -12,10 +12,10 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">Jenis Penawaran List</h4>
+                        <h4 class="page-title pull-left">Daftar Jenis Penawaran</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><span>List Jenis Penawaran</span></li>
+                            <li><span>Daftar Jenis Penawaran</span></li>
                         </ul>
                     </div>
                 </div>
@@ -49,10 +49,10 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Daftar Jenis Penawaran</h6>
-                <a href="{{ route('jenisPenawarans.create') }}" class="btn btn-sm btn-primary shadow-sm"
-                    data-toggle="tooltip" title="Tambah Jenis Penawaran Baru">
+                <button class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#createModal"
+                    title="Tambah Jenis Penawaran Baru">
                     <i class="fas fa-plus fa-sm text-white-50"></i> Jenis Penawaran Baru
-                </a>
+                </button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -80,10 +80,11 @@
                                     <td>{{ $jenisPenawaran->harga_satuan }}</td>
                                     <td class="text-center">
                                         <!-- Edit Button -->
-                                        <a href="{{ route('jenisPenawarans.edit', $jenisPenawaran->id) }}"
-                                            class="btn btn-warning btn-sm mb-2" data-toggle="tooltip" title="Ubah Data Jenis Penawaran">
+                                        <button class="btn btn-warning btn-sm mb-2" data-toggle="modal"
+                                            data-target="#editModal{{ $jenisPenawaran->id }}"
+                                            title="Ubah Data Jenis Penawaran">
                                             <i class="fas fa-pencil-alt"></i>
-                                        </a>
+                                        </button>
 
                                         <!-- Delete Button -->
                                         <form action="{{ route('jenisPenawarans.destroy', $jenisPenawaran->id) }}"
@@ -92,7 +93,7 @@
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm mb-2"
                                                 onclick="return confirm('Are you sure you want to delete this item?')"
-                                                data-toggle="tooltip" title="Hapus Data Jenis Penawaran">
+                                                title="Hapus Data Jenis Penawaran">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
@@ -100,21 +101,108 @@
                                     <td class="text-center">
                                         <!-- Uraian Penawaran Buttons -->
                                         <a href="{{ route('uraianJenisPekerjaanPenawarans.create', ['jenis_penawaran_id' => $jenisPenawaran->id]) }}"
-                                            class="btn btn-primary btn-sm mb-2" data-toggle="tooltip" title="Buat Uraian Penawaran">
+                                            class="btn btn-primary btn-sm mb-2" title="Buat Uraian Penawaran">
                                             <i class="fas fa-plus"></i> Buat Uraian
                                         </a>
 
                                         <a href="{{ route('uraianJenisPekerjaanPenawarans.index', ['jenis_penawaran_id' => $jenisPenawaran->id]) }}"
-                                            class="btn btn-info btn-sm mb-2" data-toggle="tooltip"
-                                            title="Lihat Uraian Penawaran">
+                                            class="btn btn-info btn-sm mb-2" title="Lihat Uraian Penawaran">
                                             <i class="fas fa-list"></i> Lihat Uraian
                                         </a>
                                     </td>
                                 </tr>
+
+                                <!-- Edit Modal -->
+                                <div class="modal fade" id="editModal{{ $jenisPenawaran->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="editModalLabel{{ $jenisPenawaran->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editModalLabel{{ $jenisPenawaran->id }}">
+                                                    Edit Jenis Penawaran</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{ route('jenisPenawarans.update', $jenisPenawaran->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
+                                                        <input type="text" class="form-control" id="jenis_pekerjaan"
+                                                            name="jenis_pekerjaan" value="{{ $jenisPenawaran->jenis_pekerjaan }}" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="quantitas">Quantitas</label>
+                                                        <input type="number" class="form-control" id="quantitas"
+                                                            name="quantitas" value="{{ $jenisPenawaran->quantitas }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="unit">Unit</label>
+                                                        <input type="text" class="form-control" id="unit" name="unit"
+                                                            value="{{ $jenisPenawaran->unit }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="harga_satuan">Harga Satuan</label>
+                                                        <input type="number" class="form-control" id="harga_satuan"
+                                                            name="harga_satuan" value="{{ $jenisPenawaran->harga_satuan }}">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Buat Jenis Penawaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ route('jenisPenawarans.store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
+                            <input type="text" class="form-control" id="jenis_pekerjaan" name="jenis_pekerjaan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantitas">Quantitas</label>
+                            <input type="number" class="form-control" id="quantitas" name="quantitas">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit">Unit</label>
+                            <input type="text" class="form-control" id="unit" name="unit">
+                        </div>
+                        <div class="form-group">
+                            <label for="harga_satuan">Harga Satuan</label>
+                            <input type="number" class="form-control" id="harga_satuan" name="harga_satuan">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

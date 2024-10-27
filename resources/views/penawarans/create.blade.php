@@ -1,12 +1,12 @@
 @extends('backend.layouts.master')
 
-@section('title', 'Surat Penawaran Pages')
+@section('title', 'Surat Penawaran')
 
 @section('admin-content')
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Create Pekerjaan</h1>
+            <h1 class="h3 mb-0 text-gray-800">Buat Pekerjaan Surat Penawaran</h1>
             <a href="{{ route('projectPenawarans.index') }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left mr-1"></i>Back to List Projek Penawaran
             </a>
@@ -26,7 +26,7 @@
                         <label for="project_penawaran_id" class="font-weight-bold">Project Penawaran</label>
                         <select name="project_penawaran_id" id="project_penawaran_id" class="form-control" disabled>
                             @foreach ($projects as $project)
-                                <option value="{{ $project->id }}" 
+                                <option value="{{ $project->id }}"
                                     {{ isset($selectedProjectId) && $selectedProjectId == $project->id ? 'selected' : '' }}>
                                     {{ $project->kepada }}
                                 </option>
@@ -62,7 +62,7 @@
                             <i class="fas fa-save mr-1"></i>Save
                         </button>
                         <a href="{{ route('projectPenawarans.index') }}" class="btn btn-outline-secondary">
-                            Cancel
+                            <i class="fas fa-times mr-1"></i>Cancel
                         </a>
                     </div>
                 </form>

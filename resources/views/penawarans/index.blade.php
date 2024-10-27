@@ -1,8 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title')
-    Penawaran List
-@endsection
+@section('title', 'Surat Penawaran')
 
 @section('admin-content')
     <div class="container-fluid">
