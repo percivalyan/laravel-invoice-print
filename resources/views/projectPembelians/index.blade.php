@@ -48,7 +48,7 @@
         <!-- Create New Project Pembelian Button -->
         <a href="{{ route('projectPembelians.create') }}" class="btn btn-sm btn-primary shadow-sm mb-3"
             data-toggle="tooltip" title="Tambah Project Pembelian Baru">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Create Project Pembelian
+            <i class="fas fa-plus fa-sm text-white-50"></i>Buat Project Pembelian
         </a>
 
         <!-- DataTable Example -->
@@ -66,7 +66,8 @@
                                 <th>Project</th>
                                 <th>Tanggal Order</th>
                                 <th>Metode Pembayaran</th>
-                                <th>Actions</th>
+                                <th>Actions
+                                    (Pengaturan Spesifik Surat)</th>
                                 <th>Pekerjaan</th>
                                 <th>Preview <br> Purchase Order</th>
                             </tr>
@@ -102,7 +103,7 @@
                                         <!-- Add Note Button -->
                                         <a href="{{ route('catatanPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}"
                                             class="btn btn-success btn-sm mb-2" data-toggle="tooltip" title="Add Note">
-                                            <i class="fas fa-sticky-note"></i> Note
+                                            <i class="fas fa-sticky-note"></i> Ket.
                                         </a>
 
                                         <!-- Set TTD Button -->
@@ -115,14 +116,14 @@
                                     <td class="text-center">
                                         <!-- Input Pekerjaan Button -->
                                         <a href="{{ route('bahanPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}"
-                                            class="btn btn-sm btn-success shadow-sm mb-2" data-toggle="tooltip"
+                                            class="btn btn-sm btn-success btn-sm mb-2" data-toggle="tooltip"
                                             title="Input Pekerjaan">
                                             <i class="fas fa-box"></i> Input Pekerjaan
                                         </a>
 
                                         <!-- List Pekerjaan Button -->
                                         <a href="{{ route('bahanPembelians.index', ['project_pembelian_id' => $projectPembelian->id]) }}"
-                                            class="btn btn-sm btn-info shadow-sm mb-2" data-toggle="tooltip"
+                                            class="btn btn-sm btn-info btn-sm mb-2" data-toggle="tooltip"
                                             title="List Pekerjaan">
                                             <i class="fas fa-list"></i> List Pekerjaan
                                         </a>

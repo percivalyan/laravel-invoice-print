@@ -6,13 +6,13 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Edit Tujuan Penawaran Surat Penawaran</h1>
+            <h1 class="h3 mb-0 text-gray-800">Edit Keterangan Surat Penawaran</h1>
         </div>
 
         <!-- Form Card -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Edit Tujuan Penawaran</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Keterangan</h6>
             </div>
             <div class="card-body">
                 <form action="{{ route('tujuanPenawarans.update', $tujuanPenawaran->id) }}" method="POST">

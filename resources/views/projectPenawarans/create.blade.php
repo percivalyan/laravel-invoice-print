@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Create Project Penawaran</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Buat Project Penawaran</h6>
         </div>
         <div class="card-body">
             <form action="{{ route('projectPenawarans.store') }}" method="POST">
@@ -22,11 +22,11 @@
                 </div>
                 <div class="form-group">
                     <label for="nomor">Nomor</label>
-                    <input type="text" name="nomor" class="form-control" id="nomor" value="{{ old('nomor') }}">
+                    <input type="text" name="nomor" class="form-control" id="nomor" value="{{ old('nomor') }}" readonly>
                     @error('nomor')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
-                </div>
+                </div>                
                 <div class="form-group">
                     <label for="tanggal">Tanggal</label>
                     <input type="date" name="tanggal" class="form-control" id="tanggal" value="{{ old('tanggal') }}">

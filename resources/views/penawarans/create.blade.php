@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Buat Pekerjaan Surat Penawaran</h1>
+            <h1 class="h3 mb-0 text-gray-800">Buat Pekerjaan</h1>
             <a href="{{ route('projectPenawarans.index') }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left mr-1"></i>Back to List Projek Penawaran
             </a>
@@ -32,22 +32,27 @@
                                 </option>
                             @endforeach
                         </select>
-                        <input type="hidden" name="project_penawaran_id" value="{{ isset($selectedProjectId) ? $selectedProjectId : '' }}">
+                        <input type="hidden" name="project_penawaran_id"
+                            value="{{ isset($selectedProjectId) ? $selectedProjectId : '' }}">
                     </div>
 
                     <!-- Pekerjaan Field -->
                     <div class="form-group">
                         <label for="pekerjaan" class="font-weight-bold">Pekerjaan</label>
-                        <input type="text" name="pekerjaan" id="pekerjaan" class="form-control" placeholder="Enter pekerjaan name" required>
+                        <input type="text" name="pekerjaan" id="pekerjaan" class="form-control"
+                            placeholder="Enter pekerjaan name" required>
                     </div>
 
                     <!-- Jenis Penawaran Field with Search -->
                     <div class="form-group">
                         <label for="jenis_penawaran_ids" class="font-weight-bold">Jenis Penawaran</label>
-                        <select name="jenis_penawaran_ids[]" id="jenis_penawaran_ids" class="form-control" multiple="multiple">
+                        <select name="jenis_penawaran_ids[]" id="jenis_penawaran_ids" class="form-control"
+                            multiple="multiple">
                             @foreach ($jenisPenawarans as $jenis)
                                 @php
-                                    $uraianList = $jenis->uraianJenisPekerjaanPenawarans->pluck('uraian')->implode(', ');
+                                    $uraianList = $jenis->uraianJenisPekerjaanPenawarans
+                                        ->pluck('uraian')
+                                        ->implode(', ');
                                 @endphp
                                 <option value="{{ $jenis->id }}">
                                     BID0{{ $jenis->id }} - {{ $jenis->jenis_pekerjaan }} | {{ $uraianList }}
@@ -62,7 +67,7 @@
                             <i class="fas fa-save mr-1"></i>Save
                         </button>
                         <a href="{{ route('projectPenawarans.index') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-times mr-1"></i>Cancel
+                            Cancel
                         </a>
                     </div>
                 </form>

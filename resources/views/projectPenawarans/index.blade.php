@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Surat Penawaran Pages
+    Surat Penawaran
 @endsection
 
 @section('admin-content')
@@ -19,7 +19,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 clearfix">
                     @include('backend.layouts.partials.logout')
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="form-group d-flex align-items-center">
                 <input type="text" id="search" name="search" class="form-control mr-2"
                     value="{{ request('search') }}" placeholder="Search all...">
-                <button type="submit" class="btn btn-sm btn-primary">Search</button>
+                <button type="submit" class="btn btn-sm btn-primary shadow-sm">Search</button>
             </div>
         </form>
 
@@ -49,9 +49,10 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Daftar Project Penawaran</h6>
-                <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#createModal">
+                <a href="{{ route('projectPenawarans.create') }}" class="btn btn-sm btn-primary shadow-sm"
+                    data-toggle="tooltip" title="Tambah Projek SP Baru">
                     <i class="fas fa-plus fa-sm text-white-50"></i> Buat Project Surat Penawaran
-                </button>
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -64,9 +65,9 @@
                                 <th>Tanggal</th>
                                 <th>Proyek</th>
                                 <th>Lokasi</th>
-                                <th class="text-center">Actions <br> (Pengaturan Spesifik Surat)</th>
-                                <th class="text-center">Membuat Pekerjaan</th>
-                                <th class="text-center">Preview <br> Surat Penawaran</th>
+                                <th>Actions <br> (Pengaturan Spesifik Surat)</th>
+                                <th>Membuat Pekerjaan</th>
+                                <th>Preview <br> Surat Penawaran</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,12 +80,14 @@
                                     <td>{{ $projectPenawaran->proyek }}</td>
                                     <td>{{ $projectPenawaran->lokasi }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-warning btn-sm mb-2" data-toggle="modal" 
-                                            data-target="#editModal{{ $projectPenawaran->id }}" data-toggle="tooltip"
+                                        <!-- Edit Project Button -->
+                                        <a href="{{ route('projectPenawarans.edit', $projectPenawaran->id) }}"
+                                            class="btn btn-warning btn-sm mb-2" data-toggle="tooltip"
                                             title="Ubah Data Projek">
                                             <i class="fas fa-pencil-alt"></i>
-                                        </button>
+                                        </a>
 
+                                        <!-- Delete Project Button -->
                                         <form action="{{ route('projectPenawarans.destroy', $projectPenawaran->id) }}"
                                             method="POST" style="display:inline;">
                                             @csrf
@@ -96,25 +99,29 @@
                                             </button>
                                         </form>
 
+                                        <!-- Keterangan SP Button -->
                                         <a href="{{ route('tujuanPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}"
                                             class="btn btn-success btn-sm mb-2" data-toggle="tooltip" title="Keterangan SP">
                                             <i class="fas fa-info"></i> Ket.
                                         </a>
 
+                                        <!-- Atur TTD Button -->
                                         <a href="{{ route('footerPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}"
                                             class="btn btn-primary btn-sm mb-2" data-toggle="tooltip" title="Atur TTD">
                                             <i class="fas fa-signature"></i> Atur TTD
                                         </a>
                                     </td>
                                     <td class="text-center">
+                                        <!-- Input Pekerjaan Button -->
                                         <a href="{{ route('penawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}"
-                                            class="btn btn-success btn-sm mb-2" data-toggle="tooltip"
+                                            class="btn btn-sm btn-success shadow-sm mb-2" data-toggle="tooltip"
                                             title="Input Pekerjaan">
                                             <i class="fas fa-tasks"></i> Input Pekerjaan
                                         </a>
 
+                                        <!-- List Pekerjaan Button -->
                                         <a href="{{ route('penawarans.index', ['project_penawaran_id' => $projectPenawaran->id]) }}"
-                                            class="btn btn-info btn-sm mb-2" data-toggle="tooltip"
+                                            class="btn btn-sm btn-info shadow-sm mb-2" data-toggle="tooltip"
                                             title="List Pekerjaan">
                                             <i class="fas fa-list"></i> List Pekerjaan
                                         </a>
@@ -125,47 +132,6 @@
                                             title="Preview Surat Penawaran"><i class="fas fa-eye"></i></a>
                                     </td>
                                 </tr>
-
-                                <!-- Edit Modal -->
-                                <div class="modal fade" id="editModal{{ $projectPenawaran->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $projectPenawaran->id }}" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel{{ $projectPenawaran->id }}">Edit Project Penawaran</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="{{ route('projectPenawarans.update', $projectPenawaran->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="form-group">
-                                                        <label for="kepada">Kepada</label>
-                                                        <input type="text" class="form-control" id="kepada" name="kepada" value="{{ $projectPenawaran->kepada }}" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="nomor">Nomor Surat Penawaran</label>
-                                                        <input type="text" class="form-control" id="nomor" name="nomor" value="{{ $projectPenawaran->nomor }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="tanggal">Tanggal</label>
-                                                        <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ $projectPenawaran->tanggal }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="proyek">Proyek</label>
-                                                        <input type="text" class="form-control" id="proyek" name="proyek" value="{{ $projectPenawaran->proyek }}">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="lokasi">Lokasi</label>
-                                                        <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $projectPenawaran->lokasi }}">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Update</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             @endforeach
                         </tbody>
                     </table>
@@ -174,43 +140,9 @@
         </div>
     </div>
 
-    <!-- Create Modal -->
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Buat Project Penawaran</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('projectPenawarans.store') }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label for="kepada">Kepada</label>
-                            <input type="text" class="form-control" id="kepada" name="kepada" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nomor">Nomor Surat Penawaran</label>
-                            <input type="text" class="form-control" id="nomor" name="nomor">
-                        </div>
-                        <div class="form-group">
-                            <label for="tanggal">Tanggal</label>
-                            <input type="date" class="form-control" id="tanggal" name="tanggal">
-                        </div>
-                        <div class="form-group">
-                            <label for="proyek">Proyek</label>
-                            <input type="text" class="form-control" id="proyek" name="proyek">
-                        </div>
-                        <div class="form-group">
-                            <label for="lokasi">Lokasi</label>
-                            <input type="text" class="form-control" id="lokasi" name="lokasi">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 @endsection
