@@ -63,7 +63,7 @@
                                 <th>Jumlah Batch</th>
                                 <th>Satuan</th>
                                 <th>Keterangan</th>
-                                <th>Aksi</th>
+                                <th>Actions</th>
                                 <th>Detail</th>
                                 <th>Membuat Uraian</th>
                             </tr>

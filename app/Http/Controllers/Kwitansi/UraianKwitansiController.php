@@ -18,15 +18,24 @@ class UraianKwitansiController extends Controller
     public function index(Request $request)
     {
         $batchKwitansiId = $request->query("batch_kwitansi_id");
+        $searchTerm = $request->query("search"); // Get the search term
 
         $query = UraianKwitansi::with("batchKwitansi");
+
         if ($batchKwitansiId) {
             $query->where("batch_kwitansi_id", $batchKwitansiId);
         }
 
+        if ($searchTerm) {
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where("nama_uraian", 'like', "%$searchTerm%")
+                    ->orWhere("keterangan_uraian", 'like', "%$searchTerm%");
+            });
+        }
+
         $uraianKwitansis = $query->get();
 
-        return view('uraianKwitansis.index', compact('uraianKwitansis', 'batchKwitansiId'));
+        return view('uraianKwitansis.index', compact('uraianKwitansis', 'batchKwitansiId', 'searchTerm'));
     }
 
     // public function index(BatchKwitansi $batchKwitansi)

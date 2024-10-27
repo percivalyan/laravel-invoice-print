@@ -57,32 +57,30 @@
             </div>
         </form>
 
-        <!-- Create New Project Kwitansi Button -->
-        <a href="{{ route('projectKwitansis.create') }}" class="btn btn-sm btn-primary shadow-sm mb-3"
-            data-toggle="tooltip" title="Tambah Project Kwitansi Baru">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Project Kwitansi
-        </a>
-
         <!-- DataTable Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold text-primary">Daftar Project Kwitansi</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Daftar Project SJ/INV/BAST</h6>
+                <!-- Create New Project Kwitansi Button -->
+                <a href="{{ route('projectKwitansis.create') }}" class="btn btn-sm btn-primary shadow-sm"
+                    data-toggle="tooltip" title="Tambah Project Kwitansi Baru">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Project SJ/INV/BAST
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>No</th>
                                 <th>Client</th>
                                 <th>Proyek</th>
                                 <th>Reff PO No</th>
                                 <th>Informasi <br> Dokumen</th>
                                 <th>Lokasi</th>
-                                <th>Surat</th>
-                                <th>Aksi</th>
-                                <th>Catatan</th>
+                                <th>Actions <br> (Pengaturan Spesifik Surat)</th>
                                 <th>Pekerjaan</th>
+                                <th>Surat</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,6 +100,37 @@
                                         </div>
                                     </td>
                                     <td>{{ $projectKwitansi->lokasi }}</td>
+                                    <td class="text-center">
+                                        <div class="d-inline-flex">
+                                            <a href="{{ route('projectKwitansis.edit', $projectKwitansi->id) }}"
+                                                class="btn btn-warning btn-sm mb-2 mr-1" title="Edit">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            <form action="{{ route('projectKwitansis.destroy', $projectKwitansi->id) }}"
+                                                method="POST" style="margin: 0;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger m-0 mr-1"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('catatanKwitansis.create', ['project_kwitansi_id' => $projectKwitansi->id]) }}"
+                                                class="btn btn-success btn-sm mb-2" title="Catatan">
+                                                <i class="fas fa-sticky-note"></i> Ket.
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('pekerjaanKwitansis.create', ['project_kwitansi_id' => $projectKwitansi->id]) }}"
+                                            class="btn btn-sm btn-success mb-2" title="Tambah Pekerjaan Baru">
+                                            <i class="fas fa-box"></i> Input Pekerjaan
+                                        </a>
+                                        <a href="{{ route('pekerjaanKwitansis.index', ['project_kwitansi_id' => $projectKwitansi->id]) }}"
+                                            class="btn btn-sm btn-info mb-2" title="Tambahkan Pekerjaan">
+                                            <i class="fas fa-list"></i> Daftar Pekerjaan
+                                        </a>
+                                    </td>
                                     <td class="text-center">
                                         <div class="dropdown">
                                             <button class="btn btn-info btn-sm dropdown-toggle" type="button"
@@ -123,39 +152,11 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <td class="text-center">
-                                        <div class="d-inline-flex">
-                                            <a href="{{ route('projectKwitansis.edit', $projectKwitansi->id) }}"
-                                                class="btn btn-sm btn-secondary mr-2" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('projectKwitansis.destroy', $projectKwitansi->id) }}"
-                                                method="POST" style="margin: 0;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger m-0"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('catatanKwitansis.create', ['project_kwitansi_id' => $projectKwitansi->id]) }}"
-                                            class="btn btn-sm btn-info" title="Catatan">
-                                            <i class="fas fa-sticky-note"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('pekerjaanKwitansis.index', ['project_kwitansi_id' => $projectKwitansi->id]) }}"
-                                            class="btn btn-sm btn-success" title="Tambahkan Pekerjaan">
-                                            <i class="fas fa-box"></i> Input Pekerjaan
-                                        </a>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $projectKwitansis->links() }}
                 </div>
             </div>
         </div>

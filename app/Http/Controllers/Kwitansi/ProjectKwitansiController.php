@@ -93,10 +93,11 @@ class ProjectKwitansiController extends Controller
         }
     
         // Paginate the results
-        $projectKwitansis = $query->paginate(10);
+        $projectKwitansis = $query->paginate(15); // Change to 15 items per page
     
         return view('projectKwitansis.index', compact('projectKwitansis'));
     }
+    
     
 
     // Many To One

@@ -29,7 +29,9 @@ class PekerjaanKwitansiController extends Controller
     public function create(Request $request)
     {
         $projectKwitansiId = $request->query("project_kwitansi_id");
-        return view('pekerjaanKwitansis.create', compact('projectKwitansiId'));
+        $allBatches = BatchKwitansi::all(); // Load all batches for the form
+    
+        return view('pekerjaanKwitansis.create', compact('projectKwitansiId', 'allBatches'));
     }
 
     // Store a newly created resource in storage
