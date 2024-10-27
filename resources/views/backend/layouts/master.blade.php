@@ -245,7 +245,7 @@
                         <a class="nav-link dropdown-toggle text-light" href="#" id="dropdownSuratKeluarSPINVBAST"
                             data-bs-toggle="collapse" data-bs-target="#submenuSuratKeluarSPINVBAST"
                             aria-expanded="false" aria-controls="submenuSuratKeluarSPINVBAST">
-                            <i class="fa fa-paper-plane me-2"></i> Surat Keluar <br>| SP/INV/BAST
+                            <i class="fa fa-paper-plane me-2"></i> Surat Keluar <br>| SJ/INV/BAST
                         </a>
                         <div class="collapse" id="submenuSuratKeluarSPINVBAST">
                             <ul class="list-unstyled ps-3">
