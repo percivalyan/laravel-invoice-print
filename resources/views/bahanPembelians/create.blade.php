@@ -1,19 +1,37 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Pembelian List
+    Input Pekerjaan
 @endsection
 
 @section('admin-content')
-    <div class="container">
+    <div class="container-fluid">
+
+        <!-- Page Title Area -->
+        <div class="page-title-area">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="breadcrumbs-area clearfix">
+                        <h4 class="page-title pull-left">Input Pekerjaan</h4>
+                        <ul class="breadcrumbs pull-left">
+                            <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li><a href="{{ route('projectPembelians.index') }}">Daftar Project Pembelian</a></li>
+                            <li><span>Input Pekerjaan</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 clearfix">
+                    @include('backend.layouts.partials.logout')
+                </div>
+            </div>
+        </div>
+        <!-- End Page Title Area -->
+
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card shadow-sm">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h2 class="h5 mb-0">Input Pekerjaan</h2>
-                        {{-- <a href="{{ route('bahanPembelians.index') }}" class="btn btn-secondary btn-sm">
-                            <i class="fas fa-arrow-left mr-1"></i> Kembali ke PO
-                        </a> --}}
                         <a href="{{ route('projectPembelians.index') }}" class="btn btn-secondary text-white mb-3">
                             Kembali ke PO
                         </a> 

@@ -38,7 +38,7 @@
                                 <th>Jumlah</th>
                                 <th>Harga Satuan</th>
                                 <th>Keterangan</th>
-                                <th>Aksi</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>

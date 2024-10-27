@@ -1,12 +1,12 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Pembelian List
+    Purchase Order
 @endsection
 
 @section('admin-content')
     <div class="container-fluid">
-        <h1 class="h3 mb-4 text-gray-800">Create Footer Pembelian</h1>
+        <h1 class="h3 mb-4 text-gray-800">Atur Tandatangan Purchase Order</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">

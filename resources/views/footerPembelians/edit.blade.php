@@ -6,7 +6,7 @@
 
 @section('admin-content')
     <div class="container-fluid">
-        <h1 class="h3 mb-4 text-gray-800">Edit Footer Pembelian</h1>
+        <h1 class="h3 mb-4 text-gray-800">Atur Tandatangan Purchase Order</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -26,7 +26,7 @@
 
                     <div class="form-group">
                         <label for="project_pembelian_id">Project Pembelian</label>
-                        <select id="project_pembelian_id" name="project_pembelian_id" class="form-control" required>
+                        <select id="project_pembelian_id" name="project_pembelian_id" class="form-control" disabled>
                             @foreach ($projectPembelians as $project)
                                 <option value="{{ $project->id }}"
                                     {{ $project->id == $footerPembelian->project_pembelian_id ? 'selected' : '' }}>
@@ -34,7 +34,9 @@
                                 </option>
                             @endforeach
                         </select>
-                    </div>
+                        <!-- Hidden input to submit the selected value -->
+                        <input type="hidden" name="project_pembelian_id" value="{{ $footerPembelian->project_pembelian_id }}">
+                    </div>                    
 
                     <div class="form-group">
                         <label for="diorder_oleh">Diorder Oleh</label>

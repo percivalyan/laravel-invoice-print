@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Pembelian List
+    Purchase Order
 @endsection
 
 @section('admin-content')
@@ -15,7 +15,7 @@
                         <h4 class="page-title pull-left">Daftar Pekerjaan (PO)</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><span>List Pekerjaan PO</span></li>
+                            <li><span>Daftar Pekerjaan PO</span></li>
                         </ul>
                     </div>
                 </div>
@@ -195,7 +195,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Input Pekerjaan</h5>
+                    <h5 class="modal-title" id="createModalLabel">Tambah Pekerjaan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

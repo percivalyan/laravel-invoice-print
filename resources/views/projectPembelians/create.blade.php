@@ -6,7 +6,7 @@
 
 @section('admin-content')
     <div class="container-fluid">
-        <h1 class="h3 mb-4 text-gray-800">Create Project Pembelian</h1>
+        <h1 class="h3 mb-4 text-gray-800">Buat Project Pembelian</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">

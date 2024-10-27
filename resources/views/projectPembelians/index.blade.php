@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-    Project Pembelian List
+    Purchase Order
 @endsection
 
 @section('admin-content')
@@ -12,10 +12,10 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">Project Pembelian</h4>
+                        <h4 class="page-title pull-left">Purchase Order</h4>
                         <ul class="breadcrumbs pull-left">
                             <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li><span>List Project Pembelian</span></li>
+                            <li><span>Daftar Project Purchase Order</span></li>
                         </ul>
                     </div>
                 </div>
@@ -45,29 +45,29 @@
             </div>
         </form>
 
-        <!-- Create New Project Pembelian Button -->
-        <a href="{{ route('projectPembelians.create') }}" class="btn btn-sm btn-primary shadow-sm mb-3"
-            data-toggle="tooltip" title="Tambah Project Pembelian Baru">
-            <i class="fas fa-plus fa-sm text-white-50"></i>Buat Project Pembelian
-        </a>
-
         <!-- DataTable Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold text-primary">Project Pembelian List</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Project Purchase Order</h6>
+                <!-- Create New Project Pembelian Button -->
+                <a href="{{ route('projectPembelians.create') }}" class="btn btn-sm btn-primary shadow-sm"
+                    data-toggle="tooltip" title="Tambah Project Pembelian Baru">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> Buat Project Purchase Order
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>No.</th>
                                 <th>Nomor PO</th>
                                 <th>Project</th>
                                 <th>Tanggal Order</th>
                                 <th>Metode Pembayaran</th>
-                                <th>Actions
-                                    (Pengaturan Spesifik Surat)</th>
+                                <th>PO Ditunjukan <br> Kepada </th>
+                                <th>Kontak</th>
+                                <th>Actions <br> (Pengaturan Spesifik Surat)</th>
                                 <th>Pekerjaan</th>
                                 <th>Preview <br> Purchase Order</th>
                             </tr>
@@ -80,6 +80,9 @@
                                     <td>{{ $projectPembelian->project }}</td>
                                     <td>{{ $projectPembelian->tanggal_order }}</td>
                                     <td>{{ $projectPembelian->metode_pembayaran }}</td>
+                                    <td>{{ $projectPembelian->po_ditunjukan_kepada }}</td>
+                                    <td>{{ $projectPembelian->kontak }} | {{ $projectPembelian->email_mobile_number }}
+                                    </td>
                                     <td class="text-center">
                                         <!-- Edit Button -->
                                         <a href="{{ route('projectPembelians.edit', $projectPembelian->id) }}"
@@ -116,16 +119,15 @@
                                     <td class="text-center">
                                         <!-- Input Pekerjaan Button -->
                                         <a href="{{ route('bahanPembelians.create', ['project_pembelian_id' => $projectPembelian->id]) }}"
-                                            class="btn btn-sm btn-success btn-sm mb-2" data-toggle="tooltip"
+                                            class="btn btn-sm btn-success mb-2" data-toggle="tooltip"
                                             title="Input Pekerjaan">
                                             <i class="fas fa-box"></i> Input Pekerjaan
                                         </a>
 
                                         <!-- List Pekerjaan Button -->
                                         <a href="{{ route('bahanPembelians.index', ['project_pembelian_id' => $projectPembelian->id]) }}"
-                                            class="btn btn-sm btn-info btn-sm mb-2" data-toggle="tooltip"
-                                            title="List Pekerjaan">
-                                            <i class="fas fa-list"></i> List Pekerjaan
+                                            class="btn btn-sm btn-info mb-2" data-toggle="tooltip" title="List Pekerjaan">
+                                            <i class="fas fa-list"></i> Daftar Pekerjaan
                                         </a>
                                     </td>
                                     <td class="text-center">
@@ -139,6 +141,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $projectPembelians->links() }}
                 </div>
             </div>
         </div>
