@@ -23,7 +23,8 @@ class JenisPenawaranController extends Controller
             });
         }
 
-        $jenisPenawarans = $query->get();
+        // Use paginate instead of get
+        $jenisPenawarans = $query->paginate(20); // Paginate results by 20 per page
 
         return view('jenisPenawarans.index', compact('jenisPenawarans'));
     }
