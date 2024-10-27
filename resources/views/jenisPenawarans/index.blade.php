@@ -40,7 +40,8 @@
         <form method="GET" action="{{ route('jenisPenawarans.index') }}" class="py-3">
             <div class="form-group d-flex align-items-center">
                 <input type="text" id="search" name="search" class="form-control mr-2"
-                    value="{{ request('search') }}" placeholder="Search by Jenis Pekerjaan, Quantitas, Unit, or Harga Satuan">
+                    value="{{ request('search') }}"
+                    placeholder="Search by Jenis Pekerjaan, Quantitas, Unit, or Harga Satuan">
                 <button type="submit" class="btn btn-sm btn-primary shadow-sm">Search</button>
             </div>
         </form>
@@ -113,8 +114,9 @@
                                 </tr>
 
                                 <!-- Edit Modal -->
-                                <div class="modal fade" id="editModal{{ $jenisPenawaran->id }}" tabindex="-1" role="dialog"
-                                    aria-labelledby="editModalLabel{{ $jenisPenawaran->id }}" aria-hidden="true">
+                                <div class="modal fade" id="editModal{{ $jenisPenawaran->id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="editModalLabel{{ $jenisPenawaran->id }}"
+                                    aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -133,7 +135,8 @@
                                                     <div class="form-group">
                                                         <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
                                                         <input type="text" class="form-control" id="jenis_pekerjaan"
-                                                            name="jenis_pekerjaan" value="{{ $jenisPenawaran->jenis_pekerjaan }}" required>
+                                                            name="jenis_pekerjaan"
+                                                            value="{{ $jenisPenawaran->jenis_pekerjaan }}" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="quantitas">Quantitas</label>
@@ -142,17 +145,19 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="unit">Unit</label>
-                                                        <input type="text" class="form-control" id="unit" name="unit"
-                                                            value="{{ $jenisPenawaran->unit }}">
+                                                        <input type="text" class="form-control" id="unit"
+                                                            name="unit" value="{{ $jenisPenawaran->unit }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="harga_satuan">Harga Satuan</label>
                                                         <input type="number" class="form-control" id="harga_satuan"
-                                                            name="harga_satuan" value="{{ $jenisPenawaran->harga_satuan }}">
+                                                            name="harga_satuan"
+                                                            value="{{ $jenisPenawaran->harga_satuan }}">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
                                                     <button type="submit" class="btn btn-primary">Update</button>
                                                 </div>
                                             </form>
@@ -162,6 +167,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $jenisPenawarans->links() }}
                 </div>
             </div>
         </div>
@@ -183,7 +189,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="jenis_pekerjaan">Jenis Pekerjaan</label>
-                            <input type="text" class="form-control" id="jenis_pekerjaan" name="jenis_pekerjaan" required>
+                            <input type="text" class="form-control" id="jenis_pekerjaan" name="jenis_pekerjaan"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="quantitas">Quantitas</label>
