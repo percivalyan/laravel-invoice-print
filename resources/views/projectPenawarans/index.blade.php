@@ -58,7 +58,7 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>No.</th>
                                 <th>Kepada <br> (Recipient)</th>
                                 <th>Nomor <br> Surat Penawaran</th>
@@ -102,7 +102,7 @@
                                         <!-- Keterangan SP Button -->
                                         <a href="{{ route('tujuanPenawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}"
                                             class="btn btn-success btn-sm mb-2" data-toggle="tooltip" title="Keterangan SP">
-                                            <i class="fas fa-info"></i> Ket.
+                                            <i class="fas fa-sticky-note"></i> Ket.
                                         </a>
 
                                         <!-- Atur TTD Button -->
@@ -123,7 +123,7 @@
                                         <a href="{{ route('penawarans.index', ['project_penawaran_id' => $projectPenawaran->id]) }}"
                                             class="btn btn-sm btn-info shadow-sm mb-2" data-toggle="tooltip"
                                             title="List Pekerjaan">
-                                            <i class="fas fa-list"></i> List Pekerjaan
+                                            <i class="fas fa-list"></i> Daftar Pekerjaan
                                         </a>
                                     </td>
                                     <td class="text-center">
@@ -135,6 +135,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $projectPenawarans->links() }}
                 </div>
             </div>
         </div>
