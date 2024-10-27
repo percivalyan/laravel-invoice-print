@@ -36,7 +36,7 @@ class FooterPembelianController extends Controller
 
         // If a record exists, redirect to the show page of the existing record
         if ($existingRecord) {
-            return redirect()->route('footerPembelians.show', $existingRecord->id)
+            return redirect()->route('footerPembelians.edit', $existingRecord->id)
                              ->with('info', 'Footer Pembelian already exists for this project.');
         }
 

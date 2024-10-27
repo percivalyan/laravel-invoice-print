@@ -36,7 +36,7 @@ class CatatanPembelianController extends Controller
 
         // If a record exists, redirect to the show page of the existing record
         if ($existingRecord) {
-            return redirect()->route('catatanPembelians.show', $existingRecord->id)
+            return redirect()->route('catatanPembelians.edit', $existingRecord->id)
                 ->with('info', 'Catatan Pembelian already exists for this project.');
         }
 
@@ -59,8 +59,11 @@ class CatatanPembelianController extends Controller
         $catatanPembelian = CatatanPembelian::create($request->all());
 
         // Redirect to the show page of the newly created record
-        return redirect()->route('catatanPembelians.show', $catatanPembelian->id)
-                         ->with('success', 'Catatan Pembelian created successfully.');
+        // return redirect()->route('catatanPembelians.show', $catatanPembelian->id)
+        //                  ->with('success', 'Catatan Pembelian created successfully.');
+        // redirect to projectPembelians.index
+        return redirect()->route('projectPembelians.index')
+            ->with('success', 'Catatan Pembelian created successfully.');
     }
 
     // Display the specified resource
@@ -102,8 +105,11 @@ class CatatanPembelianController extends Controller
         $catatanPembelian->update($request->all());
 
         // Redirect to the show page of the updated record
-        return redirect()->route('catatanPembelians.show', $catatanPembelian->id)
-                         ->with('success', 'Catatan Pembelian updated successfully.');
+        // return redirect()->route('catatanPembelians.show', $catatanPembelian->id)
+        //                  ->with('success', 'Catatan Pembelian updated successfully.');
+        // redirect to projectPembelians.index
+        return redirect()->route('projectPembelians.index')
+            ->with('success', 'Catatan Pembelian updated successfully.');
     }
 
     // Remove the specified resource from storage
@@ -119,6 +125,6 @@ class CatatanPembelianController extends Controller
         // return redirect()->route('catatanPembelians.index')
         //                  ->with('success', 'Catatan Pembelian deleted successfully.');
         return redirect()->route('projectPembelians.index')
-                         ->with('success', 'Catatan Pembelian deleted successfully.');
+            ->with('success', 'Catatan Pembelian deleted successfully.');
     }
 }

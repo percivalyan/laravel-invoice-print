@@ -13,11 +13,12 @@ class ProjectPembelianController extends Controller
     {
         $search = $request->input('search');
 
+        // Retrieve the project pembelians with pagination
         $projectPembelians = ProjectPembelian::when($search, function ($query, $search) {
             return $query->where('project', 'like', '%' . $search . '%')
                 ->orWhere('nomor_po', 'like', '%' . $search . '%')
                 ->orWhere('metode_pembayaran', 'like', '%' . $search . '%');
-        })->get();
+        })->paginate(15); // Add pagination here
 
         return view('projectPembelians.index', compact('projectPembelians'));
     }
