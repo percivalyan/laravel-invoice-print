@@ -195,13 +195,13 @@
                         </li>
                     @endif
 
-                    @if ($usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete'))
+<!--                     @if ($usr->can('role.create') || $usr->can('role.view') || $usr->can('role.edit') || $usr->can('role.delete'))
                         <li class="nav-item">
                             <a class="nav-link text-light" href="{{ route('admin.roles.index') }}">
                                 <i class="fa fa-tasks me-2"></i> Roles & Permissions
                             </a>
                         </li>
-                    @endif
+                    @endif -->
 
                     @if ($usr->can('admin.create') || $usr->can('admin.view') || $usr->can('admin.edit') || $usr->can('admin.delete'))
                         <li class="nav-item">
