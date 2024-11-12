@@ -113,11 +113,11 @@
                                     </td>
                                     <td class="text-center">
                                         <!-- Input Pekerjaan Button -->
-                                        <a href="{{ route('penawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}"
+                                        {{-- <a href="{{ route('penawarans.create', ['project_penawaran_id' => $projectPenawaran->id]) }}"
                                             class="btn btn-sm btn-success shadow-sm mb-2" data-toggle="tooltip"
                                             title="Input Pekerjaan">
                                             <i class="fas fa-tasks"></i> Input Pekerjaan
-                                        </a>
+                                        </a> --}}
 
                                         <!-- List Pekerjaan Button -->
                                         <a href="{{ route('penawarans.index', ['project_penawaran_id' => $projectPenawaran->id]) }}"
@@ -130,6 +130,10 @@
                                         <a href="{{ route('projectPenawarans.show', $projectPenawaran) }}"
                                             class="btn btn-info btn-sm mb-2" data-toggle="tooltip"
                                             title="Preview Surat Penawaran"><i class="fas fa-eye"></i></a>
+
+                                        <button
+                                            onclick="printInvoice('{{ route('projectPenawarans.show', $projectPenawaran) }}')"
+                                            class="btn btn-info btn-sm mb-2">Print</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -145,5 +149,14 @@
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        // Print View
+        function printInvoice(url) {
+            let printWindow = window.open(url, '_blank');
+            printWindow.onload = function() {
+                printWindow.print();
+            };
+        }
+
     </script>
-@endsection
+    @endsection

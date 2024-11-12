@@ -29,10 +29,11 @@
         }
 
         /* .invoice-header img {
-            max-width: 1000px; /* Larger images */
+            max-width: 1000px; /* Larger images
         }
 
-        */ .invoice-table th,
+        */
+        .invoice-table th,
         .invoice-table td {
             text-align: center;
             vertical-align: middle;
@@ -60,7 +61,7 @@
         <div class="invoice-header row" style="position: relative;">
             <div class="col-12">
                 <div id="kop-brand">
-                    <img src="{{ asset('company/images/penawaran/kop-penawaran.png') }}" alt="Brand Image"
+                    <img src="{{ asset('kop-surat/kop-penawaran.png') }}" alt="Brand Image"
                         style="width: 1100px; height: auto;">
                 </div>
                 {{-- <div id="kop-info" class="container" style="margin-top: -60px; margin-left: 20px;">
@@ -198,7 +199,7 @@
                     @foreach ($projectPenawaran->penawaran as $index => $penawaran)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>
+                            <td style="text-align: left;">
                                 <strong>Pekerjaan: {{ $penawaran->pekerjaan }}</strong><br>
                                 Dengan rincian sebagai berikut:
                                 @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)

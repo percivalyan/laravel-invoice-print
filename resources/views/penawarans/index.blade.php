@@ -35,8 +35,11 @@
             </div>
         @endif
 
-        <!-- Back Button -->
-        <a href="{{ route('projectPenawarans.index') }}" class="btn btn-primary mb-3">Back to Project Penawaran</a>
+        <!-- Back and Create Buttons -->
+        <div class="mb-3">
+            <a href="{{ route('projectPenawarans.index') }}" class="btn btn-primary">Back to Project Penawaran</a>
+            <a href="{{ route('penawarans.create', ['project_penawaran_id' => request('project_penawaran_id')]) }}" class="btn btn-success">Create New Penawaran</a>
+        </div>
 
         <!-- DataTable Example -->
         <div class="card shadow mb-4">
@@ -52,7 +55,7 @@
                                 <th>No.</th>
                                 <th>Project</th>
                                 <th>Pekerjaan</th>
-                                <th>Jenis Penawaran</th> <!-- Added Column -->
+                                <th>Jenis Penawaran</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -64,45 +67,26 @@
                                     <td>{{ $penawaran->pekerjaan }}</td>
                                     <td>
                                         @foreach ($penawaran->jenisPenawarans as $jenis)
-                                            <span class="badge badge-primary">BID0{{ $jenis->id }} -
-                                                {{ $jenis->jenis_pekerjaan }}</span><br>
+                                            <span class="badge badge-primary">BID0{{ $jenis->id }} - {{ $jenis->jenis_pekerjaan }}</span><br>
                                         @endforeach
-                                    </td> <!-- Displaying Jenis Penawaran -->
+                                    </td>
                                     <td class="text-center">
-                                        <!-- View Button -->
-                                        <a href="{{ route('penawarans.show', $penawaran) }}"
-                                            class="btn btn-info btn-sm mb-2" data-toggle="tooltip" title="View Penawaran">
+                                        <a href="{{ route('penawarans.show', $penawaran) }}" class="btn btn-info btn-sm mb-2" data-toggle="tooltip" title="View Penawaran">
                                             <i class="fas fa-eye"></i> Lihat Penawaran
                                         </a>
-
-                                        <!-- Edit Button -->
-                                        <a href="{{ route('penawarans.edit', $penawaran) }}"
-                                            class="btn btn-warning btn-sm mb-2" data-toggle="tooltip"
-                                            title="Edit Penawaran">
+                                        <a href="{{ route('penawarans.edit', $penawaran) }}" class="btn btn-warning btn-sm mb-2" data-toggle="tooltip" title="Edit Penawaran">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-
-
-                                        <!-- Delete Penawaran Button -->
-                                        <form action="{{ route('penawarans.destroy', $penawaran->id) }}" method="POST"
-                                            style="display:inline;">
+                                        <form action="{{ route('penawarans.destroy', $penawaran->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-
-                                            <!-- Hidden input for project_penawaran_id -->
                                             @if (request()->has('project_penawaran_id'))
-                                                <input type="hidden" name="project_penawaran_id"
-                                                    value="{{ request('project_penawaran_id') }}">
+                                                <input type="hidden" name="project_penawaran_id" value="{{ request('project_penawaran_id') }}">
                                             @endif
-
-                                            <button type="submit" class="btn btn-danger btn-sm mb-2"
-                                                onclick="return confirm('Are you sure you want to delete this item?')"
-                                                data-toggle="tooltip" title="Delete">
+                                            <button type="submit" class="btn btn-danger btn-sm mb-2" onclick="return confirm('Are you sure you want to delete this item?')" data-toggle="tooltip" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
-
-
                                     </td>
                                 </tr>
                             @empty
