@@ -63,6 +63,7 @@
                                 <th>Jumlah Batch</th>
                                 <th>Satuan</th>
                                 <th>Keterangan</th>
+                                <th>Harga</th>
                                 <th>Actions</th>
                                 <th>Detail</th>
                                 <th>Membuat Uraian</th>
@@ -76,6 +77,7 @@
                                     <td>{{ $batchKwitansi->jumlah_batch }}</td>
                                     <td>{{ $batchKwitansi->satuan_batch }}</td>
                                     <td>{{ $batchKwitansi->keterangan_batch }}</td>
+                                    <td>{{ $batchKwitansi->harga_batch }}</td>
                                     <td>
                                         <div class="d-flex justify-content-start">
                                             <button class="btn btn-warning btn-sm me-2 mr-2" data-bs-toggle="modal"
@@ -143,6 +145,12 @@
                                                         <label for="keterangan_batch"
                                                             class="form-label">Keterangan</label>
                                                         <textarea class="form-control" id="keterangan_batch" name="keterangan_batch">{{ $batchKwitansi->keterangan_batch }}</textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="harga_batch" class="form-label">Harga</label>
+                                                        <input type="number" step="0.01" class="form-control"
+                                                            id="harga_batch" name="harga_batch"
+                                                            value="{{ $batchKwitansi->harga_batch }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="dimensi_panjang" class="form-label">Dimensi

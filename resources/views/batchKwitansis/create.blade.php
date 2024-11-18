@@ -47,6 +47,15 @@
                         @enderror
                     </div>
 
+                    <div class="mb-3">
+                        {{-- harga_batch --}}
+                        <label for="harga_batch" class="form-label">Harga</label>
+                        <input type="number" step="0.01" class="form-control @error('harga_batch') is-invalid @enderror" id="harga_batch" name="harga_batch" value="{{ old('harga_batch') }}" placeholder="Masukkan harga batch">>
+                        @error('harga_batch')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="dimensi_panjang" class="form-label">Dimensi Panjang</label>

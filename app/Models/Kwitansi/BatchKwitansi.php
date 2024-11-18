@@ -14,6 +14,7 @@ class BatchKwitansi extends Model
         'jumlah_batch',
         'satuan_batch',
         'keterangan_batch',
+        'harga',
         'dimensi_panjang',
         'dimensi_lebar',
         'dimensi_tinggi',

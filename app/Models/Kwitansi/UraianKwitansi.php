@@ -15,6 +15,7 @@ class UraianKwitansi extends Model
         'jumlah_uraian',
         'satuan_uraian',
         'keterangan_uraian',
+        'harga',
     ];
 
     public function batchKwitansi()

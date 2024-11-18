@@ -79,6 +79,7 @@
                                             <th>Jumlah</th>
                                             <th>Satuan</th>
                                             <th>Keterangan</th>
+                                            <th>Harga</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -90,6 +91,7 @@
                                                 <td>{{ $uraianKwitansi->jumlah_uraian }}</td>
                                                 <td>{{ $uraianKwitansi->satuan_uraian }}</td>
                                                 <td>{{ $uraianKwitansi->keterangan_uraian }}</td>
+                                                <td>{{ $uraianKwitansi->harga_uraian }}</td>
                                                 <td>
                                                     <!-- Button to trigger edit modal -->
                                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
@@ -155,6 +157,12 @@
                                                                 <div class="mb-3">
                                                                     <label for="keterangan_uraian">Keterangan</label>
                                                                     <textarea class="form-control" id="keterangan_uraian" name="keterangan_uraian">{{ $uraianKwitansi->keterangan_uraian }}</textarea>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="harga_uraian" class="form-label">Harga</label>
+                                                                    <input type="number" step="0.01" class="form-control"
+                                                                        id="harga_uraian" name="harga_uraian"
+                                                                        value="{{ $uraianKwitansi->harga_uraian }}">
                                                                 </div>
                                                                 <button type="submit"
                                                                     class="btn btn-primary">Update</button>

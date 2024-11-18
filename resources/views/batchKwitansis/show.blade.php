@@ -8,7 +8,8 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3 text-gray-800">Detail Batch Kwitansi</h1>
-            <a href="{{ route('batchKwitansis.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Daftar</a>
+            <a href="{{ route('batchKwitansis.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali
+                ke Daftar</a>
         </div>
 
         <div class="card shadow-sm mb-4">
@@ -26,6 +27,9 @@
                     <dt class="col-sm-4">Keterangan:</dt>
                     <dd class="col-sm-8">{{ $batchKwitansi->keterangan_batch }}</dd>
 
+                    <dt class="col-sm-4">Harga</dt>
+                    <dd class="col-sm-8">{{ $batchKwitansi->harga_batch }}</dd>
+
                     <dt class="col-sm-4">Dimensi Panjang:</dt>
                     <dd class="col-sm-8">{{ $batchKwitansi->dimensi_panjang }} cm</dd>
 
@@ -39,7 +43,8 @@
                     <dd class="col-sm-8">{{ $batchKwitansi->dimensi_berat }} kg</dd>
 
                     <dt class="col-sm-4">Dimensi (P x L x T):</dt>
-                    <dd class="col-sm-8">{{ $batchKwitansi->dimensi_panjang }} x {{ $batchKwitansi->dimensi_lebar }} x {{ $batchKwitansi->dimensi_tinggi }} cm</dd>
+                    <dd class="col-sm-8">{{ $batchKwitansi->dimensi_panjang }} x {{ $batchKwitansi->dimensi_lebar }} x
+                        {{ $batchKwitansi->dimensi_tinggi }} cm</dd>
                 </dl>
             </div>
         </div>
