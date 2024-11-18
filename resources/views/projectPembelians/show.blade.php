@@ -60,7 +60,7 @@
         <div class="invoice-header row" style="position: relative;">
             <div class="col-12">
                 <div id="kop-brand">
-                    <img src="{{ asset('company/images/pembelian/kop-pembelian.png') }}" alt="Brand Image"
+                    <img src="{{ asset('kop-surat/kop-penawaran.png') }}" alt="Brand Image"
                         style="width: 1100px; height: auto;">
                 </div>
                 {{-- <div id="kop-info" class="container" style="margin-top: -60px; margin-left: 20px;">
@@ -249,7 +249,7 @@
             </div>
         </section>
 
-        <section class="po-footer" style="margin-top: 20px;">
+        <section class="po-footer py-3" style="margin-top: 20px;">
             <div style="margin-left: 20px;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>

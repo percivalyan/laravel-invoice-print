@@ -140,15 +140,36 @@
                                             </button>
                                             <ul class="dropdown-menu"
                                                 aria-labelledby="dropdownMenuSurat{{ $projectKwitansi->id }}">
-                                                <li><a class="dropdown-item"
-                                                        href="{{ route('projectKwitansis.show', $projectKwitansi->id) }}"><i
-                                                            class="fas fa-file-alt"></i> Surat Jalan</a></li>
-                                                <li><a class="dropdown-item"
-                                                        href="{{ route('projectKwitansis.showinvoice', $projectKwitansi->id) }}"><i
-                                                            class="fas fa-file-invoice"></i> Invoice</a></li>
-                                                <li><a class="dropdown-item"
-                                                        href="{{ route('projectKwitansis.showbast', $projectKwitansi->id) }}"><i
-                                                            class="fas fa-file-signature"></i> BAST</a></li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('projectKwitansis.show', $projectKwitansi->id) }}">
+                                                        <i class="fas fa-file-alt"></i> Surat Jalan
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        onclick="printInvoice('{{ route('projectKwitansis.show', $projectKwitansi) }}')">
+                                                        <i class="fas fa-file-alt"></i> Print Surat Jalan
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('projectKwitansis.showinvoice', $projectKwitansi->id) }}">
+                                                        <i class="fas fa-file-invoice"></i> Invoice
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        onclick="printInvoice('{{ route('projectKwitansis.showinvoice', $projectKwitansi) }}')">
+                                                        <i class="fas fa-file-alt"></i> Print Invoice
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('projectKwitansis.showbast', $projectKwitansi->id) }}">
+                                                        <i class="fas fa-file-signature"></i> BAST
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>
@@ -166,5 +187,13 @@
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        // Print View
+        function printInvoice(url) {
+            let printWindow = window.open(url, '_blank');
+            printWindow.onload = function() {
+                printWindow.print();
+            };
+        }
     </script>
 @endsection

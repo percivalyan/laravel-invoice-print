@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label for="pengajuan">Pengajuan</label>
                         <input type="text" class="form-control @error('pengajuan') is-invalid @enderror" id="pengajuan"
-                            name="pengajuan" value="{{ old('pengajuan') }}" required>
+                            name="pengajuan" value="{{ old('pengajuan') }}">
                         @error('pengajuan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label for="tujuan">Tujuan</label>
                         <input type="text" class="form-control @error('tujuan') is-invalid @enderror" id="tujuan"
-                            name="tujuan" value="{{ old('tujuan') }}" required>
+                            name="tujuan" value="{{ old('tujuan') }}">
                         @error('tujuan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

@@ -136,6 +136,10 @@
                                             class="btn btn-info btn-sm mb-2" data-toggle="tooltip" title="View PO">
                                             <i class="fas fa-eye"></i>
                                         </a>
+
+                                        <button
+                                            onclick="printInvoice('{{ route('projectPembelians.show', $projectPembelian) }}')"
+                                            class="btn btn-info btn-sm mb-2">Print</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -151,5 +155,13 @@
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        // Print View
+        function printInvoice(url) {
+            let printWindow = window.open(url, '_blank');
+            printWindow.onload = function() {
+                printWindow.print();
+            };
+        }
     </script>
 @endsection

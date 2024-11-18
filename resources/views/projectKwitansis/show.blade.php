@@ -60,7 +60,7 @@
         <div class="invoice-header row" style="position: relative;">
             <div class="col-12">
                 <div id="kop-brand">
-                    <img src="{{ asset('company/images/pembelian/kop-pembelian.png') }}" alt="Brand Image"
+                    <img src="{{ asset('kop-surat/kop-penawaran.png') }}" alt="Brand Image"
                         style="width: 1100px; height: auto;">
                 </div>
             </div>
@@ -142,7 +142,7 @@
             </div>
         </div>
 
-        <section class="po-table-data">
+        <section class="surat-jalan-table-data">
             <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
                 <table class="table table-bordered invoice-table">
                     <thead>
@@ -162,22 +162,46 @@
                             @foreach ($pekerjaan->batchPekerjaanKwitansi as $batchPekerjaan)
                                 <tr>
                                     <td>{{ $counter++ }}</td> <!-- Penomoran urut tanpa menghiraukan pekerjaan -->
-                                    <td>{{ $batchPekerjaan->batchKwitansi->nama_batch }}</td>
-                                    <td>{{ $batchPekerjaan->batchKwitansi->jumlah_batch }}</td>
-                                    <td>{{ $batchPekerjaan->batchKwitansi->satuan_batch }}</td>
-                                    <td>{{ $batchPekerjaan->batchKwitansi->keterangan_batch }}</td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>
+                                    <td>{{ $batchPekerjaan->batchKwitansi->nama_batch }}
+                                        <br>
                                         @php
                                             $total = 1;
                                         @endphp
                                         @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
                                             {{ $total++ }}. {{ $uraian->nama_uraian }} <br>
                                         @endforeach
+                                        <br>
+
+                                        @if (
+                                            $batchPekerjaan->batchKwitansi->dimensi_panjang ||
+                                                $batchPekerjaan->batchKwitansi->dimensi_lebar ||
+                                                $batchPekerjaan->batchKwitansi->dimensi_tinggi ||
+                                                $batchPekerjaan->batchKwitansi->dimensi_berat)
+                                            <section id="ukuran">
+                                                <div>
+                                                    <strong>Dimensi Produk</strong><br>
+                                                    <span
+                                                        style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang</span>
+                                                    <span>:
+                                                        {{ $batchPekerjaan->batchKwitansi->dimensi_panjang }}</span><br>
+                                                    <span
+                                                        style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar</span>
+                                                    <span>:
+                                                        {{ $batchPekerjaan->batchKwitansi->dimensi_lebar }}</span><br>
+                                                    <span
+                                                        style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi</span>
+                                                    <span>:
+                                                        {{ $batchPekerjaan->batchKwitansi->dimensi_tinggi }}</span><br>
+                                                    <span
+                                                        style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat</span>
+                                                    <span>:
+                                                        {{ $batchPekerjaan->batchKwitansi->dimensi_berat }}</span>
+                                                </div>
+                                            </section>
+                                        @endif
                                     </td>
-                                    <td>
+                                    <td>{{ $batchPekerjaan->batchKwitansi->jumlah_batch }}
+                                        <br>
                                         @php
                                             $jumlah_uraians = 1; // Initialize the counter, but it's not used for display
                                         @endphp
@@ -188,7 +212,8 @@
                                             @endphp
                                         @endforeach
                                     </td>
-                                    <td>
+                                    <td>{{ $batchPekerjaan->batchKwitansi->satuan_batch }}
+                                        <br>
                                         @php
                                             $satuan_uraians = 1; // Initialize the counter, but it's not used for display
                                         @endphp
@@ -199,7 +224,8 @@
                                             @endphp
                                         @endforeach
                                     </td>
-                                    <td>
+                                    <td>{{ $batchPekerjaan->batchKwitansi->keterangan_batch }}
+                                        <br>
                                         @php
                                             $keterangan_uraians = 1; // Initialize the counter, but it's not used for display
                                         @endphp
@@ -210,27 +236,6 @@
                                             @endphp
                                         @endforeach
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td>
-                                        <strong>Dimensi Produk</strong><br>
-                                        <span
-                                            style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang</span>
-                                        <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_panjang }}</span><br>
-                                        <span
-                                            style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar</span>
-                                        <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_lebar }}</span><br>
-                                        <span
-                                            style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi</span>
-                                        <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_tinggi }}</span><br>
-                                        <span
-                                            style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat</span>
-                                        <span>: {{ $batchPekerjaan->batchKwitansi->dimensi_berat }}</span>
-                                    </td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
                                 </tr>
                             @endforeach
                         @endforeach
@@ -358,132 +363,14 @@
         </section>
 
         <!-- New Footer Section (if cut off) -->
-        <section id="po-footer-new" class="po-footer-new" style="margin-top: 10px; page-break-before: always">
-            <div style="margin-left: 20px;">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                        <!-- Repeat the same structure -->
-                        <td style="width: 33%; vertical-align: top;">
-                            <table style="width: 70%; border-collapse: collapse;">
-                                <tr>
-                                    <td style="padding: 10px; text-align: left; border: none;">
-                                        Diterima Tgl :
-                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_penerima ?? '' }} <br>
-                                        Diterima Jam :
-                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_penerima ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 50px 20px; text-align: center; border: none;">
-                                        <!-- Tempat untuk tanda tangan -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_penerima ?? '' }}</strong>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        Penerima
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
 
-                        <td style="width: 33%; vertical-align: top;">
-                            <table style="width: 70%; border-collapse: collapse;">
-                                <tr>
-                                    <td style="padding: 10px; text-align: left; border: none;">
-                                        Diterima Tgl :
-                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_driver ?? '' }} <br>
-                                        Diterima Jam :
-                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_driver ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 50px 20px; text-align: center; border: none;">
-                                        <!-- Tempat untuk tanda tangan -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_driver ?? '' }}</strong>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        Driver
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-
-                        <td style="width: 33%; vertical-align: top;">
-                            <table style="width: 70%; border-collapse: collapse;">
-                                <tr>
-                                    <td style="padding: 10px; text-align: left; border: none;">
-                                        Diterima Tgl :
-                                        {{ $projectKwitansi->catatanKwitansi->tanggal_diterima_adm_kantor ?? '' }} <br>
-                                        Diterima Jam :
-                                        {{ $projectKwitansi->catatanKwitansi->waktu_diterima_adm_kantor ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 50px 20px; text-align: center; border: none;">
-                                        <!-- Tempat untuk tanda tangan -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        <strong>{{ $projectKwitansi->catatanKwitansi->nama_adm_kantor ?? '' }}</strong>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px; text-align: center; border: none;">
-                                        Adm Kantor
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- Tanda Tangan for New Section -->
-            <div style="margin-left: 20px;">
-                <div style="margin-bottom: 10px; font-weight: bold;">Segera Lapor Apabila <br> Ada Ketidak Sesuaian
-                </div>
-                {{-- <div style="margin-bottom: 10px; font-weight: bold;">Ada Ketidak Sesuaian</div> --}}
-
-                <div>
-                    <span
-                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
-                        1</span>
-                    <span>: Pengirim</span><br>
-                    <span
-                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
-                        2</span>
-                    <span>: Penerima</span><br>
-                    <span
-                        style="display: inline-block; width: 150px; text-align: left; padding-right: 10px; font-weight: bold;">Lembar
-                        3</span>
-                    <span>: Arsip</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Print Button -->
-        <div class="text-center">
-            <button class="btn btn-primary print-button" onclick="window.print()">Print Invoice</button>
-        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const footer = document.getElementById("po-footer");
             const newFooter = document.getElementById("po-footer-new");
@@ -508,7 +395,7 @@
                 newFooter.style.display = "none"; // Hide the new footer
             }
         });
-    </script>
+    </script> --}}
 
 </body>
 

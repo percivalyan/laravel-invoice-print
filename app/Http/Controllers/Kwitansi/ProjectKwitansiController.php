@@ -50,13 +50,13 @@ class ProjectKwitansiController extends Controller
         $filter = $request->input('filter');
         $keyword = $request->input('keyword');
         $sort = $request->input('sort', 'kepada_yth'); // Default sort by 'kepada_yth'
-        
+
         // Define valid filters
         $validFilters = ['kepada_yth', 'proyek', 'project_pembelian.nomor_po', 'nomor_surat_jalan', 'nomor_invoice', 'nomor_bast', 'lokasi'];
-    
+
         // Build query
         $query = ProjectKwitansi::query()->with('projectPembelian');
-    
+
         if ($keyword) {
             if ($filter == 'all') {
                 // Universal search across all relevant columns
@@ -83,7 +83,7 @@ class ProjectKwitansiController extends Controller
                 }
             }
         }
-    
+
         // Sorting by valid columns, defaulting to 'kepada_yth'
         if (in_array($sort, ['kepada_yth', 'proyek', 'lokasi'])) {
             $query->orderBy($sort, 'asc');
@@ -91,14 +91,12 @@ class ProjectKwitansiController extends Controller
             // Default sorting if an invalid sort column is requested
             $query->orderBy('kepada_yth', 'asc');
         }
-    
+
         // Paginate the results
         $projectKwitansis = $query->paginate(15); // Change to 15 items per page
-    
+
         return view('projectKwitansis.index', compact('projectKwitansis'));
     }
-    
-    
 
     // Many To One
     // public function create()
@@ -175,12 +173,13 @@ class ProjectKwitansiController extends Controller
 
     public function show(ProjectKwitansi $projectKwitansi)
     {
+        $grandTotal = 0;
         $projectKwitansi->load([
             'catatanKwitansi',
             'pekerjaanKwitansi.batchPekerjaanKwitansi.batchKwitansi.uraianKwitansis'
         ]);
 
-        return view('projectKwitansis.show', compact('projectKwitansi'));
+        return view('projectKwitansis.show', compact('projectKwitansi', 'grandTotal'));
     }
 
     // public function showInvoice(ProjectKwitansi $projectKwitansi)
@@ -192,6 +191,7 @@ class ProjectKwitansiController extends Controller
 
     public function showInvoice(ProjectKwitansi $projectKwitansi)
     {
+        $grandTotal = 0;
         // Eager load related models
         $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
 
@@ -202,7 +202,23 @@ class ProjectKwitansiController extends Controller
         $catatanKwitansis = $projectKwitansi->catatanKwitansi;
 
         // Pass variables to the view
-        return view('projectKwitansis.showInvoice', compact('projectKwitansi', 'pekerjaanKwitansis', 'catatanKwitansis'));
+        return view('projectKwitansis.showInvoice', compact('projectKwitansi', 'pekerjaanKwitansis', 'catatanKwitansis', 'grandTotal'));
+    }
+
+    public function showBast(ProjectKwitansi $projectKwitansi)
+    {
+        $grandTotal = 0;
+        // Eager load related models
+        $projectKwitansi->load('catatanKwitansi', 'pekerjaanKwitansi');
+
+        // Fetch related pekerjaan kwitansi
+        $pekerjaanKwitansis = $projectKwitansi->pekerjaanKwitansi;
+
+        // Fetch related catatan kwitansi
+        $catatanKwitansis = $projectKwitansi->catatanKwitansi;
+
+        // Pass variables to the view
+        return view('projectKwitansis.showBast', compact('projectKwitansi', 'pekerjaanKwitansis', 'catatanKwitansis', 'grandTotal'));
     }
 
     public function edit(ProjectKwitansi $projectKwitansi)

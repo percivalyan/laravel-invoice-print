@@ -60,7 +60,7 @@
         <div class="invoice-header row" style="position: relative;">
             <div class="col-12">
                 <div id="kop-brand">
-                    <img src="{{ asset('company/images/penawaran/kop-penawaran.png') }}" alt="Brand Image"
+                    <img src="{{ asset('kop-surat/kop-penawaran.png') }}" alt="Brand Image"
                         style="width: 1100px; height: auto;">
                 </div>
                 {{-- <div id="kop-info" class="container" style="margin-top: -60px; margin-left: 20px;">
@@ -104,123 +104,187 @@
             </div>
         </div>
 
-        <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
-            <table class="table table-bordered invoice-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Uraian</th>
-                        <th>Qty</th>
-                        <th>Unit</th>
-                        <th>Harga Satuan (Rp)</th>
-                        <th>Jumlah (Rp)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (isset($pekerjaanKwitansis) && $pekerjaanKwitansis->isNotEmpty())
-                        @foreach ($pekerjaanKwitansis as $pekerjaanKwitansi)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    <ul style="list-style-type: none; padding: 0; text-align: left;">
-                                        <li><strong>Pekerjaan: {{ $pekerjaanKwitansi->pekerjaan }}</strong></li>
-                                        <li>Dengan rincian sebagai berikut:</li>
-                                        {{-- @foreach ($pekerjaan->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ $jenisPenawaran->jenis_pekerjaan }}</li>
-                                        @if ($jenisPenawaran->uraianJenisPekerjaanPenawarans->isNotEmpty())
-                                            <ol style="list-style-type: decimal;">
-                                                @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                                    <li>{{ $uraian->uraian }}</li>
-                                                @endforeach
-                                            </ol>
-                                        @endif
-                                    @endforeach --}}
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul style="list-style-type: none; padding: 0;">
-                                        {{-- <li>{{ $penawaran->quantitas }}</li>
-                                    <li>&nbsp;</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ $jenisPenawaran->quantitas }}</li>
-                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ $uraian->quantitas }}</li>
-                                        @endforeach
-                                    @endforeach --}}
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul style="list-style-type: none; padding: 0;">
-                                        {{-- <li>{{ $penawaran->unit }}</li>
-                                    <li>&nbsp;</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ $jenisPenawaran->unit }}</li>
-                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ $uraian->unit }}</li>
-                                        @endforeach
-                                    @endforeach --}}
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul style="list-style-type: none; padding: 0;">
-                                        {{-- <li>{{ number_format($penawaran->harga_satuan, 0, ',', '.') }}</li>
-                                    <li>&nbsp;</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ number_format($jenisPenawaran->harga_satuan, 0, ',', '.') }}</li>
-                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ number_format($uraian->harga_satuan, 0, ',', '.') }}</li>
-                                        @endforeach
-                                    @endforeach --}}
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul style="list-style-type: none; padding: 0;">
-                                        {{-- <li>{{ number_format($penawaran->harga_satuan * $penawaran->quantitas, 0, ',', '.') }}</li>
-                                    <li>&nbsp;</li>
-                                    @foreach ($penawaran->jenisPenawarans as $jenisPenawaran)
-                                        <li>{{ number_format($jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan, 0, ',', '.') }}</li>
-                                        @foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian)
-                                            <li>{{ number_format($uraian->quantitas * $uraian->harga_satuan, 0, ',', '.') }}</li>
-                                        @endforeach
-                                    @endforeach --}}
-                                    </ul>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @else
+        <section class="invoice-table-data">
+            <div class="container py-3" style="margin-left: 20px; margin-top: -20px">
+                <table class="table table-bordered invoice-table">
+                    <thead>
                         <tr>
-                            <td colspan="6">No pekerjaan kwitansi found.</td>
+                            <th>No</th>
+                            <th>Uraian</th>
+                            <th>Qty</th>
+                            <th>Unit</th>
+                            <th>Harga Satuan (Rp)</th>
+                            <th>Jumlah (Rp)</th>
                         </tr>
-                    @endif
-
-                    {{-- @php
-                        use App\Helpers\NumberToWords;
-                        $totalAmount = $projectPenawaran->penawaran->sum(function ($penawaran) {
-                            $totalPenawaran = $penawaran->harga_satuan * $penawaran->quantitas;
-                
-                            foreach ($penawaran->jenisPenawarans as $jenisPenawaran) {
-                                $totalPenawaran += $jenisPenawaran->quantitas * $jenisPenawaran->harga_satuan;
-                
-                                foreach ($jenisPenawaran->uraianJenisPekerjaanPenawarans as $uraian) {
-                                    $totalPenawaran += $uraian->quantitas * $uraian->harga_satuan;
-                                }
-                            }
-                
-                            return $totalPenawaran;
-                        });
-                        $terbilang = NumberToWords::convert($totalAmount);
-                    @endphp --}}
-                    <tr>
-                        {{-- <td colspan="5" class="text-right"><strong>Total</strong></td>
-                        <td><strong>{{ number_format($totalAmount, 0, ',', '.') }}</strong></td> --}}
-                    </tr>
-                    <tr>
-                        {{-- <td colspan="6">Terbilang: {{ $terbilang }} Rupiah</td> --}}
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
+                    </thead>
+                    <tbody>
+                        @if (isset($pekerjaanKwitansis) && $pekerjaanKwitansis->isNotEmpty())
+                            @foreach ($pekerjaanKwitansis as $pekerjaanKwitansi)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        <ul style="list-style-type: none; padding: 0; text-align: left;">
+                                            <li><strong>Pekerjaan: {{ $pekerjaanKwitansi->pekerjaan }}</strong></li>
+                                            <li>Dengan rincian sebagai berikut:</li>
+                                            @php
+                                                $total = 1;
+                                            @endphp
+                                            @foreach ($pekerjaanKwitansi->batchPekerjaanKwitansi as $batchPekerjaan)
+                                                <div class="ml-2">
+                                                    {{ $total++ }}
+                                                    <span class="ml-2">
+                                                        {{ $batchPekerjaan->batchKwitansi->nama_batch }}
+                                                    </span>
+                                                    <br>
+                                                </div>
+                                                @php
+                                                    $total_uraian = 1;
+                                                @endphp
+                                                <div style="margin-left: 25px">
+                                                    @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                                        {{ $total_uraian++ }}
+                                                        <span class="ml-2">
+                                                            {{ $uraian->nama_uraian }}
+                                                        </span>
+                                                        <br>
+                                                    @endforeach
+                                                </div>
+                                                <br>
+                                                @if (
+                                                    $batchPekerjaan->batchKwitansi->dimensi_panjang ||
+                                                        $batchPekerjaan->batchKwitansi->dimensi_lebar ||
+                                                        $batchPekerjaan->batchKwitansi->dimensi_tinggi ||
+                                                        $batchPekerjaan->batchKwitansi->dimensi_berat)
+                                                    <section id="ukuran">
+                                                        <div style="margin-left: 50px">
+                                                            <strong>Dimensi Produk</strong><br>
+                                                            <span
+                                                                style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Panjang</span>
+                                                            <span>:
+                                                                {{ $batchPekerjaan->batchKwitansi->dimensi_panjang }}</span><br>
+                                                            <span
+                                                                style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Lebar</span>
+                                                            <span>:
+                                                                {{ $batchPekerjaan->batchKwitansi->dimensi_lebar }}</span><br>
+                                                            <span
+                                                                style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Tinggi</span>
+                                                            <span>:
+                                                                {{ $batchPekerjaan->batchKwitansi->dimensi_tinggi }}</span><br>
+                                                            <span
+                                                                style="display: inline-block; width: 120px; text-align: left; padding-right: 10px;">Berat</span>
+                                                            <span>:
+                                                                {{ $batchPekerjaan->batchKwitansi->dimensi_berat }}</span>
+                                                        </div>
+                                                    </section>
+                                                @endif
+                                                <br>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style-type: none; padding: 0; text-align: left;">
+                                            <li>&nbsp;</li>
+                                            <li>&nbsp;</li>
+                                            @php
+                                                $total = 1;
+                                            @endphp
+                                            @foreach ($pekerjaanKwitansi->batchPekerjaanKwitansi as $batchPekerjaan)
+                                                {{ $batchPekerjaan->batchKwitansi->jumlah_batch }}
+                                                <br>
+                                                @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                                    {{ $uraian->jumlah_uraian }}
+                                                    <br>
+                                                @endforeach
+                                                <br><br><br>
+                                                <br><br><br><br>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style-type: none; padding: 0; text-align: left;">
+                                            <li>&nbsp;</li>
+                                            <li>&nbsp;</li>
+                                            @php
+                                                $total = 1;
+                                            @endphp
+                                            @foreach ($pekerjaanKwitansi->batchPekerjaanKwitansi as $batchPekerjaan)
+                                                {{ $batchPekerjaan->batchKwitansi->satuan_batch }}
+                                                <br>
+                                                @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                                    {{ $uraian->satuan_uraian }}
+                                                    <br>
+                                                @endforeach
+                                                <br><br><br>
+                                                <br><br><br><br>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style-type: none; padding: 0; text-align: left;">
+                                            <li>&nbsp;</li>
+                                            <li>&nbsp;</li>
+                                            @php
+                                                $total = 1;
+                                            @endphp
+                                            @foreach ($pekerjaanKwitansi->batchPekerjaanKwitansi as $batchPekerjaan)
+                                                {{ $batchPekerjaan->batchKwitansi->harga_batch }}
+                                                <br>
+                                                @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                                    {{ $uraian->harga_uraian }}
+                                                    <br>
+                                                @endforeach
+                                                <br><br><br>
+                                                <br><br><br><br>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul style="list-style-type: none; padding: 0;">
+                                            <li>&nbsp;</li>
+                                            <li>&nbsp;</li>
+                                            {{-- @foreach ($pekerjaanKwitansis as $pekerjaanKwitansi) --}}
+                                            @foreach ($pekerjaanKwitansi->batchPekerjaanKwitansi as $batchPekerjaan)
+                                                @php
+                                                    $jumlahBatch =
+                                                        $batchPekerjaan->batchKwitansi->jumlah_batch *
+                                                        $batchPekerjaan->batchKwitansi->harga_batch;
+                                                    $grandTotal += $jumlahBatch > 0 ? $jumlahBatch : 0; // Tambahkan ke total keseluruhan jika > 0
+                                                @endphp
+                                                <li>{{ number_format($jumlahBatch > 0 ? $jumlahBatch : 0, 0, ',', '.') }}
+                                                </li>
+                                                @foreach ($batchPekerjaan->batchKwitansi->uraianKwitansis as $uraian)
+                                                    @php
+                                                        $jumlahUraian = $uraian->jumlah_uraian * $uraian->harga_uraian;
+                                                        $grandTotal += $jumlahUraian > 0 ? $jumlahUraian : 0; // Tambahkan ke total keseluruhan jika > 0
+                                                    @endphp
+                                                    <li>{{ number_format($jumlahUraian > 0 ? $jumlahUraian : 0, 0, ',', '.') }}
+                                                    </li>
+                                                @endforeach
+                                                <br><br><br>
+                                                <br><br><br><br>
+                                            @endforeach
+                                            {{-- @endforeach --}}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="6">No pekerjaan kwitansi found.</td>
+                            </tr>
+                        @endif
+                        <tr>
+                            <td colspan="5" class="text-right"><strong>Total Keseluruhan (Rp):</strong></td>
+                            <td><strong>{{ number_format($grandTotal, 0, ',', '.') }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6">Terbilang: {{ \App\Helpers\NumberToWords::convert($grandTotal) }} Rupiah
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
         <p class="text-muted" style="margin-left: 20px;">Note: Harga tersebut diatas sudah termasuk PPN 11%</p>
 
@@ -282,7 +346,7 @@
                 </div>
             </div>
         </section>
-        
+
         {{-- 
         <div class="container text-center">
             <h6>

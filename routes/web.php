@@ -92,4 +92,3 @@ Route::resource('batchKwitansis', BatchKwitansiController::class);
 Route::resource('uraianKwitansis', UraianKwitansiController::class);
 
 Route::resource('pekerjaanKwitansis', PekerjaanKwitansiController::class);
-Route::resource('batchPekerjaanKwitansi', BatchPekerjaanKwitansiController::class);
