@@ -71,7 +71,7 @@ class UraianKwitansiController extends Controller
             'jumlah_uraian' => 'nullable|integer',
             'satuan_uraian' => 'nullable|string|max:255',
             'keterangan_uraian' => 'nullable|string',
-            'harga' => 'nullable|numeric',
+            'harga_uraian' => 'nullable|numeric',
         ]);
 
         UraianKwitansi::create($request->all());
@@ -109,7 +109,7 @@ class UraianKwitansiController extends Controller
             'jumlah_uraian' => 'nullable|integer',
             'satuan_uraian' => 'nullable|string|max:255',
             'keterangan_uraian' => 'nullable|string',
-            'harga' => 'nullable|numeric',
+            'harga_uraian' => 'nullable|numeric',
         ]);
 
         $uraianKwitansi = UraianKwitansi::findOrFail($id);

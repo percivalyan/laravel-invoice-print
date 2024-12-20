@@ -210,6 +210,10 @@
                             <label for="keterangan_uraian">Keterangan</label>
                             <textarea class="form-control" id="keterangan_uraian" name="keterangan_uraian"></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="harga_uraian">Harga</label>
+                            <input class="form-control" id="harga_uraian" name="harga_uraian"></textarea>
+                        </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

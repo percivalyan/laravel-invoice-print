@@ -170,6 +170,12 @@
                                                         <i class="fas fa-file-signature"></i> BAST
                                                     </a>
                                                 </li>
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        onclick="printInvoice('{{ route('projectKwitansis.showbast', $projectKwitansi) }}')">
+                                                        <i class="fas fa-file-alt"></i> Print BAST
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>

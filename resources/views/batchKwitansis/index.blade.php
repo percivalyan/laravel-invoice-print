@@ -233,6 +233,11 @@
                             <textarea class="form-control" id="keterangan_batch" name="keterangan_batch" placeholder="Masukkan keterangan"></textarea>
                         </div>
                         <div class="mb-3">
+                            <label for="harga_batch" class="form-label">Harga</label>
+                            <input type="number" class="form-control" id="harga_batch" name="harga_batch"
+                                placeholder="Masukkan harga">
+                        </div>
+                        <div class="mb-3">
                             <label for="dimensi_panjang" class="form-label">Dimensi Panjang</label>
                             <input type="number" step="0.01" class="form-control" id="dimensi_panjang"
                                 name="dimensi_panjang" placeholder="Masukkan dimensi panjang">

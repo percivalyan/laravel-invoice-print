@@ -60,7 +60,7 @@
         <div class="invoice-header row" style="position: relative;">
             <div class="col-12">
                 <div id="kop-brand">
-                    <img src="{{ asset('kop-surat/kop-penawaran.png') }}" alt="Brand Image"
+                    <img src="{{ asset('kop-surat/kop-po.png') }}" alt="Brand Image"
                         style="width: 1100px; height: auto;">
                 </div>
                 {{-- <div id="kop-info" class="container" style="margin-top: -60px; margin-left: 20px;">
